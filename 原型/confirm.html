@@ -1,0 +1,156 @@
+<!DOCTYPE html><html class="w-full h-full overflow-hidden" lang="zh-CN"><head><script data-mb-code-navigation>(function () {
+    var config = {"dist":false,"names":["capture.html","confirm.html","detail.html","home.html"],"initialRoute":"/"};
+    if (config.dist) history.replaceState(history.state, '', location.href.split('#')[0] + '#' + config.initialRoute.replace(/^#/, ''));
+    var last = '';
+    function notify(href) {
+      if (!href || href === last) return;
+      last = href;
+      parent.postMessage({ type: 'wCode:iframe-navigate', href: href }, '*');
+    }
+    function route() { notify(location.hash.slice(1) || '/'); }
+    function matches(href) {
+      var name = href.split('#')[0].split('?')[0].split('/').pop();
+      return name && config.names.indexOf(name) !== -1;
+    }
+    document.addEventListener('click', function (event) {
+      var element = event.target;
+      while (element && element.tagName !== 'A') element = element.parentElement;
+      if (!element) return;
+      var href = element.getAttribute('href') || '';
+      if (config.dist && href.charAt(0) === '#') {
+        event.preventDefault();
+        location.hash = href;
+        return;
+      }
+      if (!config.dist && href.charAt(0) === '#') {
+        event.preventDefault();
+        var id = href.slice(1);
+        try { id = decodeURIComponent(id); } catch (_) {}
+        var target = document.getElementById(id) || document.getElementsByName(id)[0];
+        if (target) target.scrollIntoView();
+        return;
+      }
+      if (!config.dist && matches(href)) { event.preventDefault(); notify(href); }
+    }, true);
+    if (!config.dist && window.navigation) window.navigation.addEventListener('navigate', function (event) {
+      if (!event.destination.sameDocument && matches(event.destination.url)) {
+        event.preventDefault(); notify(event.destination.url);
+      }
+    });
+    ['pushState', 'replaceState'].forEach(function (name) {
+      var original = history[name];
+      history[name] = function () {
+        var href = arguments[2];
+        if (!config.dist && href && matches(String(href))) { notify(String(href)); return; }
+        var result = original.apply(this, arguments);
+        if (config.dist) setTimeout(route, 0);
+        return result;
+      };
+    });
+    if (config.dist) {
+      window.addEventListener('hashchange', route);
+      window.addEventListener('popstate', route);
+    }
+  })();</script>
+<style id="mb-code-iframe-style">
+  html, body { margin: 0; width: 100%; min-height: 100%; }
+  html { --uiWidth: 100% !important; --uiHeight: 100% !important; }
+  *, *::before, *::after { box-sizing: border-box; }
+</style>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>确认设备信息 · 家电保养与维修助手</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    select {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#EDEFF3]">
+<div class="relative w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] overflow-hidden flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
+<!-- 顶部导航 -->
+<header class="shrink-0 relative px-4 pt-4 pb-1 flex items-center h-[56px]">
+<a aria-label="返回" class="w-9 h-9 flex items-center justify-center text-[#12151C] -ml-1 active:opacity-60" href="capture.html">
+<iconify-icon class="text-[28px]" icon="mdi:chevron-left"></iconify-icon>
+</a>
+<h1 class="absolute inset-x-0 text-center text-[17px] font-semibold text-[#12151C] pointer-events-none">确认设备信息</h1>
+</header>
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden pb-4 [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<p class="px-5 pb-3 text-[12px] text-[#8A93A5]">以下信息由 AI 识别，请核对修改</p>
+<!-- 表单卡片 -->
+<section class="mx-5 bg-white rounded-[12px] border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)] overflow-hidden">
+<div class="flex items-center justify-between px-4 py-3.5 border-b border-[#F1F3F7]">
+<span class="text-[14px] text-[#6B7280] shrink-0">品牌</span>
+<input class="flex-1 text-right text-[15px] text-[#12151C] bg-transparent outline-none ml-4 min-w-0" type="text" value="格力">
+</div>
+<div class="flex items-center justify-between px-4 py-3.5 border-b border-[#F1F3F7]">
+<span class="text-[14px] text-[#6B7280] shrink-0">型号</span>
+<input class="flex-1 text-right text-[15px] text-[#12151C] bg-transparent outline-none ml-4 min-w-0" type="text" value="KFR-35GW">
+</div>
+<div class="flex items-center justify-between px-4 py-3.5 border-b border-[#F1F3F7]">
+<span class="text-[14px] text-[#6B7280] shrink-0">序列号</span>
+<div class="flex items-center gap-2 ml-4 min-w-0">
+<span class="text-[13px] text-[#8A93A5] truncate">2011456789</span>
+<span class="shrink-0 text-[10px] px-1.5 py-[2px] rounded-[4px] bg-[#F2F3F6] text-[#8A93A5]">识别待核对</span>
+</div>
+</div>
+<div class="relative flex items-center justify-between px-4 py-3.5 border-b border-[#F1F3F7]">
+<span class="text-[14px] text-[#6B7280] shrink-0">品类</span>
+<select class="flex-1 text-right text-[15px] text-[#12151C] bg-transparent outline-none ml-4 pr-5 min-w-0">
+<option selected="">空调</option>
+<option>冰箱</option>
+<option>洗衣机</option>
+<option>净水器</option>
+<option>热水器</option>
+<option>油烟机</option>
+</select>
+<iconify-icon class="absolute right-4 text-[18px] text-[#B4BCCB] pointer-events-none" icon="mdi:chevron-down"></iconify-icon>
+</div>
+<label class="relative flex items-center justify-between px-4 py-3.5 cursor-pointer">
+<span class="text-[14px] text-[#6B7280] shrink-0">购买日期 <span class="text-[#F5222D]">*</span></span>
+<span class="flex items-center gap-1.5 ml-4">
+<span class="text-[15px] text-[#B4BCCB]" id="dateText">请选择日期</span>
+<iconify-icon class="text-[18px] text-[#B4BCCB]" icon="mdi:calendar-month-outline"></iconify-icon>
+</span>
+<input class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="dateInput" onchange="pickDate(this)" type="date">
+</label>
+</section>
+<!-- 保修提示条 -->
+<div class="mx-5 mt-3 rounded-[12px] bg-[#EDF1FE] px-4 py-3 flex gap-2">
+<iconify-icon class="text-[18px] text-[#3D6DF2] mt-[1px] shrink-0" icon="mdi:shield-check-outline"></iconify-icon>
+<p class="text-[13px] text-[#3D6DF2] leading-[1.6]">
+          按空调默认保修 6 年计算，保修到期 <span class="font-semibold">2032-05-20</span>（可修改）
+        </p>
+</div>
+<p class="mx-5 mt-3 text-[12px] text-[#8A93A5] leading-[1.6]">
+        填写购买日期后，保修到期时间会自动重新计算。
+      </p>
+</main>
+<!-- 底部保存 -->
+<div class="shrink-0 px-5 pt-3 pb-6 border-t border-[#EDEFF3] bg-[#F5F6F8]">
+<a class="w-full h-12 rounded-[12px] bg-[#3D6DF2] text-white flex items-center justify-center text-[16px] font-medium shadow-[0_6px_16px_rgba(61,109,242,0.32)] active:opacity-90 transition-opacity" href="home.html">
+        保存
+      </a>
+</div>
+</div>
+<script>
+    function pickDate(input) {
+      var text = document.getElementById('dateText');
+      if (!input.value || !text) {
+        return;
+      }
+      text.textContent = input.value;
+      text.classList.remove('text-[#B4BCCB]');
+      text.classList.add('text-[#12151C]', 'font-medium');
+    }
+  </script>
+
+
+</body></html>
