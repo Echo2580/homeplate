@@ -3,3 +3,11 @@
 
 # 原型拆包临时目录
 原型/_extracted/
+
+# 环境配置（含数据库密码，绝不进仓库）
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
