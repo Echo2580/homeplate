@@ -1,5 +1,7 @@
 # 文件路径：app/routers/pages.py
 # 页面路由：渲染 Jinja2 模板（原型四页改造版）
+from datetime import date, timedelta
+
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -52,10 +54,14 @@ STATUS_STYLES = {
 @router.get("/", response_class=HTMLResponse, summary="首页 · 我的家电")
 def home(request: Request, db: Session = Depends(get_db)):
     devices = db.query(models.Device).order_by(models.Device.id.desc()).all()
+    # "本月待保养" = 已逾期 + 未来 30 天内到期的保养任务
+    due_limit = date.today() + timedelta(days=30)
+    all_tasks = db.query(models.MaintenanceTask).all()
     stats = {
         "total": len(devices),
-        # 保养排期模块 Day 4 接入，先诚实显示 0
-        "maintenance_due": 0,
+        "maintenance_due": sum(
+            1 for t in all_tasks if t.next_date and t.next_date <= due_limit
+        ),
         "expiring": sum(1 for d in devices if d.warranty_status == "expiring"),
     }
     return templates.TemplateResponse(

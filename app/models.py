@@ -1,9 +1,10 @@
 # 文件路径：app/models.py
-# 数据库表模型：设备档案（含保修状态计算）
+# 数据库表模型：设备档案（含保修状态计算）+ 保养任务
 import calendar
 from datetime import date, datetime
 
-from sqlalchemy import Column, Date, DateTime, Integer, String, Text, func
+from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, String, Text, func
+from sqlalchemy.orm import relationship
 
 from app.database import Base
 
@@ -85,3 +86,50 @@ class Device(Base):
             return 0
         total_days = self.warranty_months * 30
         return max(0, min(100, round(dl / total_days * 100)))
+
+    # ---------- 保养任务关联 ----------
+
+    tasks = relationship(
+        "MaintenanceTask", back_populates="device", cascade="all, delete-orphan"
+    )
+
+    @property
+    def next_task(self):
+        """最近一次待保养的任务（按 next_date 最早的）"""
+        pending = [t for t in self.tasks if t.next_date]
+        return min(pending, key=lambda t: t.next_date) if pending else None
+
+
+class MaintenanceTask(Base):
+    """保养任务：一台设备按品类模板自动生成，可多条"""
+
+    __tablename__ = "maintenance_tasks"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    device_id = Column(Integer, ForeignKey("devices.id"), nullable=False)
+    title = Column(String(100), nullable=False, comment="保养项目，如：清洗滤网")
+    interval_months = Column(Integer, nullable=False, comment="周期（月）")
+    next_date = Column(Date, nullable=False, comment="下次保养日期")
+    last_done_at = Column(Date, comment="上次完成日期")
+    created_at = Column(DateTime, server_default=func.now(), comment="创建时间")
+
+    device = relationship("Device", back_populates="tasks")
+
+    @property
+    def days_until(self) -> int:
+        """距下次保养的天数，负数表示已逾期"""
+        return (self.next_date - date.today()).days
+
+    @property
+    def due_label(self) -> str:
+        """时间文案：已逾期 5 天 / 今天该保养 / 12 天后"""
+        d = self.days_until
+        if d < 0:
+            return f"已逾期 {-d} 天"
+        if d == 0:
+            return "今天该保养"
+        return f"{d} 天后"
+
+    @property
+    def is_overdue(self) -> bool:
+        return self.days_until < 0

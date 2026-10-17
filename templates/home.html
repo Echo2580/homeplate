@@ -60,9 +60,14 @@
             </div>
             <span class="shrink-0 text-[11px] font-medium px-2 py-[3px] rounded-full {{ styles[d.warranty_status]['tag_bg'] }} {{ styles[d.warranty_status]['tag_text'] }}">{{ d.warranty_label }}</span>
           </div>
-          <div class="mt-3 pt-2.5 border-t border-[#F1F3F7] flex items-center gap-1.5 text-[12px] text-[#8A93A5]">
+          <div class="mt-3 pt-2.5 border-t border-[#F1F3F7] flex items-center gap-1.5 text-[12px] {% if d.next_task and d.next_task.is_overdue %}text-[#FF7A45]{% else %}text-[#8A93A5]{% endif %}">
+            {% if d.next_task %}
+            <iconify-icon class="text-[14px] {% if d.next_task.is_overdue %}text-[#FF7A45]{% else %}text-[#B4BCCB]{% endif %}" icon="mdi:calendar-check-outline"></iconify-icon>
+            <span class="truncate">下次保养：{{ d.next_task.title }} · {{ d.next_task.due_label }}</span>
+            {% else %}
             <iconify-icon class="text-[14px] text-[#B4BCCB]" icon="mdi:calendar-outline"></iconify-icon>
             <span class="truncate">购买于 {{ d.purchase_date or '——' }}</span>
+            {% endif %}
           </div>
         </div>
       </div>

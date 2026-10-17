@@ -5,16 +5,19 @@ from sqlalchemy.orm import Session
 
 from app import models, schemas
 from app.database import get_db
+from app.maintenance import create_tasks_for_device
 
 router = APIRouter(prefix="/api/devices", tags=["设备档案"])
 
 
-@router.post("", response_model=schemas.DeviceOut, summary="新增设备")
+@router.post("", response_model=schemas.DeviceOut, summary="新增设备（自动挂保养任务）")
 def create_device(data: schemas.DeviceCreate, db: Session = Depends(get_db)):
     device = models.Device(**data.model_dump())
     db.add(device)
     db.commit()
     db.refresh(device)
+    # 按品类自动生成保养任务（无模板的品类跳过）
+    create_tasks_for_device(device, db)
     return device
 
 

@@ -64,17 +64,52 @@
         <span class="text-[14px] text-[#12151C]">{{ device.notes or '—' }}</span>
       </div>
     </section>
-    <!-- 保养计划（占位，Day 4 接入） -->
+    <!-- 保养计划（真数据） -->
     <h2 class="mt-5 mb-2 px-1 text-[14px] font-semibold text-[#12151C]">保养计划</h2>
+    {% if device.tasks %}
+    <section class="space-y-3">
+      {% for t in device.tasks %}
+      <div class="bg-white rounded-[12px] p-4 border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)] flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-9 h-9 rounded-full {% if t.is_overdue %}bg-[#FFF1EA] text-[#FF7A45]{% else %}bg-[#E8F7F0] text-[#1FAF6B]{% endif %} flex items-center justify-center shrink-0">
+            <iconify-icon class="text-[20px]" icon="mdi:tools"></iconify-icon>
+          </div>
+          <div class="min-w-0">
+            <p class="text-[14px] font-medium text-[#12151C] truncate">{{ t.title }}</p>
+            <p class="text-[12px] text-[#8A93A5] mt-0.5 truncate">每 {{ t.interval_months }} 个月 · 下次 {{ t.next_date }}{% if t.is_overdue %}<span class="text-[#FF7A45]">（{{ t.due_label }}）</span>{% endif %}</p>
+          </div>
+        </div>
+        <button class="shrink-0 h-8 px-3.5 rounded-full bg-[#1FAF6B] text-white text-[13px] font-medium active:opacity-85 transition-opacity" onclick="completeTask({{ t.id }})" type="button">
+          完成
+        </button>
+      </div>
+      {% endfor %}
+    </section>
+    <p class="mt-4 px-1 text-[12px] text-[#8A93A5] leading-[1.6]">
+      点"完成"后按周期自动推算下一次保养时间。
+    </p>
+    {% else %}
     <section class="bg-white rounded-[12px] p-6 text-center border border-dashed border-[#D8DEE9]">
       <iconify-icon class="text-[28px] text-[#B4BCCB]" icon="mdi:calendar-check"></iconify-icon>
-      <p class="text-[13px] text-[#8A93A5] mt-2">保养排期功能开发中，v0.4 上线</p>
+      <p class="text-[13px] text-[#8A93A5] mt-2">该设备暂无保养任务——带品类的设备建档时会自动生成</p>
     </section>
+    {% endif %}
     <!-- 底部操作 -->
-    <a class="mt-5 w-full h-11 rounded-[12px] bg-white border border-[#D8DEE9] text-[14px] font-medium text-[#3D6DF2] flex items-center justify-center active:bg-[#F7F9FE] transition-colors" href="/">
+      <a class="mt-5 w-full h-11 rounded-[12px] bg-white border border-[#D8DEE9] text-[14px] font-medium text-[#3D6DF2] flex items-center justify-center active:bg-[#F7F9FE] transition-colors" href="/">
       返回我的家电
     </a>
   </main>
 </div>
+<script>
+  async function completeTask(id) {
+    const r = await fetch('/api/tasks/' + id + '/complete', { method: 'POST' });
+    if (r.ok) {
+      location.reload();  // 刷新后显示自动排好的下一期
+    } else {
+      const d = await r.json().catch(() => ({}));
+      alert(d.detail || '操作失败，请重试');
+    }
+  }
+</script>
 </body>
 </html>
