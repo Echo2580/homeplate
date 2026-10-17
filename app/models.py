@@ -69,7 +69,11 @@ class Device(Base):
 
     @property
     def warranty_label(self) -> str:
-        """状态标签文案，如：保修剩 8 个月 / 保修剩 45 天 / 已过保"""
+        """状态标签文案，如：保修剩 8 个月 / 保修剩 45 天 / 已过保
+
+        剩余 90 天内切"天"（与 expiring 黄色阈值一致），
+        避免出现"绿色标签写着剩 3 个月"的观感矛盾。
+        """
         dl = self.days_left
         if dl is None:
             return "保修期待填写"
@@ -77,15 +81,25 @@ class Device(Base):
             return "已过保"
         if dl <= 90:
             return f"保修剩 {dl} 天"
-        return f"保修剩 {max(1, round(dl / 30))} 个月"
+        months = dl // 30
+        if months < 12:
+            return f"保修剩 {months + 1} 个月"
+        years = months / 12
+        return f"保修剩 {round(years, 1) if years < 10 else round(years)} 年"
 
     @property
     def warranty_progress(self) -> int:
-        """保修剩余比例（0-100），用于详情页进度条"""
+        """保修剩余比例（0-100），用于详情页进度条
+
+        分母用真实总天数（到期日 - 购买日），不用"每月 30 天"近似——
+        6 年保修按 30 天/月算偏差约 18%，进度条会明显失真。
+        """
         dl = self.days_left
-        if dl is None or not self.warranty_months:
+        if dl is None or self.purchase_date is None or not self.warranty_months:
             return 0
-        total_days = self.warranty_months * 30
+        total_days = (self.warranty_end - self.purchase_date).days
+        if total_days <= 0:
+            return 0
         return max(0, min(100, round(dl / total_days * 100)))
 
     # ---------- 保养任务关联 ----------

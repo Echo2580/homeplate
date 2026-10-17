@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>我的家电 · homeplate</title>
   <script src="/static/js/tailwindcss.js"></script>
   <script src="/static/js/iconify-icon.min.js"></script>
@@ -10,8 +10,8 @@
     body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; -webkit-font-smoothing: antialiased; }
   </style>
 </head>
-<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#EDEFF3]">
-<div class="relative w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] overflow-hidden flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
+<body class="w-full min-h-dvh m-0 flex justify-center bg-[#EDEFF3]">
+<div class="relative w-full max-w-[480px] min-h-dvh bg-[#F5F6F8] flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
   <!-- 顶部标题 -->
   <header class="shrink-0 px-5 pt-6 pb-3 flex items-center justify-between">
     <h1 class="text-[22px] font-bold text-[#12151C] tracking-[0.5px]">我的家电</h1>
@@ -29,11 +29,12 @@
       </div>
     </div>
     <div class="bg-white rounded-[12px] px-3 py-3 border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
-      <p class="text-[11px] text-[#8A93A5]">本月待保养</p>
+      <p class="text-[11px] text-[#8A93A5]">待保养<span class="text-[10px]">（30 天内）</span></p>
       <div class="flex items-baseline gap-1 mt-1.5">
-        <span class="text-[20px] font-bold text-[#FF7A45] leading-none">{{ stats.maintenance_due }}</span>
-        <span class="text-[12px] text-[#FF7A45]">项</span>
+        <span class="text-[20px] font-bold {% if stats.maintenance_overdue %}text-[#FF7A45]{% else %}text-[#3D6DF2]{% endif %} leading-none">{{ stats.maintenance_due }}</span>
+        <span class="text-[12px] {% if stats.maintenance_overdue %}text-[#FF7A45]{% else %}text-[#3D6DF2]{% endif %}">项</span>
       </div>
+      {% if stats.maintenance_overdue %}<p class="text-[10px] text-[#FF7A45] mt-1">含逾期 {{ stats.maintenance_overdue }} 项</p>{% endif %}
     </div>
     <div class="bg-white rounded-[12px] px-3 py-3 border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
       <p class="text-[11px] text-[#8A93A5]">即将过保</p>
@@ -45,7 +46,7 @@
     </div>
   </section>
   <!-- 设备列表（真数据） -->
-  <main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-5 pb-24 space-y-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+  <main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-5 pb-28 space-y-3">
     {% for d in devices %}
     <a class="block bg-white rounded-[12px] p-4 border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)] active:bg-[#FCFCFD] transition-colors" href="/devices/{{ d.id }}">
       <div class="flex items-start gap-3">
@@ -80,7 +81,7 @@
     {% endfor %}
   </main>
   <!-- 悬浮按钮 -->
-  <div class="absolute bottom-6 right-4 z-20">
+  <div class="absolute bottom-6 right-4 z-20" style="padding-bottom: env(safe-area-inset-bottom);">
     <a class="h-11 pl-3.5 pr-4 rounded-full bg-[#3D6DF2] text-white flex items-center gap-1.5 text-[14px] font-medium shadow-[0_8px_22px_rgba(61,109,242,0.4)] active:scale-95 transition-transform" href="/add">
       <iconify-icon class="text-[18px]" icon="mdi:plus"></iconify-icon>
       添加家电
