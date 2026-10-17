@@ -1,5 +1,6 @@
 # 文件路径：app/recognizer.py
-# 铭牌识别服务：调阿里百炼 Qwen-VL 多模态模型，从铭牌照片提取设备信息
+# 铭牌识别服务：调 OpenAI 兼容的多模态模型（DeepSeek / 百炼 Qwen-VL / 智谱均可），
+# 从铭牌照片提取设备信息。供应商通过 .env 的三个变量切换，代码不用改。
 import base64
 import json
 import os
@@ -9,8 +10,9 @@ from openai import OpenAI
 
 load_dotenv()
 
-API_KEY = os.getenv("DASHSCOPE_API_KEY")
-MODEL = os.getenv("QWEN_VL_MODEL", "qwen-vl-plus")
+API_BASE = os.getenv("AI_API_BASE")       # 如 https://api.deepseek.com
+API_KEY = os.getenv("AI_API_KEY")         # 对应供应商的 API Key
+MODEL = os.getenv("VISION_MODEL", "deepseek-flash")  # 如 deepseek-flash / qwen-vl-plus
 
 PROMPT = """你是家电铭牌识别助手。图片中是家电设备的铭牌。
 请识别铭牌上的信息，只返回一个 JSON 对象（不要 markdown 代码块，不要任何多余文字）：
@@ -23,13 +25,12 @@ PROMPT = """你是家电铭牌识别助手。图片中是家电设备的铭牌�
 
 def recognize_nameplate(image_bytes: bytes) -> dict:
     """识别铭牌照片，返回 {brand, model_name, serial_number, category}；失败抛异常"""
-    if not API_KEY or "填你的" in API_KEY:
-        raise RuntimeError("未配置 DASHSCOPE_API_KEY，请在 .env 中填入阿里百炼的 API Key")
+    if not API_BASE or not API_KEY or "填你的" in API_KEY:
+        raise RuntimeError(
+            "识别模型未配置。请在 .env 中填写 AI_API_BASE、AI_API_KEY、VISION_MODEL 三个变量"
+        )
 
-    client = OpenAI(
-        api_key=API_KEY,
-        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
-    )
+    client = OpenAI(api_key=API_KEY, base_url=API_BASE)
 
     b64 = base64.b64encode(image_bytes).decode()
     data_uri = f"data:image/jpeg;base64,{b64}"
