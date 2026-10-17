@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ device.name }} · homeplate</title>
+  <script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+  <script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; -webkit-font-smoothing: antialiased; }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#EDEFF3]">
+<div class="relative w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] overflow-hidden flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
+  <!-- 顶部导航 -->
+  <header class="shrink-0 relative px-4 pt-4 pb-2 flex items-center h-[56px]">
+    <a aria-label="返回" class="w-9 h-9 flex items-center justify-center text-[#12151C] -ml-1 active:opacity-60" href="/">
+      <iconify-icon class="text-[28px]" icon="mdi:chevron-left"></iconify-icon>
+    </a>
+    <h1 class="absolute inset-x-0 text-center text-[17px] font-bold text-[#12151C] pointer-events-none">{{ device.name }}</h1>
+    <a class="ml-auto text-[14px] text-[#3D6DF2] font-medium active:opacity-70" href="#">编辑</a>
+  </header>
+  <main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-4 pt-2 pb-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <!-- 保修状态卡片 -->
+    <section class="bg-white rounded-[12px] p-4 border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+      <div class="flex items-start justify-between gap-3">
+        <div class="min-w-0">
+          <p class="text-[15px] font-semibold text-[#12151C] truncate">{{ device.brand or '' }} {{ device.model_name or '' }}</p>
+          <p class="text-[12px] text-[#8A93A5] mt-1">{{ '已过保' if device.warranty_status == 'expired' else '保修中' }} · {{ device.category or '未分类' }}</p>
+        </div>
+        <div class="w-10 h-10 rounded-[10px] {{ styles[device.warranty_status]['icon_bg'] }} {{ styles[device.warranty_status]['icon_text'] }} flex items-center justify-center shrink-0">
+          <iconify-icon class="text-[22px]" icon="{{ icons.get(device.category, 'mdi:appliances') }}"></iconify-icon>
+        </div>
+      </div>
+      <div class="mt-4 flex items-center gap-3">
+        <div class="flex-1 h-2 rounded-full bg-[#F0F2F6] overflow-hidden">
+          <div class="h-full rounded-full {{ styles[device.warranty_status]['bar'] }}" style="width: {{ device.warranty_progress }}%;"></div>
+        </div>
+        <span class="shrink-0 text-[12px] font-semibold {{ styles[device.warranty_status]['tag_text'] }}">{{ device.warranty_label }}</span>
+      </div>
+      <p class="text-[12px] text-[#8A93A5] mt-2.5">保修到期 {{ device.warranty_end or '待填写' }}</p>
+    </section>
+    <!-- 设备信息 -->
+    <h2 class="mt-5 mb-2 px-1 text-[14px] font-semibold text-[#12151C]">设备信息</h2>
+    <section class="bg-white rounded-[12px] border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)] overflow-hidden">
+      <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7]">
+        <span class="text-[13px] text-[#8A93A5]">品牌</span>
+        <span class="text-[14px] text-[#12151C]">{{ device.brand or '未填写' }}</span>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7]">
+        <span class="text-[13px] text-[#8A93A5]">品类</span>
+        <span class="text-[14px] text-[#12151C]">{{ device.category or '未填写' }}</span>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7]">
+        <span class="text-[13px] text-[#8A93A5]">购买日期</span>
+        <span class="text-[14px] text-[#12151C]">{{ device.purchase_date or '未填写' }}</span>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7]">
+        <span class="text-[13px] text-[#8A93A5]">序列号</span>
+        <span class="text-[14px] text-[#12151C]">{{ device.serial_number or '未填写' }}</span>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3">
+        <span class="text-[13px] text-[#8A93A5]">备注</span>
+        <span class="text-[14px] text-[#12151C]">{{ device.notes or '—' }}</span>
+      </div>
+    </section>
+    <!-- 保养计划（占位，Day 4 接入） -->
+    <h2 class="mt-5 mb-2 px-1 text-[14px] font-semibold text-[#12151C]">保养计划</h2>
+    <section class="bg-white rounded-[12px] p-6 text-center border border-dashed border-[#D8DEE9]">
+      <iconify-icon class="text-[28px] text-[#B4BCCB]" icon="mdi:calendar-check"></iconify-icon>
+      <p class="text-[13px] text-[#8A93A5] mt-2">保养排期功能开发中，v0.4 上线</p>
+    </section>
+    <!-- 底部操作 -->
+    <a class="mt-5 w-full h-11 rounded-[12px] bg-white border border-[#D8DEE9] text-[14px] font-medium text-[#3D6DF2] flex items-center justify-center active:bg-[#F7F9FE] transition-colors" href="/">
+      返回我的家电
+    </a>
+  </main>
+</div>
+</body>
+</html>

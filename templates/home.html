@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的家电 · homeplate</title>
+  <script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+  <script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; -webkit-font-smoothing: antialiased; }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#EDEFF3]">
+<div class="relative w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] overflow-hidden flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
+  <!-- 顶部标题 -->
+  <header class="shrink-0 px-5 pt-6 pb-3 flex items-center justify-between">
+    <h1 class="text-[22px] font-bold text-[#12151C] tracking-[0.5px]">我的家电</h1>
+    <a aria-label="添加家电" class="w-9 h-9 rounded-full bg-[#3D6DF2] text-white flex items-center justify-center shadow-[0_4px_12px_rgba(61,109,242,0.38)] active:scale-95 transition-transform" href="/add">
+      <iconify-icon class="text-[22px]" icon="mdi:plus"></iconify-icon>
+    </a>
+  </header>
+  <!-- 统计小卡片（真数据） -->
+  <section class="shrink-0 px-5 pb-4 grid grid-cols-3 gap-2.5">
+    <div class="bg-white rounded-[12px] px-3 py-3 border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+      <p class="text-[11px] text-[#8A93A5]">家电</p>
+      <div class="flex items-baseline gap-1 mt-1.5">
+        <span class="text-[20px] font-bold text-[#3D6DF2] leading-none">{{ stats.total }}</span>
+        <span class="text-[12px] text-[#3D6DF2]">台</span>
+      </div>
+    </div>
+    <div class="bg-white rounded-[12px] px-3 py-3 border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+      <p class="text-[11px] text-[#8A93A5]">本月待保养</p>
+      <div class="flex items-baseline gap-1 mt-1.5">
+        <span class="text-[20px] font-bold text-[#FF7A45] leading-none">{{ stats.maintenance_due }}</span>
+        <span class="text-[12px] text-[#FF7A45]">项</span>
+      </div>
+    </div>
+    <div class="bg-white rounded-[12px] px-3 py-3 border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+      <p class="text-[11px] text-[#8A93A5]">即将过保</p>
+      <div class="flex items-center gap-1 mt-1.5">
+        <span class="text-[20px] font-bold text-[#FF7A45] leading-none">{{ stats.expiring }}</span>
+        <span class="text-[12px] text-[#FF7A45]">台</span>
+        {% if stats.expiring > 0 %}<iconify-icon class="text-[14px] text-[#FF7A45]" icon="mdi:alert-circle"></iconify-icon>{% endif %}
+      </div>
+    </div>
+  </section>
+  <!-- 设备列表（真数据） -->
+  <main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-5 pb-24 space-y-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    {% for d in devices %}
+    <a class="block bg-white rounded-[12px] p-4 border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)] active:bg-[#FCFCFD] transition-colors" href="/devices/{{ d.id }}">
+      <div class="flex items-start gap-3">
+        <div class="w-11 h-11 rounded-[10px] {{ styles[d.warranty_status]['icon_bg'] }} {{ styles[d.warranty_status]['icon_text'] }} flex items-center justify-center shrink-0">
+          <iconify-icon class="text-[24px]" icon="{{ icons.get(d.category, 'mdi:appliances') }}"></iconify-icon>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-2">
+            <div class="min-w-0">
+              <p class="text-[15px] font-semibold text-[#12151C] truncate">{{ d.name }}</p>
+              <p class="text-[12px] text-[#8A93A5] mt-0.5 truncate">{{ d.brand or '' }} {{ d.model_name or '' }}</p>
+            </div>
+            <span class="shrink-0 text-[11px] font-medium px-2 py-[3px] rounded-full {{ styles[d.warranty_status]['tag_bg'] }} {{ styles[d.warranty_status]['tag_text'] }}">{{ d.warranty_label }}</span>
+          </div>
+          <div class="mt-3 pt-2.5 border-t border-[#F1F3F7] flex items-center gap-1.5 text-[12px] text-[#8A93A5]">
+            <iconify-icon class="text-[14px] text-[#B4BCCB]" icon="mdi:calendar-outline"></iconify-icon>
+            <span class="truncate">购买于 {{ d.purchase_date or '——' }}</span>
+          </div>
+        </div>
+      </div>
+    </a>
+    {% else %}
+    <div class="bg-white rounded-[12px] p-8 text-center border border-dashed border-[#D8DEE9]">
+      <iconify-icon class="text-[40px] text-[#B4BCCB]" icon="mdi:home-plus-outline"></iconify-icon>
+      <p class="text-[14px] text-[#8A93A5] mt-2">还没有家电，点右下角添加第一台</p>
+    </div>
+    {% endfor %}
+  </main>
+  <!-- 悬浮按钮 -->
+  <div class="absolute bottom-6 right-4 z-20">
+    <a class="h-11 pl-3.5 pr-4 rounded-full bg-[#3D6DF2] text-white flex items-center gap-1.5 text-[14px] font-medium shadow-[0_8px_22px_rgba(61,109,242,0.4)] active:scale-95 transition-transform" href="/add">
+      <iconify-icon class="text-[18px]" icon="mdi:plus"></iconify-icon>
+      添加家电
+    </a>
+  </div>
+</div>
+</body>
+</html>

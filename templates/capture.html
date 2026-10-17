@@ -1,0 +1,54 @@
+<!DOCTYPE html><html class="w-full h-full overflow-hidden" lang="zh-CN"><head>
+
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>添加家电 · 拍摄铭牌</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#EDEFF3]">
+<div class="relative w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] overflow-hidden flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
+<!-- 顶部导航 -->
+<header class="shrink-0 relative px-4 pt-4 pb-2 flex items-center h-[56px]">
+<a aria-label="返回" class="w-9 h-9 flex items-center justify-center text-[#12151C] -ml-1 active:opacity-60" href="/">
+<iconify-icon class="text-[28px]" icon="mdi:chevron-left"></iconify-icon>
+</a>
+<h1 class="absolute inset-x-0 text-center text-[17px] font-semibold text-[#12151C] pointer-events-none">添加家电</h1>
+</header>
+<!-- 取景框 -->
+<section class="flex-1 min-h-0 px-5 pt-3 pb-2 flex">
+<div class="flex-1 rounded-[12px] border-2 border-dashed border-[#C9D3EA] bg-white/70 flex flex-col items-center justify-center">
+<div class="w-16 h-16 rounded-full bg-[#EDF1FE] text-[#3D6DF2] flex items-center justify-center">
+<iconify-icon class="text-[34px]" icon="mdi:camera-outline"></iconify-icon>
+</div>
+<p class="mt-4 text-[16px] font-semibold text-[#12151C]">拍摄设备铭牌</p>
+<p class="mt-2 text-[12px] text-[#8A93A5] leading-[1.6] text-center px-10">对准设备背面铭牌，光线充足识别更准</p>
+</div>
+</section>
+<!-- 操作按钮 -->
+<section class="shrink-0 px-5 pt-4 space-y-3">
+<a class="w-full h-12 rounded-[12px] bg-[#3D6DF2] text-white flex items-center justify-center gap-1.5 text-[16px] font-medium shadow-[0_6px_16px_rgba(61,109,242,0.32)] active:opacity-90 transition-opacity" href="/add/confirm">
+<iconify-icon class="text-[20px]" icon="mdi:camera"></iconify-icon>
+        拍照识别
+      </a>
+<a class="w-full h-12 rounded-[12px] bg-white border border-[#D8DEE9] text-[#3D6DF2] flex items-center justify-center gap-1.5 text-[16px] font-medium active:bg-[#F7F9FE] transition-colors" href="/add/confirm">
+<iconify-icon class="text-[20px]" icon="mdi:image-multiple-outline"></iconify-icon>
+        从相册选择
+      </a>
+</section>
+<!-- 手动填写入口 -->
+<div class="shrink-0 text-center pt-4 pb-6">
+<a class="text-[13px] text-[#8A93A5] underline decoration-[#C9D3EA] underline-offset-2 active:text-[#3D6DF2]" href="/add/confirm">
+        识别不了？手动填写 →
+      </a>
+</div>
+</div>
+
+
+</body></html>

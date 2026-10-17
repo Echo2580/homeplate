@@ -1,6 +1,6 @@
 # 文件路径：app/schemas.py
 # Pydantic 模型：定义接口的请求/响应数据格式
-from datetime import datetime
+from datetime import date, datetime
 
 from pydantic import BaseModel, ConfigDict
 
@@ -13,7 +13,7 @@ class DeviceCreate(BaseModel):
     model_name: str | None = None
     serial_number: str | None = None
     category: str | None = None
-    purchase_date: str | None = None
+    purchase_date: date | None = None
     warranty_months: int | None = None
     notes: str | None = None
 
@@ -26,7 +26,7 @@ class DeviceUpdate(BaseModel):
     model_name: str | None = None
     serial_number: str | None = None
     category: str | None = None
-    purchase_date: str | None = None
+    purchase_date: date | None = None
     warranty_months: int | None = None
     notes: str | None = None
 
@@ -40,7 +40,7 @@ class DeviceOut(BaseModel):
     model_name: str | None
     serial_number: str | None
     category: str | None
-    purchase_date: str | None
+    purchase_date: date | None
     warranty_months: int | None
     notes: str | None
     created_at: datetime
