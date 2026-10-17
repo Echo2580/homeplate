@@ -41,13 +41,20 @@
       </div>
       <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7] gap-3">
         <label class="shrink-0 text-[13px] text-[#8A93A5]" for="f-category">品类</label>
-        <select id="f-category" class="flex-1 text-right text-[16px] text-[#12151C] outline-none bg-transparent">
-          <option value="">请选择品类</option>
-          <option>空调</option><option>冰箱</option><option>洗衣机</option>
-          <option>净水器</option><option>电热水器</option><option>油烟机</option>
-          <option>电视</option><option>扫地机器人</option>
-          <option>电磁炉</option><option>微波炉</option><option>电饭煲</option><option>电风扇</option>
-        </select>
+        <div class="flex-1 flex items-center justify-end gap-2">
+          <input id="f-category-custom" class="hidden w-28 text-right text-[16px] text-[#12151C] outline-none border-b border-[#3D6DF2]" placeholder="输入品类" maxlength="20">
+          <select id="f-category" class="text-right text-[16px] text-[#12151C] outline-none bg-transparent max-w-[60%]">
+            <option value="">请选择品类</option>
+            <option>空调</option><option>冰箱</option><option>洗衣机</option>
+            <option>净水器</option><option>电热水器</option><option>油烟机</option>
+            <option>电视</option><option>扫地机器人</option>
+            <option>电磁炉</option><option>微波炉</option><option>电饭煲</option><option>电风扇</option>
+            <option>电压力锅</option><option>热水壶</option><option>加湿器</option><option>空气净化器</option>
+            <option>取暖器</option><option>挂烫机</option><option>豆浆机</option><option>破壁机</option>
+            <option>其他</option>
+            <option value="__custom__">自定义…</option>
+          </select>
+        </div>
       </div>
       <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7] gap-3">
         <label class="shrink-0 text-[13px] text-[#8A93A5]" for="f-date">购买日期 <span class="text-[#FF7A45]">*</span></label>
@@ -79,9 +86,33 @@
 
   function setCategory(cat) {
     if (!cat) return;
-    const opt = [...$('f-category').options].find(o => o.text === cat);
-    if (opt) $('f-category').value = cat;
+    const sel = $('f-category');
+    const opt = [...sel.options].find(o => o.text === cat || o.value === cat);
+    if (opt) {
+      sel.value = opt.value === '__custom__' ? '__custom__' : cat;
+      if (opt.value !== '__custom__') $('f-category-custom').classList.add('hidden');
+    } else {
+      // AI 识别出列表外的品类：转入自定义输入并提示
+      sel.value = '__custom__';
+      const cus = $('f-category-custom');
+      cus.classList.remove('hidden');
+      cus.value = cat;
+    }
   }
+
+  // 自定义品类：选中"自定义…"时显示输入框
+  $('f-category').addEventListener('change', () => {
+    const cus = $('f-category-custom');
+    if ($('f-category').value === '__custom__') {
+      cus.classList.remove('hidden');
+      cus.focus();
+    } else {
+      cus.classList.add('hidden');
+    }
+    const m = DEFAULT_MONTHS[$('f-category').value];
+    if (m && !$('f-months').value) $('f-months').value = m;
+    updatePreview();
+  });
 
   function fillForm(d) {
     if (d.name) $('f-name').value = d.name;
@@ -166,7 +197,7 @@
       brand: $('f-brand').value.trim() || null,
       model_name: $('f-model').value.trim() || null,
       serial_number: $('f-serial').value.trim() || null,
-      category: $('f-category').value || null,
+      category: ($('f-category').value === '__custom__' ? ($('f-category-custom').value.trim() || null) : ($('f-category').value || null)),
       purchase_date,
       warranty_months: parseInt($('f-months').value, 10) || null,
     };

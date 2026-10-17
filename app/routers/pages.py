@@ -28,6 +28,15 @@ CATEGORY_ICONS = {
     "微波炉": "mdi:microwave",
     "电饭煲": "mdi:rice",
     "电风扇": "mdi:fan",
+    "电压力锅": "mdi:pot-mix",
+    "热水壶": "mdi:kettle",
+    "加湿器": "mdi:air-humidifier",
+    "空气净化器": "mdi:air-purifier",
+    "取暖器": "mdi:radiator",
+    "挂烫机": "mdi:iron",
+    "豆浆机": "mdi:blender",
+    "破壁机": "mdi:blender",
+    "其他": "mdi:home-lightbulb-outline",
 }
 
 # 保修状态 → 界面配色（标签底色/文字色、图标底色/文字色、进度条颜色）

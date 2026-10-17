@@ -41,6 +41,6 @@ async def recognize(image: UploadFile):
         raise HTTPException(status_code=502, detail=f"识别服务调用失败：{e}") from e
     elapsed = round(time.perf_counter() - start, 1)
 
-    # 只保留四个合法字段，多余的一律丢弃
-    clean = {k: result.get(k) for k in ("brand", "model_name", "serial_number", "category")}
+    # 只保留五个合法字段，多余的一律丢弃
+    clean = {k: result.get(k) for k in ("name", "brand", "model_name", "serial_number", "category")}
     return {"ok": True, "result": clean, "elapsed_seconds": elapsed}

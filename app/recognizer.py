@@ -21,9 +21,10 @@ MODEL = os.getenv("VISION_MODEL", "deepseek-flash")  # 如 deepseek-flash / qwen
 
 PROMPT = """你是家电铭牌识别助手。图片中是家电设备的铭牌。
 请识别铭牌上的信息，只返回一个 JSON 对象（不要 markdown 代码块，不要任何多余文字）：
-{"brand": "品牌", "model_name": "型号", "serial_number": "序列号", "category": "品类"}
+{"name": "设备名称", "brand": "品牌", "model_name": "型号", "serial_number": "序列号", "category": "品类"}
 说明：
-- category 必须从这些里选一个：空调、冰箱、洗衣机、净水器、电热水器、油烟机、电视、扫地机器人、电磁炉、微波炉、电饭煲、电风扇
+- name：给这台设备起个家里的叫法，格式参考"品牌+品类"（如"格力空调"、"美的电压力锅"）；铭牌上有能区分位置/规格的信息就用上（如"海尔冰箱（厨房）"），没有就只写品牌+品类，不要编造
+- category 必须从这些里选一个：空调、冰箱、洗衣机、净水器、电热水器、油烟机、电视、扫地机器人、电磁炉、微波炉、电饭煲、电风扇、电压力锅、热水壶、加湿器、空气净化器、取暖器、挂烫机、豆浆机、破壁机、其他、电压力锅、热水壶、加湿器、空气净化器、取暖器、挂烫机、豆浆机、破壁机、其他
 - 看不清或铭牌上没有的字段填 null
 """
 
@@ -69,5 +70,5 @@ def recognize_nameplate(image_bytes: bytes) -> dict:
     except json.JSONDecodeError as e:
         raise ValueError(f"JSON 解析失败：{e}") from e
 
-    # 只保留四个合法字段，多余的一律丢弃
-    return {k: data.get(k) for k in ("brand", "model_name", "serial_number", "category")}
+    # 只保留五个合法字段，多余的一律丢弃
+    return {k: data.get(k) for k in ("name", "brand", "model_name", "serial_number", "category")}
