@@ -7,6 +7,7 @@ from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
 from app.database import Base
+from app.photos import photo_url as _device_photo_url
 
 
 def add_months(d: date, months: int) -> date:
@@ -98,6 +99,11 @@ class Device(Base):
         """最近一次待保养的任务（按 next_date 最早的）"""
         pending = [t for t in self.tasks if t.next_date]
         return min(pending, key=lambda t: t.next_date) if pending else None
+
+    @property
+    def photo_url(self) -> str | None:
+        """铭牌照片地址（建档时拍的那张）；没有照片返回 None"""
+        return _device_photo_url(self.id) if self.id else None
 
 
 class MaintenanceTask(Base):

@@ -16,6 +16,8 @@ class DeviceCreate(BaseModel):
     purchase_date: date | None = None
     warranty_months: int | None = None
     notes: str | None = None
+    # 铭牌照片 token：先调 POST /api/photo 上传拿到，建档成功后转正；不是数据库字段
+    photo_token: str | None = None
 
 
 class DeviceUpdate(BaseModel):

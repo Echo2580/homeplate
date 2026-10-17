@@ -6,18 +6,25 @@ from sqlalchemy.orm import Session
 from app import models, schemas
 from app.database import get_db
 from app.maintenance import create_tasks_for_device
+from app.photos import finalize_pending, remove_photo
 
 router = APIRouter(prefix="/api/devices", tags=["设备档案"])
 
 
 @router.post("", response_model=schemas.DeviceOut, summary="新增设备（自动挂保养任务）")
 def create_device(data: schemas.DeviceCreate, db: Session = Depends(get_db)):
-    device = models.Device(**data.model_dump())
+    payload = data.model_dump()
+    # photo_token 不是数据库字段：拿出来，等设备有 ID 后再把照片转正
+    photo_token = payload.pop("photo_token", None)
+    device = models.Device(**payload)
     db.add(device)
     db.commit()
     db.refresh(device)
     # 按品类自动生成保养任务（无模板的品类跳过）
     create_tasks_for_device(device, db)
+    # 建档成功：铭牌照片从临时区转正为 device_{id}.jpg（无照片或 token 失效则跳过）
+    if photo_token:
+        finalize_pending(photo_token, device.id)
     return device
 
 
@@ -55,4 +62,6 @@ def delete_device(device_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="设备不存在")
     db.delete(device)
     db.commit()
+    # 级联清理铭牌照片，避免留下孤儿文件
+    remove_photo(device_id)
     return {"ok": True, "deleted_id": device_id}

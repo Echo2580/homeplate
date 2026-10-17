@@ -6,6 +6,7 @@
 import base64
 import os
 import secrets
+from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, Request
@@ -15,11 +16,26 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.routers import devices, pages, recognize, tasks
+from app.photos import cleanup_pending
+from app.routers import devices, pages, photos, recognize, tasks
 
 load_dotenv()
 
-app = FastAPI(title="homeplate · AI 家电保养与维修助手", version="0.4.0")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """启动时清理超期的临时铭牌照片（拍了但最终没建档的那些）"""
+    removed = cleanup_pending()
+    if removed:
+        print(f"已清理过期临时铭牌照片 {removed} 张")
+    yield
+
+
+app = FastAPI(
+    title="homeplate · AI 家电保养与维修助手",
+    version="0.6.0",
+    lifespan=lifespan,
+)
 
 # 静态资源（本地化的前端依赖，见 static/js/）
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -27,6 +43,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(pages.router)
 app.include_router(devices.router)
 app.include_router(recognize.router)
+app.include_router(photos.router)
 app.include_router(tasks.router)
 
 # ---------- 访问密码保护（演示用最简方案） ----------

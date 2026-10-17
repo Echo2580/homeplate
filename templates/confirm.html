@@ -160,6 +160,9 @@
       purchase_date,
       warranty_months: parseInt($('f-months').value, 10) || null,
     };
+    // 铭牌照片：拍摄页上传拿到的 token，新建时一并提交（编辑不换照片）
+    const photoToken = sessionStorage.getItem('photo_token');
+    if (!isEdit && photoToken) payload.photo_token = photoToken;
     const btn = $('btn-save');
     btn.disabled = true; btn.textContent = '保存中…';
     try {
@@ -170,7 +173,10 @@
       });
       const d = await r.json();
       if (!r.ok) throw new Error(d.detail || '保存失败');
-      if (!isEdit) sessionStorage.removeItem('recognize_result');
+      if (!isEdit) {
+        sessionStorage.removeItem('recognize_result');
+        sessionStorage.removeItem('photo_token');
+      }
       location.href = '/devices/' + (isEdit ? editId : d.id);
     } catch (e) {
       alert(e.message);

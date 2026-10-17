@@ -83,10 +83,26 @@
     }
   }
 
+  async function uploadPhoto(file) {
+    // 铭牌照片先存进服务器临时区换 token，建档时凭 token 转正；
+    // 这样即使 AI 识别失败、走手动填写，铭牌原图也能留下来
+    try {
+      const fd = new FormData();
+      fd.append('image', file);
+      const r = await fetch('/api/photo', { method: 'POST', body: fd });
+      const d = await r.json();
+      if (r.ok && d.ok && d.token) return d.token;
+    } catch (e) { /* 照片存档失败不阻塞识别建档 */ }
+    return null;
+  }
+
   async function handleFile(file) {
     if (!file) return;
     setStatus('压缩图片中…');
     const small = await compressImage(file);
+    setStatus('上传铭牌照片…');
+    const photoToken = await uploadPhoto(small);
+    if (photoToken) sessionStorage.setItem('photo_token', photoToken);
     setStatus('AI 识别中，请稍候…');
     const fd = new FormData();
     fd.append('image', small);
@@ -97,7 +113,8 @@
       sessionStorage.setItem('recognize_result', JSON.stringify(d.result));
       location.href = '/add/confirm?elapsed=' + d.elapsed_seconds;
     } catch (e) {
-      alert(e.message || '识别失败，请重试');
+      const hint = photoToken ? 'AI 识别失败，但铭牌照片已保存；可点下方"手动填写"继续建档。\n' : '';
+      alert(hint + (e.message || '识别失败，请重试'));
       setStatus(null);
     }
   }

@@ -40,6 +40,16 @@
       </div>
       <p class="text-[12px] text-[#8A93A5] mt-2.5">保修到期 {{ device.warranty_end or '待填写' }}</p>
     </section>
+    <!-- 铭牌照片（建档时拍摄存档，点图看原图） -->
+    {% if device.photo_url %}
+    <h2 class="mt-5 mb-2 px-1 text-[14px] font-semibold text-[#12151C]">铭牌照片</h2>
+    <section class="bg-white rounded-[12px] p-3 border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+      <a class="block" href="{{ device.photo_url }}" target="_blank" rel="noopener">
+        <img class="w-full max-h-[320px] object-contain rounded-[8px] bg-[#F5F6F8]" src="{{ device.photo_url }}" alt="{{ device.name }} 铭牌照片">
+      </a>
+      <p class="mt-2 text-center text-[12px] text-[#8A93A5]">建档时拍摄的铭牌 · 点图片看原图</p>
+    </section>
+    {% endif %}
     <!-- 设备信息 -->
     <h2 class="mt-5 mb-2 px-1 text-[14px] font-semibold text-[#12151C]">设备信息</h2>
     <section class="bg-white rounded-[12px] border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)] overflow-hidden">
