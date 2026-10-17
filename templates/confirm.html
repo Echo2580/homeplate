@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>确认设备信息 · homeplate</title>
+  <title>设备信息 · homeplate</title>
   <script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
   <script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
   <style>
@@ -14,13 +14,13 @@
 <div class="relative w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] overflow-hidden flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
   <!-- 顶部导航 -->
   <header class="shrink-0 relative px-4 pt-4 pb-2 flex items-center h-[56px]">
-    <a aria-label="返回" class="w-9 h-9 flex items-center justify-center text-[#12151C] -ml-1 active:opacity-60" href="/add">
+    <a id="back-link" aria-label="返回" class="w-9 h-9 flex items-center justify-center text-[#12151C] -ml-1 active:opacity-60" href="/add">
       <iconify-icon class="text-[28px]" icon="mdi:chevron-left"></iconify-icon>
     </a>
-    <h1 class="absolute inset-x-0 text-center text-[17px] font-bold text-[#12151C] pointer-events-none">确认设备信息</h1>
+    <h1 id="page-title" class="absolute inset-x-0 text-center text-[17px] font-bold text-[#12151C] pointer-events-none">确认设备信息</h1>
   </header>
   <main class="flex-1 min-h-0 overflow-y-auto px-5 pt-2 pb-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-    <p class="text-[12px] text-[#8A93A5] mb-3">以下信息由 AI 识别预填，请核对修改后保存</p>
+    <p id="sub-title" class="text-[12px] text-[#8A93A5] mb-3">以下信息由 AI 识别预填，请核对修改后保存</p>
     <!-- 表单 -->
     <section class="bg-white rounded-[12px] border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)] overflow-hidden">
       <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7] gap-3">
@@ -76,25 +76,52 @@
     "电热水器": 36, "油烟机": 36, "电视": 12, "扫地机器人": 12,
   };
 
-  // 读出拍摄页存的识别结果，预填表单
-  const saved = sessionStorage.getItem('recognize_result');
-  if (saved) {
-    try {
-      const r = JSON.parse(saved);
-      if (r.brand) $('f-brand').value = r.brand;
-      if (r.model_name) $('f-model').value = r.model_name;
-      if (r.serial_number) $('f-serial').value = r.serial_number;
-      if (r.category) {
-        const opt = [...$('f-category').options].find(o => o.text === r.category);
-        if (opt) $('f-category').value = r.category;
-      }
-    } catch (e) { /* 预填失败不阻塞手动填写 */ }
+  function setCategory(cat) {
+    if (!cat) return;
+    const opt = [...$('f-category').options].find(o => o.text === cat);
+    if (opt) $('f-category').value = cat;
+  }
+
+  function fillForm(d) {
+    if (d.name) $('f-name').value = d.name;
+    if (d.brand) $('f-brand').value = d.brand;
+    if (d.model_name) $('f-model').value = d.model_name;
+    if (d.serial_number) $('f-serial').value = d.serial_number;
+    if (d.category) setCategory(d.category);
+    if (d.purchase_date) $('f-date').value = d.purchase_date;
+    // 保修月数：优先用已有值，否则按品类默认——程序赋值不触发 change，这里手动兜底
+    $('f-months').value = d.warranty_months || DEFAULT_MONTHS[d.category] || '';
+    updatePreview();
+  }
+
+  // ---------- 双模式：编辑（?id=xx） / 新建 ----------
+  const editId = new URLSearchParams(location.search).get('id');
+  const isEdit = !!editId;
+
+  if (isEdit) {
+    // 编辑模式：拉现有数据预填，保存走 PATCH
+    $('page-title').textContent = '编辑设备信息';
+    $('sub-title').textContent = '修改后点击保存，改动会立即生效';
+    $('back-link').href = '/devices/' + editId;
+    $('btn-save').textContent = '保存修改';
+    fetch('/api/devices/' + editId)
+      .then(r => r.json())
+      .then(fillForm)
+      .catch(() => alert('设备信息加载失败，请刷新重试'));
+  } else {
+    // 新建模式：预填拍摄页的识别结果
+    const saved = sessionStorage.getItem('recognize_result');
+    if (saved) {
+      try {
+        fillForm(JSON.parse(saved));
+      } catch (e) { /* 预填失败不阻塞手动填写 */ }
+    }
   }
 
   // 选品类 → 自动填默认保修月数
   $('f-category').addEventListener('change', () => {
     const m = DEFAULT_MONTHS[$('f-category').value];
-    if (m) $('f-months').value = m;
+    if (m && !$('f-months').value) $('f-months').value = m;
     updatePreview();
   });
   $('f-date').addEventListener('change', updatePreview);
@@ -111,7 +138,7 @@
     $('preview').textContent = `按 ${months} 个月保修计算，保修到期 ${end}（保存后可在详情页查看）`;
   }
 
-  // 保存建档
+  // 保存：新建 POST / 编辑 PATCH
   $('btn-save').addEventListener('click', async () => {
     const name = $('f-name').value.trim();
     const purchase_date = $('f-date').value;
@@ -129,18 +156,18 @@
     const btn = $('btn-save');
     btn.disabled = true; btn.textContent = '保存中…';
     try {
-      const r = await fetch('/api/devices', {
-        method: 'POST',
+      const r = await fetch(isEdit ? '/api/devices/' + editId : '/api/devices', {
+        method: isEdit ? 'PATCH' : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       const d = await r.json();
       if (!r.ok) throw new Error(d.detail || '保存失败');
-      sessionStorage.removeItem('recognize_result');
-      location.href = '/devices/' + d.id;  // 直接跳新设备详情页
+      if (!isEdit) sessionStorage.removeItem('recognize_result');
+      location.href = '/devices/' + (isEdit ? editId : d.id);
     } catch (e) {
       alert(e.message);
-      btn.disabled = false; btn.textContent = '保存';
+      btn.disabled = false; btn.textContent = isEdit ? '保存修改' : '保存';
     }
   });
 </script>
