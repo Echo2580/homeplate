@@ -6,6 +6,7 @@
 from fastapi import Depends, FastAPI
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
+from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.routers import devices, pages, recognize, tasks
