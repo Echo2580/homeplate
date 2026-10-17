@@ -2,6 +2,19 @@
 
 > 每次变更记一笔：加了什么、改了什么、为什么。复盘就靠它。
 
+## 2026-10-17 · 部署预备三件事（接手外部 AI 交接清单）
+
+> 背景：手机访问经 Tailscale 私有 HTTPS 打通（详见 `docs/交接-手机访问已打通与公网部署下一步-2026-10-17.md`）。本条处理交接文档第 5 节记录的"已发现、未修改"事项，均为公网部署预备工作。
+
+### 变更
+- `app/main.py`：消除 `/` 重复注册——原"健康检查 JSON"是死代码（被 pages 首页覆盖，从未生效）。改为独立 `GET /healthz`，含数据库探活（SELECT 1），供部署后监控使用
+- `app/main.py`：挂载 `/static` 静态目录；启动注释与实际入口（run.py）统一
+- `static/js/`：本地化前端依赖——tailwindcss.js（401KB）与 iconify-icon.min.js（22KB）从 modao.cc 下载落地，四个模板的 script 引用全部改为 `/static/js/`，模板零第三方域名依赖（公网部署后不再受 modao.cc 可达性牵制）
+
+### 验证
+- 注意：PyCharm 下 uvicorn reload 未自动重启（原因未深究），以上改动需手动重启服务生效——重启后应看到接口数 9（含 /healthz）、/static/js/ 可下载
+- 重启后自查：`curl http://127.0.0.1:8000/healthz` 应返回 `{"database":"ok",...}`
+
 ## 2026-10-17 · Day 4：保养排期（MVP 三大模块收官）
 
 ### 新增

@@ -6,7 +6,7 @@ import uvicorn
 if __name__ == "__main__":
     uvicorn.run(
         "app.main:app",   # FastAPI 应用位置
-        host="127.0.0.1",  # 只监听本机（以后给家人用再改 0.0.0.1）
+        host="0.0.0.0",    # 0.0.0.0 = 局域网内设备（手机）可访问；只想本机用改回 127.0.0.1
         port=8000,
         reload=True,       # 改代码自动重启，开发期开着很爽
     )
