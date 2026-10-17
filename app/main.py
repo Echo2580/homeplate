@@ -3,12 +3,13 @@
 # 启动方式：.venv/Scripts/python.exe -m uvicorn app.main:app --reload
 from fastapi import FastAPI
 
-from app.routers import devices, pages
+from app.routers import devices, pages, recognize
 
-app = FastAPI(title="homeplate · AI 家电保养与维修助手", version="0.2.0")
+app = FastAPI(title="homeplate · AI 家电保养与维修助手", version="0.3.0")
 
 app.include_router(devices.router)
 app.include_router(pages.router)
+app.include_router(recognize.router)
 
 
 @app.get("/", summary="健康检查")

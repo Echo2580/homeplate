@@ -2,6 +2,28 @@
 
 > 每次变更记一笔：加了什么、改了什么、为什么。复盘就靠它。
 
+## 2026-10-17 · Day 3：铭牌识别闭环（代码层完成）
+
+### 新增
+- `app/recognizer.py`：调阿里百炼 Qwen-VL（OpenAI 兼容模式），铭牌照片 → 结构化 JSON（品牌/型号/序列号/品类）；key 与模型名从 `.env` 读取
+- `app/routers/recognize.py`：`POST /api/recognize` 接收 multipart 图片（校验类型/非空/10MB 上限），错误分级返回（400 参数 / 500 配置 / 502 调用）
+- `templates/capture.html` 改造：隐藏 file input（`capture="environment"` 调起手机相机）+ 相册选择，选图即上传，识别中状态提示，成功后结果存 sessionStorage 跳确认页
+- `templates/confirm.html` 改造：新增"设备名称"必填项；JS 读识别结果预填；选品类自动填默认保修月数（与 mvp.md 附表一致）；保修到期日实时预览；保存 → POST 建档 → 直接跳新设备详情页
+- `.env` / `.env.example`：新增 `DASHSCOPE_API_KEY`、`QWEN_VL_MODEL`（默认 qwen-vl-plus）
+
+### 变更
+- main.py：挂载 recognize 路由，版本号 → 0.3.0
+- requirements.txt：+openai、+python-multipart
+
+### 验证（代码闭环 ✓）
+- 10 个接口全部注册（含 POST /api/recognize）
+- 非图片上传被 400 拒绝；拍摄页/确认页渲染正常
+- ⚠️ 端到端真识别待测：需在 `.env` 填入真实 DASHSCOPE_API_KEY + 一张真实铭牌照片
+
+### 下一步（Day 4）
+- 保养排期：品类预设模板自动挂载 + 完成打勾自动排下一期 + 首页"本月待保养"统计接真
+- 顺带：详情页"保养计划"占位区块替换为真数据
+
 ## 2026-10-17 · Day 2：页面接入真数据 + 保修状态计算
 
 ### 新增

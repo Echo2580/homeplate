@@ -1,54 +1,87 @@
-<!DOCTYPE html><html class="w-full h-full overflow-hidden" lang="zh-CN"><head>
-
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>添加家电 · 拍摄铭牌</title>
-<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
-<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
-<style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>添加家电 · 拍摄铭牌 · homeplate</title>
+  <script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+  <script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; -webkit-font-smoothing: antialiased; }
   </style>
 </head>
 <body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#EDEFF3]">
 <div class="relative w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] overflow-hidden flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
-<!-- 顶部导航 -->
-<header class="shrink-0 relative px-4 pt-4 pb-2 flex items-center h-[56px]">
-<a aria-label="返回" class="w-9 h-9 flex items-center justify-center text-[#12151C] -ml-1 active:opacity-60" href="/">
-<iconify-icon class="text-[28px]" icon="mdi:chevron-left"></iconify-icon>
-</a>
-<h1 class="absolute inset-x-0 text-center text-[17px] font-semibold text-[#12151C] pointer-events-none">添加家电</h1>
-</header>
-<!-- 取景框 -->
-<section class="flex-1 min-h-0 px-5 pt-3 pb-2 flex">
-<div class="flex-1 rounded-[12px] border-2 border-dashed border-[#C9D3EA] bg-white/70 flex flex-col items-center justify-center">
-<div class="w-16 h-16 rounded-full bg-[#EDF1FE] text-[#3D6DF2] flex items-center justify-center">
-<iconify-icon class="text-[34px]" icon="mdi:camera-outline"></iconify-icon>
-</div>
-<p class="mt-4 text-[16px] font-semibold text-[#12151C]">拍摄设备铭牌</p>
-<p class="mt-2 text-[12px] text-[#8A93A5] leading-[1.6] text-center px-10">对准设备背面铭牌，光线充足识别更准</p>
-</div>
-</section>
-<!-- 操作按钮 -->
-<section class="shrink-0 px-5 pt-4 space-y-3">
-<a class="w-full h-12 rounded-[12px] bg-[#3D6DF2] text-white flex items-center justify-center gap-1.5 text-[16px] font-medium shadow-[0_6px_16px_rgba(61,109,242,0.32)] active:opacity-90 transition-opacity" href="/add/confirm">
-<iconify-icon class="text-[20px]" icon="mdi:camera"></iconify-icon>
+  <!-- 顶部导航 -->
+  <header class="shrink-0 relative px-4 pt-4 pb-2 flex items-center h-[56px]">
+    <a aria-label="返回" class="w-9 h-9 flex items-center justify-center text-[#12151C] -ml-1 active:opacity-60" href="/">
+      <iconify-icon class="text-[28px]" icon="mdi:chevron-left"></iconify-icon>
+    </a>
+    <h1 class="absolute inset-x-0 text-center text-[17px] font-bold text-[#12151C] pointer-events-none">添加家电</h1>
+  </header>
+  <main class="flex-1 min-h-0 overflow-y-auto px-5 pt-4 pb-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <!-- 取景区（点击任意按钮后开始） -->
+    <div id="viewfinder" class="h-[300px] rounded-[16px] border-2 border-dashed border-[#C9D2E3] bg-white flex flex-col items-center justify-center gap-3">
+      <iconify-icon class="text-[52px] text-[#3D6DF2]" icon="mdi:camera-outline"></iconify-icon>
+      <p class="text-[15px] font-semibold text-[#12151C]">拍摄设备铭牌</p>
+      <p class="text-[12px] text-[#8A93A5] text-center leading-[1.6] px-6">对准设备背面铭牌<br>光线充足识别更准</p>
+    </div>
+    <!-- 识别中遮罩提示 -->
+    <p id="status" class="hidden mt-4 text-center text-[13px] text-[#3D6DF2]"></p>
+    <!-- 操作按钮 -->
+    <div class="mt-6 space-y-3">
+      <button type="button" onclick="pick(true)"
+        class="w-full h-12 rounded-[12px] bg-[#3D6DF2] text-white text-[15px] font-medium flex items-center justify-center gap-2 shadow-[0_6px_18px_rgba(61,109,242,0.35)] active:scale-[0.98] transition-transform">
+        <iconify-icon class="text-[20px]" icon="mdi:camera"></iconify-icon>
         拍照识别
-      </a>
-<a class="w-full h-12 rounded-[12px] bg-white border border-[#D8DEE9] text-[#3D6DF2] flex items-center justify-center gap-1.5 text-[16px] font-medium active:bg-[#F7F9FE] transition-colors" href="/add/confirm">
-<iconify-icon class="text-[20px]" icon="mdi:image-multiple-outline"></iconify-icon>
+      </button>
+      <button type="button" onclick="pick(false)"
+        class="w-full h-12 rounded-[12px] bg-white border border-[#D8DEE9] text-[#3D6DF2] text-[15px] font-medium flex items-center justify-center gap-2 active:bg-[#F7F9FE] transition-colors">
+        <iconify-icon class="text-[20px]" icon="mdi:image-multiple-outline"></iconify-icon>
         从相册选择
-      </a>
-</section>
-<!-- 手动填写入口 -->
-<div class="shrink-0 text-center pt-4 pb-6">
-<a class="text-[13px] text-[#8A93A5] underline decoration-[#C9D3EA] underline-offset-2 active:text-[#3D6DF2]" href="/add/confirm">
-        识别不了？手动填写 →
-      </a>
+      </button>
+    </div>
+    <p class="mt-6 text-center">
+      <a class="text-[13px] text-[#8A93A5] underline underline-offset-2 active:opacity-60" href="/add/confirm">识别不了？手动填写 →</a>
+    </p>
+  </main>
+  <!-- 隐藏的文件选择框：capture 调起相机，另一个走相册 -->
+  <input type="file" id="file-camera" accept="image/*" capture="environment" class="hidden">
+  <input type="file" id="file-album" accept="image/*" class="hidden">
 </div>
-</div>
+<script>
+  const camInput = document.getElementById('file-camera');
+  const albInput = document.getElementById('file-album');
+  const statusEl = document.getElementById('status');
 
+  function pick(useCamera) {
+    (useCamera ? camInput : albInput).click();
+  }
 
-</body></html>
+  function setStatus(text) {
+    if (text) { statusEl.textContent = text; statusEl.classList.remove('hidden'); }
+    else { statusEl.classList.add('hidden'); }
+  }
+
+  async function handleFile(file) {
+    if (!file) return;
+    setStatus('AI 识别中，请稍候…');
+    const fd = new FormData();
+    fd.append('image', file);
+    try {
+      const r = await fetch('/api/recognize', { method: 'POST', body: fd });
+      const d = await r.json();
+      if (!r.ok || !d.ok) throw new Error(d.detail || '识别失败，请重试');
+      sessionStorage.setItem('recognize_result', JSON.stringify(d.result));
+      location.href = '/add/confirm';
+    } catch (e) {
+      alert(e.message || '识别失败，请重试');
+      setStatus(null);
+    }
+  }
+
+  camInput.addEventListener('change', () => handleFile(camInput.files[0]));
+  albInput.addEventListener('change', () => handleFile(albInput.files[0]));
+</script>
+</body>
+</html>
