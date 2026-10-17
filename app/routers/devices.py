@@ -23,8 +23,8 @@ def create_device(data: schemas.DeviceCreate, db: Session = Depends(get_db)):
     # 按品类自动生成保养任务（无模板的品类跳过）
     create_tasks_for_device(device, db)
     # 建档成功：铭牌照片从临时区转正为 device_{id}.jpg（无照片或 token 失效则跳过）
-    if photo_token:
-        finalize_pending(photo_token, device.id)
+    photo_saved = finalize_pending(photo_token, device.id) if photo_token else None
+    device.photo_saved = photo_saved  # 供前端提示"照片没存上"（查询接口恒为 None）
     return device
 
 
@@ -48,10 +48,15 @@ def update_device(
     device = db.get(models.Device, device_id)
     if device is None:
         raise HTTPException(status_code=404, detail="设备不存在")
+    old_category = device.category
     for field, value in data.model_dump(exclude_unset=True).items():
         setattr(device, field, value)
     db.commit()
     db.refresh(device)
+    # 补品类是真实用户路径（AI 识别不出品类时先跳过，事后编辑补上）：
+    # 品类从无到有/换新品类且当前没有任何保养任务时，按新品类补挂模板任务
+    if data.category and data.category != old_category and not device.tasks:
+        create_tasks_for_device(device, db)
     return device
 
 

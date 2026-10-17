@@ -6,6 +6,10 @@ from app.photos import save_pending
 
 router = APIRouter(prefix="/api", tags=["铭牌照片"])
 
+# iPhone 相册默认 HEIC，浏览器/详情页都渲染不了，直接拒收并给出可操作的提示
+HEIC_TYPES = ("image/heic", "image/heif")
+HEIC_HINT = "iPhone 的 HEIC 照片暂不支持：请在「设置 → 相机 → 格式」选「兼容性最佳」，或把照片转成 JPG 后再试"
+
 MAX_IMAGE_SIZE = 10 * 1024 * 1024  # 10MB，与识别接口口径一致
 
 
@@ -13,6 +17,8 @@ MAX_IMAGE_SIZE = 10 * 1024 * 1024  # 10MB，与识别接口口径一致
 async def upload_photo(image: UploadFile):
     if not image.content_type or not image.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="请上传图片文件")
+    if image.content_type.lower() in HEIC_TYPES:
+        raise HTTPException(status_code=400, detail=HEIC_HINT)
     data = await image.read()
     if not data:
         raise HTTPException(status_code=400, detail="图片内容为空")

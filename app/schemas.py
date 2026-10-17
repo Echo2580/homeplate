@@ -2,20 +2,27 @@
 # Pydantic 模型：定义接口的请求/响应数据格式
 from datetime import date, datetime
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
+
+# 长度上限与 models.py 的数据库列宽一致：超长在应用层拦截，
+# 避免穿透到 MySQL 报 500（审计发现：120 字名称会打出裸 500 + 前端英文报错）
+NAME_MAX = 100
+BRAND_MAX = 50
+MODEL_MAX = 100
+NOTES_MAX = 2000
 
 
 class DeviceCreate(BaseModel):
     """创建设备：只要求 name 必填，其余选填"""
 
-    name: str
-    brand: str | None = None
-    model_name: str | None = None
-    serial_number: str | None = None
-    category: str | None = None
+    name: str = Field(max_length=NAME_MAX)
+    brand: str | None = Field(default=None, max_length=BRAND_MAX)
+    model_name: str | None = Field(default=None, max_length=MODEL_MAX)
+    serial_number: str | None = Field(default=None, max_length=MODEL_MAX)
+    category: str | None = Field(default=None, max_length=50)
     purchase_date: date | None = None
     warranty_months: int | None = None
-    notes: str | None = None
+    notes: str | None = Field(default=None, max_length=NOTES_MAX)
     # 铭牌照片 token：先调 POST /api/photo 上传拿到，建档成功后转正；不是数据库字段
     photo_token: str | None = None
 
@@ -23,14 +30,14 @@ class DeviceCreate(BaseModel):
 class DeviceUpdate(BaseModel):
     """更新设备：全部选填，传了哪个字段就改哪个"""
 
-    name: str | None = None
-    brand: str | None = None
-    model_name: str | None = None
-    serial_number: str | None = None
-    category: str | None = None
+    name: str | None = Field(default=None, max_length=NAME_MAX)
+    brand: str | None = Field(default=None, max_length=BRAND_MAX)
+    model_name: str | None = Field(default=None, max_length=MODEL_MAX)
+    serial_number: str | None = Field(default=None, max_length=MODEL_MAX)
+    category: str | None = Field(default=None, max_length=50)
     purchase_date: date | None = None
     warranty_months: int | None = None
-    notes: str | None = None
+    notes: str | None = Field(default=None, max_length=NOTES_MAX)
 
 
 class DeviceOut(BaseModel):
@@ -50,3 +57,5 @@ class DeviceOut(BaseModel):
 
     # 允许直接从 SQLAlchemy 对象转换（Device -> DeviceOut）
     model_config = ConfigDict(from_attributes=True)
+    # 仅建档接口会填：铭牌照片是否成功存档（非数据库字段，查询接口恒为 None）
+    photo_saved: bool | None = None

@@ -5,7 +5,7 @@ from datetime import date, timedelta
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, selectinload
 
 from app import models
 from app.database import get_db
@@ -24,6 +24,10 @@ CATEGORY_ICONS = {
     "油烟机": "mdi:cook",
     "电视": "mdi:television",
     "扫地机器人": "mdi:robot-vacuum",
+    "电磁炉": "mdi:fire",
+    "微波炉": "mdi:microwave",
+    "电饭煲": "mdi:rice",
+    "电风扇": "mdi:fan",
 }
 
 # 保修状态 → 界面配色（标签底色/文字色、图标底色/文字色、进度条颜色）
@@ -53,14 +57,26 @@ STATUS_STYLES = {
 
 @router.get("/", response_class=HTMLResponse, summary="首页 · 我的家电")
 def home(request: Request, db: Session = Depends(get_db)):
-    devices = db.query(models.Device).order_by(models.Device.id.desc()).all()
+    # selectinload 预取任务：消除模板逐台访问 next_task 的 N+1 查询
+    devices = db.query(models.Device).options(selectinload(models.Device.tasks)).all()
+    # mvp.md 约定：首页按"最快到期"排序，打开就是最需要关注的那台；
+    # 保修信息不全的（unknown）排最后
+    devices.sort(
+        key=lambda d: (
+            d.days_left is None,
+            d.days_left if d.days_left is not None else 0,
+        )
+    )
     # "本月待保养" = 已逾期 + 未来 30 天内到期的保养任务
     due_limit = date.today() + timedelta(days=30)
-    all_tasks = db.query(models.MaintenanceTask).all()
+    all_tasks = [t for d in devices for t in d.tasks]
     stats = {
         "total": len(devices),
         "maintenance_due": sum(
             1 for t in all_tasks if t.next_date and t.next_date <= due_limit
+        ),
+        "maintenance_overdue": sum(
+            1 for t in all_tasks if t.next_date and t.next_date < date.today()
         ),
         "expiring": sum(1 for d in devices if d.warranty_status == "expiring"),
     }
