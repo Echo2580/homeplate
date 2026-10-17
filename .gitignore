@@ -11,3 +11,6 @@
 __pycache__/
 *.py[cod]
 .venv/
+
+# PyCharm IDE 配置
+.idea/
