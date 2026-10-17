@@ -118,6 +118,13 @@
     }
   }
 
+  // 显示 AI 识别耗时（拍摄页带过来的）
+  const elapsed = new URLSearchParams(location.search).get('elapsed');
+  if (elapsed) {
+    const st = document.getElementById('sub-title');
+    st.textContent = `AI 识别耗时 ${elapsed} 秒 · ` + st.textContent;
+  }
+
   // 选品类 → 自动填默认保修月数
   $('f-category').addEventListener('change', () => {
     const m = DEFAULT_MONTHS[$('f-category').value];

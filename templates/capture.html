@@ -63,17 +63,39 @@
     else { statusEl.classList.add('hidden'); }
   }
 
+  async function compressImage(file, maxSide = 1600, quality = 0.85) {
+    // 手机原图动辄 3-8MB，上传和识别都被体积拖慢；
+    // 铭牌识别不需要原始分辨率，缩到最长边 1600px 重新编码，体积能砍掉 90%
+    try {
+      const bitmap = await createImageBitmap(file);
+      const longest = Math.max(bitmap.width, bitmap.height);
+      if (longest <= maxSide && file.size < 500 * 1024) return file; // 已经够小，不压
+      const scale = maxSide / longest;
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(bitmap.width * scale);
+      canvas.height = Math.round(bitmap.height * scale);
+      canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+      const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', quality));
+      if (!blob || blob.size >= file.size) return file; // 压缩没赚就退回原图
+      return new File([blob], 'photo.jpg', { type: 'image/jpeg' });
+    } catch (e) {
+      return file; // 压缩失败不影响识别，退回原图
+    }
+  }
+
   async function handleFile(file) {
     if (!file) return;
+    setStatus('压缩图片中…');
+    const small = await compressImage(file);
     setStatus('AI 识别中，请稍候…');
     const fd = new FormData();
-    fd.append('image', file);
+    fd.append('image', small);
     try {
       const r = await fetch('/api/recognize', { method: 'POST', body: fd });
       const d = await r.json();
       if (!r.ok || !d.ok) throw new Error(d.detail || '识别失败，请重试');
       sessionStorage.setItem('recognize_result', JSON.stringify(d.result));
-      location.href = '/add/confirm';
+      location.href = '/add/confirm?elapsed=' + d.elapsed_seconds;
     } catch (e) {
       alert(e.message || '识别失败，请重试');
       setStatus(null);
