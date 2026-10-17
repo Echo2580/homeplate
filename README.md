@@ -99,3 +99,4 @@ docs/                  # mvp.md · ROADMAP.md · devlog.md · 排障交接
 - [MVP 范围说明](docs/mvp.md)——做什么、不做什么、验收标准
 - [开发路线图](docs/ROADMAP.md)——阶段 0/1/2 计划与技术债清单
 - [开发日志](docs/devlog.md)——逐日变更与踩坑记录
+- [同类型产品调研](docs/竞品调研.md)——市面成熟产品、倒闭案例与 homeplate 定位（2026-10-17）
