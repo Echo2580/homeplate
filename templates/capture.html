@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>添加家电 · 拍摄铭牌 · homeplate</title>
   <script src="/static/js/tailwindcss.js"></script>
   <script src="/static/js/iconify-icon.min.js"></script>
@@ -10,8 +10,8 @@
     body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; -webkit-font-smoothing: antialiased; }
   </style>
 </head>
-<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#EDEFF3]">
-<div class="relative w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] overflow-hidden flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
+<body class="w-full min-h-dvh m-0 flex justify-center bg-[#EDEFF3]">
+<div class="relative w-full max-w-[480px] min-h-dvh bg-[#F5F6F8] flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
   <!-- 顶部导航 -->
   <header class="shrink-0 relative px-4 pt-4 pb-2 flex items-center h-[56px]">
     <a aria-label="返回" class="w-9 h-9 flex items-center justify-center text-[#12151C] -ml-1 active:opacity-60" href="/">
@@ -19,7 +19,7 @@
     </a>
     <h1 class="absolute inset-x-0 text-center text-[17px] font-bold text-[#12151C] pointer-events-none">添加家电</h1>
   </header>
-  <main class="flex-1 min-h-0 overflow-y-auto px-5 pt-4 pb-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+  <main class="flex-1 min-h-0 overflow-y-auto px-5 pt-4 pb-8">
     <!-- 取景区（点击任意按钮后开始） -->
     <div id="viewfinder" class="h-[300px] rounded-[16px] border-2 border-dashed border-[#C9D2E3] bg-white flex flex-col items-center justify-center gap-3">
       <iconify-icon class="text-[52px] text-[#3D6DF2]" icon="mdi:camera-outline"></iconify-icon>
@@ -114,7 +114,12 @@
       location.href = '/add/confirm?elapsed=' + d.elapsed_seconds;
     } catch (e) {
       const hint = photoToken ? 'AI 识别失败，但铭牌照片已保存；可点下方"手动填写"继续建档。\n' : '';
-      alert(hint + (e.message || '识别失败，请重试'));
+      // 对外不透出底层技术细节（配置缺失/超时/代理错误等），统一说人话
+      const msg = String(e.message || '');
+      const friendly = /识别服务|解析失败|未配置|timeout|network|proxy/i.test(msg)
+        ? '识别服务暂时不可用，请稍后重试，或点下方"手动填写"直接建档'
+        : (msg || '识别失败，请重试');
+      alert(hint + friendly);
       setStatus(null);
     }
   }

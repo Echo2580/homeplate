@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>设备信息 · homeplate</title>
   <script src="/static/js/tailwindcss.js"></script>
   <script src="/static/js/iconify-icon.min.js"></script>
@@ -10,8 +10,8 @@
     body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; -webkit-font-smoothing: antialiased; }
   </style>
 </head>
-<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#EDEFF3]">
-<div class="relative w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] overflow-hidden flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
+<body class="w-full min-h-dvh m-0 flex justify-center bg-[#EDEFF3]">
+<div class="relative w-full max-w-[480px] min-h-dvh bg-[#F5F6F8] flex flex-col shadow-[0_10px_40px_rgba(16,24,40,0.12)]">
   <!-- 顶部导航 -->
   <header class="shrink-0 relative px-4 pt-4 pb-2 flex items-center h-[56px]">
     <a id="back-link" aria-label="返回" class="w-9 h-9 flex items-center justify-center text-[#12151C] -ml-1 active:opacity-60" href="/add">
@@ -19,42 +19,43 @@
     </a>
     <h1 id="page-title" class="absolute inset-x-0 text-center text-[17px] font-bold text-[#12151C] pointer-events-none">确认设备信息</h1>
   </header>
-  <main class="flex-1 min-h-0 overflow-y-auto px-5 pt-2 pb-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-    <p id="sub-title" class="text-[12px] text-[#8A93A5] mb-3">以下信息由 AI 识别预填，请核对修改后保存</p>
+  <main class="flex-1 min-h-0 overflow-y-auto px-5 pt-2 pb-8">
+    <p id="sub-title" class="text-[12px] text-[#8A93A5] mb-3" data-ai="以下信息由 AI 识别预填，请核对修改后保存" data-manual="手动填写设备信息，带 * 为必填">以下信息由 AI 识别预填，请核对修改后保存</p>
     <!-- 表单 -->
     <section class="bg-white rounded-[12px] border border-[#EEF0F4] shadow-[0_1px_2px_rgba(16,24,40,0.04)] overflow-hidden">
       <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7] gap-3">
         <label class="shrink-0 text-[13px] text-[#8A93A5]" for="f-name">设备名称 <span class="text-[#FF7A45]">*</span></label>
-        <input id="f-name" class="flex-1 text-right text-[14px] text-[#12151C] outline-none" placeholder="如：客厅空调">
+        <input id="f-name" class="flex-1 text-right text-[16px] text-[#12151C] outline-none" placeholder="如：客厅空调">
       </div>
       <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7] gap-3">
         <label class="shrink-0 text-[13px] text-[#8A93A5]" for="f-brand">品牌</label>
-        <input id="f-brand" class="flex-1 text-right text-[14px] text-[#12151C] outline-none" placeholder="格力">
+        <input id="f-brand" class="flex-1 text-right text-[16px] text-[#12151C] outline-none" placeholder="格力">
       </div>
       <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7] gap-3">
         <label class="shrink-0 text-[13px] text-[#8A93A5]" for="f-model">型号</label>
-        <input id="f-model" class="flex-1 text-right text-[14px] text-[#12151C] outline-none" placeholder="KFR-35GW">
+        <input id="f-model" class="flex-1 text-right text-[16px] text-[#12151C] outline-none" placeholder="KFR-35GW">
       </div>
       <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7] gap-3">
         <label class="shrink-0 text-[13px] text-[#8A93A5]" for="f-serial">序列号</label>
-        <input id="f-serial" class="flex-1 text-right text-[14px] text-[#12151C] outline-none" placeholder="铭牌上的 SN">
+        <input id="f-serial" class="flex-1 text-right text-[16px] text-[#12151C] outline-none" placeholder="铭牌上的 SN">
       </div>
       <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7] gap-3">
         <label class="shrink-0 text-[13px] text-[#8A93A5]" for="f-category">品类</label>
-        <select id="f-category" class="flex-1 text-right text-[14px] text-[#12151C] outline-none bg-transparent">
+        <select id="f-category" class="flex-1 text-right text-[16px] text-[#12151C] outline-none bg-transparent">
           <option value="">请选择品类</option>
           <option>空调</option><option>冰箱</option><option>洗衣机</option>
           <option>净水器</option><option>电热水器</option><option>油烟机</option>
           <option>电视</option><option>扫地机器人</option>
+          <option>电磁炉</option><option>微波炉</option><option>电饭煲</option><option>电风扇</option>
         </select>
       </div>
       <div class="flex items-center justify-between px-4 py-3 border-b border-[#F1F3F7] gap-3">
         <label class="shrink-0 text-[13px] text-[#8A93A5]" for="f-date">购买日期 <span class="text-[#FF7A45]">*</span></label>
-        <input id="f-date" type="date" class="flex-1 text-right text-[14px] text-[#12151C] outline-none">
+        <input id="f-date" type="date" class="flex-1 text-right text-[16px] text-[#12151C] outline-none">
       </div>
       <div class="flex items-center justify-between px-4 py-3 gap-3">
         <label class="shrink-0 text-[13px] text-[#8A93A5]" for="f-months">保修期（月）</label>
-        <input id="f-months" type="number" min="1" class="flex-1 text-right text-[14px] text-[#12151C] outline-none" placeholder="如 72">
+        <input id="f-months" type="number" min="1" class="flex-1 text-right text-[16px] text-[#12151C] outline-none" placeholder="如 72">
       </div>
     </section>
     <!-- 保修到期预览 -->
@@ -98,6 +99,12 @@
   const editId = new URLSearchParams(location.search).get('id');
   const isEdit = !!editId;
 
+  // 防脏数据粘连：直接进本页（没有从拍摄页带识别结果）时，清掉上一次会话残留的
+  // 识别结果和照片 token——否则给 A 设备拍的照片可能粘到 B 设备上
+  if (!isEdit && !sessionStorage.getItem('recognize_result')) {
+    sessionStorage.removeItem('photo_token');
+  }
+
   if (isEdit) {
     // 编辑模式：拉现有数据预填，保存走 PATCH
     $('page-title').textContent = '编辑设备信息';
@@ -109,12 +116,15 @@
       .then(fillForm)
       .catch(() => alert('设备信息加载失败，请刷新重试'));
   } else {
-    // 新建模式：预填拍摄页的识别结果
+    // 新建模式：预填拍摄页的识别结果；没有则说明是手动填写入口
     const saved = sessionStorage.getItem('recognize_result');
     if (saved) {
       try {
         fillForm(JSON.parse(saved));
       } catch (e) { /* 预填失败不阻塞手动填写 */ }
+    } else {
+      const st = document.getElementById('sub-title');
+      st.textContent = st.dataset.manual;
     }
   }
 
@@ -172,10 +182,22 @@
         body: JSON.stringify(payload),
       });
       const d = await r.json();
-      if (!r.ok) throw new Error(d.detail || '保存失败');
+      if (!r.ok) {
+        // 422 的 detail 可能是数组（FastAPI 校验错误），兜底成可读文案
+        let msg = d.detail || '保存失败';
+        if (Array.isArray(msg)) {
+          msg = msg.map(x => (x.msg || '').replace(/String should have at most \d+ characters/, '内容太长了').replace(/Value error, /, '')).join('；');
+        } else if (typeof msg === 'object') {
+          msg = JSON.stringify(msg);
+        }
+        throw new Error(msg);
+      }
       if (!isEdit) {
         sessionStorage.removeItem('recognize_result');
         sessionStorage.removeItem('photo_token');
+      }
+      if (isEdit === false && d.photo_saved === false) {
+        alert('设备已保存，但铭牌照片没能存上（可能已过期），可稍后在详情页重拍补传');
       }
       location.href = '/devices/' + (isEdit ? editId : d.id);
     } catch (e) {
