@@ -8,6 +8,11 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
+try:
+    import httpx2 as httpx_mod  # 新版 openai SDK 依赖 httpx2
+except ImportError:
+    import httpx as httpx_mod  # 旧版 openai SDK 依赖 httpx
+
 load_dotenv()
 
 API_BASE = os.getenv("AI_API_BASE")       # 如 https://api.deepseek.com
@@ -30,7 +35,13 @@ def recognize_nameplate(image_bytes: bytes) -> dict:
             "识别模型未配置。请在 .env 中填写 AI_API_BASE、AI_API_KEY、VISION_MODEL 三个变量"
         )
 
-    client = OpenAI(api_key=API_KEY, base_url=API_BASE)
+    # trust_env=False：绕过系统代理环境变量——DeepSeek/百炼都是国内直连服务，
+    # 走 Clash 代理会绕到国外节点再回来，识别耗时成倍增长
+    client = OpenAI(
+        api_key=API_KEY,
+        base_url=API_BASE,
+        http_client=httpx_mod.Client(trust_env=False, timeout=60.0),
+    )
 
     b64 = base64.b64encode(image_bytes).decode()
     data_uri = f"data:image/jpeg;base64,{b64}"

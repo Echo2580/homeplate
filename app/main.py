@@ -51,7 +51,10 @@ async def access_password_guard(request: Request, call_next):
                 status_code=401,
                 headers={"WWW-Authenticate": 'Basic realm="homeplate"'},
             )
-    return await call_next(request)
+    response = await call_next(request)
+    # 禁止浏览器缓存页面：模板更新后手机刷新即见最新版，避免旧壳子迷惑人
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 @app.get("/healthz", summary="健康检查（独立于首页，含数据库探活）")
