@@ -6,6 +6,7 @@
 import base64
 import os
 import secrets
+import time
 from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
@@ -52,10 +53,40 @@ app.include_router(tasks.router)
 # 手机和电脑浏览器都会弹原生登录框，输入一次记住，无需登录页面
 ACCESS_PASSWORD = os.getenv("ACCESS_PASSWORD", "")
 
+# ---------- 认证失败限速（内存级，单进程有效） ----------
+# 审计发现：错误密码 10 次仅 7ms 全 401，公网部署时暴力破解零成本。
+# 同一 IP 在 60 秒窗口内失败超过 AUTH_FAIL_LIMIT 次，直接 429 拒绝。
+AUTH_FAIL_LIMIT = 10
+AUTH_WINDOW_SECONDS = 60
+_auth_fails: dict[str, list[float]] = {}
+
+
+def _client_ip(request: Request) -> str:
+    return request.client.host if request.client else "unknown"
+
+
+def _auth_blocked(ip: str) -> bool:
+    """检查该 IP 是否已超过失败次数窗口；返回 True 表示应直接拒绝"""
+    now = time.time()
+    fails = [t for t in _auth_fails.get(ip, []) if now - t < AUTH_WINDOW_SECONDS]
+    _auth_fails[ip] = fails  # 顺手清掉窗口外的旧记录
+    return len(fails) >= AUTH_FAIL_LIMIT
+
+
+def _record_auth_fail(ip: str) -> None:
+    _auth_fails.setdefault(ip, []).append(time.time())
+
 
 @app.middleware("http")
 async def access_password_guard(request: Request, call_next):
     if ACCESS_PASSWORD and not request.url.path.startswith("/healthz"):
+        ip = _client_ip(request)
+        if _auth_blocked(ip):
+            return Response(
+                status_code=429,
+                content="尝试次数过多，请 1 分钟后再试",
+                media_type="text/plain; charset=utf-8",
+            )
         auth = request.headers.get("Authorization", "")
         supplied = ""
         if auth.startswith("Basic "):
@@ -64,13 +95,19 @@ async def access_password_guard(request: Request, call_next):
             except Exception:
                 supplied = ""
         if not secrets.compare_digest(supplied, ACCESS_PASSWORD):
+            _record_auth_fail(ip)
             return Response(
                 status_code=401,
                 headers={"WWW-Authenticate": 'Basic realm="homeplate"'},
             )
     response = await call_next(request)
-    # 禁止浏览器缓存页面：模板更新后手机刷新即见最新版，避免旧壳子迷惑人
-    response.headers["Cache-Control"] = "no-store"
+    content_type = response.headers.get("content-type", "")
+    if content_type.startswith("text/html"):
+        # 只禁缓存页面：模板更新后手机刷新即见最新版，避免旧壳子迷惑人
+        response.headers["Cache-Control"] = "no-store"
+    elif request.url.path.startswith("/static/"):
+        # 静态资源（tailwindjs 401KB 等）允许缓存一天：省手机流量，加载更快
+        response.headers["Cache-Control"] = "public, max-age=86400"
     return response
 
 
