@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>登录 · homeplate</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+    :root {
+      --brand: #3D6DF2;
+      --warn: #FF7A45;
+      --success: #1FAF6B;
+      --muted: #8A93A5;
+      --surface: #F5F6F8;
+    }
+    html, body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #E9EBF0;
+    }
+    .safe-bottom { padding-bottom: 20px; }
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .brand-glow {
+      background:
+        radial-gradient(120% 60% at 50% 0%, rgba(61, 109, 242, .10) 0%, rgba(61, 109, 242, 0) 62%),
+        radial-gradient(90% 45% at 0% 100%, rgba(61, 109, 242, .06) 0%, rgba(61, 109, 242, 0) 70%);
+    }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center">
+<div class="w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden no-scrollbar brand-glow">
+<div class="min-h-full flex flex-col px-8 pt-[104px] safe-bottom">
+<!-- 品牌区：顶部三分之一处 -->
+<section class="flex flex-col items-center text-center">
+<div class="w-[100px] h-[100px] rounded-full bg-[#3D6DF2] flex items-center justify-center shadow-[0_16px_32px_-14px_rgba(61,109,242,.75)]">
+<iconify-icon class="text-white" icon="mdi:home-wrench" style="font-size:52px"></iconify-icon>
+</div>
+<h1 class="mt-5 text-[28px] font-bold text-[#22408F] leading-9 tracking-tight">homeplate</h1>
+<p class="mt-2.5 text-[14px] text-[#8A93A5] leading-6">买家电是一瞬间的事，养家电是十几年的事</p>
+</section>
+<!-- 登录按钮区 -->
+<section aria-label="登录方式" class="mt-auto pt-14 flex flex-col gap-3">
+<button class="w-full h-[52px] rounded-xl bg-[#1FAF6B] text-white text-[16px] font-semibold flex items-center justify-center gap-2 shadow-[0_10px_22px_-12px_rgba(31,175,107,.85)] active:opacity-90 transition-opacity" onclick="handleLogin('wechat')" type="button">
+<iconify-icon icon="mdi:wechat" style="font-size:22px"></iconify-icon>
+<span>微信一键登录</span>
+</button>
+<button class="w-full h-[52px] rounded-xl bg-white border border-[#3D6DF2] text-[#3D6DF2] text-[16px] font-semibold flex items-center justify-center gap-2 active:bg-[#EDF2FE] transition-colors" onclick="handleLogin('phone')" type="button">
+<iconify-icon icon="mdi:cellphone-message" style="font-size:20px"></iconify-icon>
+<span>手机号验证码登录</span>
+</button>
+</section>
+<!-- 协议 -->
+<p class="mt-6 text-center text-[12px] text-[#8A93A5] leading-5">
+登录即同意<a class="text-[#3D6DF2] active:opacity-70" href="#" onclick="showToast('《用户协议》正在打开');return false;">《用户协议》</a>和<a class="text-[#3D6DF2] active:opacity-70" href="#" onclick="showToast('《隐私政策》正在打开');return false;">《隐私政策》</a>
+</p>
+</div>
+</main>
+<!-- 轻提示 -->
+<div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 opacity-0 transition-opacity duration-200 bg-[#1D2433]/88 text-white text-[13px] px-4 py-2.5 rounded-lg" id="toast"></div>
+</div>
+<script>
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = message;
+      toast.style.opacity = '1';
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => { toast.style.opacity = '0'; }, 1600);
+    }
+
+    function handleLogin(type) {
+      if (type === 'wechat') {
+        showToast('正在唤起微信授权…');
+      } else {
+        showToast('正在进入手机号验证码登录…');
+      }
+    }
+  </script>
+</body>
+</html>

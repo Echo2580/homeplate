@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>添加保养任务 · homeplate</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+    html, body { height: 100%; }
+    body {
+      font-family: 'PingFang SC', 'Source Han Sans SC', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    input, textarea, select, button { font-family: inherit; }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+    input[type="date"] { -webkit-appearance: none; appearance: none; }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#E7EAF0]">
+<div class="w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<!-- 状态栏 -->
+<div class="shrink-0 h-11 px-5 pt-2 flex items-center justify-between text-[12px] font-semibold text-[#111827]">
+<span>9:41</span>
+<div class="flex items-center gap-1.5">
+<iconify-icon class="text-[14px]" icon="mdi:signal"></iconify-icon>
+<iconify-icon class="text-[14px]" icon="mdi:wifi"></iconify-icon>
+<iconify-icon class="text-[15px]" icon="mdi:battery"></iconify-icon>
+</div>
+</div>
+<!-- 顶部导航 -->
+<header class="shrink-0 h-11 px-3 flex items-center justify-between">
+<a aria-label="返回设备详情" class="w-9 h-9 -ml-1 rounded-full flex items-center justify-center text-[#111827] active:bg-[#E9EBF1] transition" href="device_detail.html">
+<iconify-icon class="text-[22px]" icon="mdi:arrow-left"></iconify-icon>
+</a>
+<h1 class="text-[17px] font-semibold text-[#111827] tracking-tight">添加保养任务</h1>
+<span aria-hidden="true" class="w-9 h-9"></span>
+</header>
+<!-- 主滚动区 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden px-5 pt-2 pb-6">
+<!-- 所属设备 -->
+<div class="flex items-center gap-2.5 rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] px-4 py-3">
+<span class="w-9 h-9 shrink-0 rounded-full bg-[#EAF0FF] text-[#3D6DF2] flex items-center justify-center">
+<iconify-icon class="text-[20px]" icon="mdi:fridge-outline"></iconify-icon>
+</span>
+<div class="min-w-0 flex-1">
+<p class="text-[13px] font-semibold leading-5 text-[#111827] truncate">客厅冰箱</p>
+<p class="mt-0.5 text-[11px] leading-4 text-[#8A93A5]">海尔 BCD-621WDCAU1</p>
+</div>
+<span class="shrink-0 inline-flex items-center gap-1 rounded-full bg-[#F2F5FA] px-2 py-0.5 text-[10px] leading-4 text-[#5B6577]">
+<iconify-icon class="text-[12px]" icon="mdi:calendar-clock-outline"></iconify-icon>
+          保养计划
+        </span>
+</div>
+<!-- 表单 -->
+<form class="mt-4" id="maint-form" novalidate="">
+<div class="rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] p-4 space-y-4">
+<label class="block" for="maint-name">
+<span class="flex items-center gap-1 text-[12px] leading-4 text-[#8A93A5]">
+<iconify-icon class="text-[13px] text-[#9AA3B2]" icon="mdi:clipboard-text-outline"></iconify-icon>
+              项目名称
+            </span>
+<input autocomplete="off" class="mt-1.5 w-full h-11 rounded-xl border border-[#E4E8F0] bg-[#FAFBFC] px-3 text-[14px] text-[#111827] placeholder:text-[#AEB6C4] outline-none focus:border-[#3D6DF2] focus:bg-white transition" id="maint-name" name="name" placeholder="如：清洗滤网" type="text"/>
+<span class="hidden mt-1.5 text-[11px] leading-4 text-[#D64545]" id="name-error">请填写保养项目名称</span>
+</label>
+<div class="grid grid-cols-2 gap-3">
+<label class="block" for="maint-cycle">
+<span class="flex items-center gap-1 text-[12px] leading-4 text-[#8A93A5]">
+<iconify-icon class="text-[13px] text-[#9AA3B2]" icon="mdi:repeat"></iconify-icon>
+                周期（月）
+              </span>
+<span class="relative mt-1.5 block">
+<input class="w-full h-11 rounded-xl border border-[#E4E8F0] bg-[#FAFBFC] pl-3 pr-9 text-[14px] text-[#111827] placeholder:text-[#AEB6C4] outline-none focus:border-[#3D6DF2] focus:bg-white transition" id="maint-cycle" inputmode="numeric" max="120" min="1" name="cycle" placeholder="如 3" step="1" type="number"/>
+<span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[12px] text-[#8A93A5]">个月</span>
+</span>
+<span class="hidden mt-1.5 text-[11px] leading-4 text-[#D64545]" id="cycle-error">请填写大于 0 的月数</span>
+</label>
+<label class="block" for="maint-date">
+<span class="flex items-center gap-1 text-[12px] leading-4 text-[#8A93A5]">
+<iconify-icon class="text-[13px] text-[#9AA3B2]" icon="mdi:calendar-month-outline"></iconify-icon>
+                下次日期
+              </span>
+<input class="mt-1.5 w-full h-11 rounded-xl border border-[#E4E8F0] bg-[#FAFBFC] px-3 text-[13px] text-[#111827] outline-none focus:border-[#3D6DF2] focus:bg-white transition" id="maint-date" name="date" type="date"/>
+</label>
+</div>
+<div class="flex items-start gap-2 rounded-lg bg-[#F5F8FF] border border-[#E3EBFF] px-3 py-2.5">
+<iconify-icon class="mt-0.5 shrink-0 text-[14px] text-[#3D6DF2]" icon="mdi:information-outline"></iconify-icon>
+<p class="text-[11px] leading-[17px] text-[#5B6577]" id="cycle-hint">保存后会在到期前 3 天提醒你，可在设备详情页查看保养进度。</p>
+</div>
+</div>
+<!-- 操作按钮 -->
+<div class="mt-5 space-y-2.5">
+<button class="w-full h-11 rounded-xl bg-[#3D6DF2] text-white text-[15px] font-semibold shadow-[0_6px_16px_rgba(61,109,242,0.25)] active:scale-[0.99] transition" type="submit">保存</button>
+<a class="w-full h-11 rounded-xl bg-white border border-[#DDE3EE] text-[#111827] flex items-center justify-center text-[15px] font-medium active:bg-[#F7F8FB] transition" href="device_detail.html">取消</a>
+</div>
+</form>
+<p class="mt-4 text-center text-[11px] leading-4 text-[#AEB6C4]">保养周期以「月」为单位，可随时修改</p>
+</main>
+<!-- 轻提示 -->
+<div class="hidden absolute left-1/2 bottom-24 z-[60] -translate-x-1/2 whitespace-nowrap rounded-full bg-[#111827]/85 px-4 py-2 text-[12px] text-white" id="toast"></div>
+</div>
+<script>
+    (function () {
+      var byId = function (id) { return document.getElementById(id); };
+      var form = byId('maint-form');
+      var nameInput = byId('maint-name');
+      var cycleInput = byId('maint-cycle');
+      var dateInput = byId('maint-date');
+      var nameError = byId('name-error');
+      var cycleError = byId('cycle-error');
+      var hint = byId('cycle-hint');
+      var toast = byId('toast');
+      var toastTimer = null;
+
+      function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+      function todayValue() {
+        var d = new Date();
+        return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+      }
+
+      function formatDate(value) {
+        var parts = value.split('-');
+        if (parts.length !== 3) return value;
+        return parts[0] + '年' + Number(parts[1]) + '月' + Number(parts[2]) + '日';
+      }
+
+      function showToast(message) {
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.remove('hidden');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.add('hidden');
+        }, 1600);
+      }
+
+      /* 下次日期默认今天 */
+      dateInput.value = todayValue();
+      dateInput.min = todayValue();
+
+      /* 周期 + 日期 → 提示文案 */
+      function updateHint() {
+        var months = Number(cycleInput.value);
+        var base = dateInput.value || todayValue();
+        var d = new Date(base + 'T00:00:00');
+        if (!months || months < 1 || isNaN(d.getTime())) {
+          hint.textContent = '填写周期后，会自动推算下一期保养日期。';
+          return;
+        }
+        var next = new Date(d.getTime());
+        next.setMonth(next.getMonth() + months);
+        var nextText = next.getFullYear() + '-' + pad(next.getMonth() + 1) + '-' + pad(next.getDate());
+        hint.textContent = '首次保养日期 ' + formatDate(base) + '，之后每 ' + months + ' 个月一次，下次为 ' + nextText + '。';
+      }
+
+      cycleInput.addEventListener('input', function () {
+        cycleError.classList.add('hidden');
+        updateHint();
+      });
+      dateInput.addEventListener('change', function () {
+        if (!dateInput.value) dateInput.value = todayValue();
+        updateHint();
+      });
+      nameInput.addEventListener('input', function () {
+        nameError.classList.add('hidden');
+      });
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var name = nameInput.value.trim();
+        var months = Number(cycleInput.value);
+        var valid = true;
+
+        if (!name) {
+          nameError.classList.remove('hidden');
+          valid = false;
+        }
+        if (!months || months < 1) {
+          cycleError.classList.remove('hidden');
+          valid = false;
+        }
+        if (!valid) return;
+
+        showToast('已保存「' + name + '」保养任务');
+        setTimeout(function () {
+          window.location.href = 'device_detail.html';
+        }, 900);
+      });
+
+      updateHint();
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape') return;
+        window.location.href = 'device_detail.html';
+      });
+    })();
+  </script>
+</body>
+</html>

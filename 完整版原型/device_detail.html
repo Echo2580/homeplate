@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>客厅冰箱 · homeplate</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+    html, body { height: 100%; }
+    body {
+      font-family: 'PingFang SC', 'Source Han Sans SC', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    input, textarea, select, button { font-family: inherit; }
+    input[type="date"] { -webkit-appearance: none; appearance: none; }
+    select { -webkit-appearance: none; appearance: none; }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#E7EAF0]">
+<div class="w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<!-- 状态栏 -->
+<div class="shrink-0 h-11 px-5 pt-2 flex items-center justify-between text-[12px] font-semibold text-[#111827]">
+<span>9:41</span>
+<div class="flex items-center gap-1.5">
+<iconify-icon class="text-[14px]" icon="mdi:signal"></iconify-icon>
+<iconify-icon class="text-[14px]" icon="mdi:wifi"></iconify-icon>
+<iconify-icon class="text-[15px]" icon="mdi:battery"></iconify-icon>
+</div>
+</div>
+<!-- 顶部导航 -->
+<header class="shrink-0 h-11 px-3 flex items-center justify-between">
+<a aria-label="返回我的家电" class="w-9 h-9 -ml-1 rounded-full flex items-center justify-center text-[#111827] active:bg-[#E9EBF1] transition" href="home.html">
+<iconify-icon class="text-[22px]" icon="mdi:arrow-left"></iconify-icon>
+</a>
+<h1 class="text-[17px] font-semibold text-[#111827] tracking-tight">客厅冰箱</h1>
+<a class="w-9 h-9 flex items-center justify-end text-[13px] font-medium text-[#3D6DF2] active:opacity-60 transition" href="device_edit.html">编辑</a>
+</header>
+<!-- 主滚动区 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden pb-6">
+<!-- 1. 保修状态 -->
+<section class="px-5 mt-1">
+<div class="rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] p-4">
+<div class="flex items-start justify-between gap-3">
+<div class="min-w-0">
+<p class="text-[15px] font-bold leading-6 text-[#111827] tracking-tight">海尔 BCD-621WDCAU1</p>
+<p class="mt-1 text-[12px] leading-4 text-[#8A93A5]">保修中 · 冰箱</p>
+</div>
+<span class="w-10 h-10 shrink-0 rounded-full bg-[#EAF0FF] text-[#3D6DF2] flex items-center justify-center">
+<iconify-icon class="text-[23px]" icon="mdi:fridge-outline"></iconify-icon>
+</span>
+</div>
+<div class="mt-4 flex items-center gap-2.5">
+<div aria-label="保修已用约三分之一" aria-valuemax="36" aria-valuemin="0" aria-valuenow="12" class="flex-1 h-1.5 rounded-full bg-[#E9F8F1] overflow-hidden" role="progressbar">
+<div class="h-full w-1/3 rounded-full bg-[#1FAF6B]"></div>
+</div>
+<span class="shrink-0 text-[12px] font-medium leading-4 text-[#1FAF6B]">保修剩 8 个月</span>
+</div>
+<p class="mt-2.5 text-[11px] leading-4 text-[#8A93A5]">保修到期 2027-04-01</p>
+</div>
+</section>
+<!-- 2. 铭牌照片 -->
+<section class="px-5 mt-5">
+<div class="flex items-center justify-between px-0.5">
+<h2 class="text-[15px] font-semibold text-[#111827]">铭牌照片</h2>
+<button aria-expanded="true" class="h-7 px-1 text-[12px] text-[#3D6DF2] active:opacity-60 transition" data-collapse="nameplate-body" type="button">收起</button>
+</div>
+<div class="mt-2.5 rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] p-3" id="nameplate-body">
+<button aria-label="查看铭牌原图" class="block w-full rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3D6DF2]/40" id="open-photo" type="button">
+<div class="relative h-[168px] rounded-lg overflow-hidden bg-gradient-to-br from-[#F8FAFD] via-[#E8EEF8] to-[#DCE5F3] border border-[#E1E7F0]">
+<div class="absolute inset-0 opacity-40" style="background-image: linear-gradient(#FFFFFF 1px, transparent 1px), linear-gradient(90deg, #FFFFFF 1px, transparent 1px); background-size: 36px 36px;"></div>
+<div class="absolute inset-4 rounded-md border border-white/80 bg-white/45 backdrop-blur-[1px] flex flex-col items-center justify-center text-center">
+<span class="w-9 h-9 rounded-full bg-white/80 text-[#7F93B3] flex items-center justify-center shadow-[0_2px_8px_rgba(60,80,120,0.10)]">
+<iconify-icon class="text-[19px]" icon="mdi:image-outline"></iconify-icon>
+</span>
+<p class="mt-2 text-[11px] font-semibold tracking-[0.12em] text-[#57677F]">设备铭牌</p>
+<p class="mt-1 text-[10px] tracking-wide text-[#7D8CA6]">Haier · BCD-621WDCAU1</p>
+<p class="mt-0.5 text-[9px] tracking-wide text-[#93A0B5]">220V~ 50Hz · 10A</p>
+</div>
+<span class="absolute right-2.5 top-2.5 w-7 h-7 rounded-full bg-[#111827]/35 text-white flex items-center justify-center">
+<iconify-icon class="text-[15px]" icon="mdi:magnify-plus-outline"></iconify-icon>
+</span>
+</div>
+</button>
+<p class="mt-2 text-center text-[11px] leading-4 text-[#8A93A5]">建档时拍摄 · 点图看原图</p>
+</div>
+</section>
+<!-- 3. 凭证照片 -->
+<section class="px-5 mt-5">
+<div class="flex items-center justify-between px-0.5">
+<h2 class="text-[15px] font-semibold text-[#111827]">凭证照片</h2>
+<button aria-expanded="true" class="h-7 px-1 text-[12px] text-[#3D6DF2] active:opacity-60 transition" data-collapse="voucher-body" type="button">收起</button>
+</div>
+<div class="mt-2.5 rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] p-3" id="voucher-body">
+<div class="flex items-start gap-2.5 overflow-x-auto overflow-y-hidden pb-0.5 [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden" id="voucher-scroll">
+<button aria-label="查看发票照片" class="shrink-0 w-[104px] text-left active:opacity-70 transition" type="button">
+<div class="h-[74px] rounded-lg overflow-hidden bg-gradient-to-br from-[#FFF8EE] via-[#FDF0DF] to-[#F9E4CA] border border-[#F1E2CC] flex items-center justify-center">
+<iconify-icon class="text-[25px] text-[#C98A00]" icon="mdi:receipt-text-outline"></iconify-icon>
+</div>
+<p class="mt-1.5 text-center text-[11px] leading-4 text-[#5B6577]">发票</p>
+</button>
+<button aria-label="查看保修卡照片" class="shrink-0 w-[104px] text-left active:opacity-70 transition" type="button">
+<div class="h-[74px] rounded-lg overflow-hidden bg-gradient-to-br from-[#F1F6FF] via-[#E6EFFC] to-[#D9E6F9] border border-[#DCE7F5] flex items-center justify-center">
+<iconify-icon class="text-[25px] text-[#3D6DF2]" icon="mdi:shield-check-outline"></iconify-icon>
+</div>
+<p class="mt-1.5 text-center text-[11px] leading-4 text-[#5B6577]">保修卡</p>
+</button>
+<button aria-label="添加凭证照片" class="shrink-0 w-[76px] h-[74px] rounded-lg border border-dashed border-[#C9D6F8] bg-[#FAFBFF] flex flex-col items-center justify-center gap-0.5 text-[#3D6DF2] active:bg-[#F2F6FF] transition" id="voucher-add" type="button">
+<iconify-icon class="text-[19px]" icon="mdi:plus"></iconify-icon>
+<span class="text-[10px] leading-4">添加</span>
+</button>
+</div>
+<input accept="image/*" aria-hidden="true" class="hidden" id="voucher-input" tabindex="-1" type="file"/>
+</div>
+</section>
+<!-- 4. 设备信息 -->
+<section class="px-5 mt-5">
+<h2 class="px-0.5 text-[15px] font-semibold text-[#111827]">设备信息</h2>
+<div class="mt-2.5 rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] overflow-hidden">
+<div class="flex items-start justify-between gap-4 px-4 py-3 border-b border-[#F2F4F8]">
+<span class="shrink-0 text-[13px] leading-5 text-[#8A93A5]">品牌</span>
+<span class="text-right text-[13px] leading-5 text-[#111827]">海尔</span>
+</div>
+<div class="flex items-start justify-between gap-4 px-4 py-3 border-b border-[#F2F4F8]">
+<span class="shrink-0 text-[13px] leading-5 text-[#8A93A5]">品类</span>
+<span class="text-right text-[13px] leading-5 text-[#111827]">冰箱</span>
+</div>
+<div class="flex items-start justify-between gap-4 px-4 py-3 border-b border-[#F2F4F8]">
+<span class="shrink-0 text-[13px] leading-5 text-[#8A93A5]">购买日期</span>
+<span class="text-right text-[13px] leading-5 text-[#111827]">2026-04-01</span>
+</div>
+<div class="flex items-start justify-between gap-4 px-4 py-3 border-b border-[#F2F4F8]">
+<span class="shrink-0 text-[13px] leading-5 text-[#8A93A5]">序列号</span>
+<span class="text-right text-[13px] leading-5 text-[#111827] tracking-wide">HR621A7K20260401</span>
+</div>
+<div class="flex items-start justify-between gap-4 px-4 py-3">
+<span class="shrink-0 text-[13px] leading-5 text-[#8A93A5]">备注</span>
+<span class="text-right text-[13px] leading-5 text-[#111827]">厨房靠窗，右侧留 10cm 散热</span>
+</div>
+</div>
+</section>
+<!-- 5. 保养计划 -->
+<section class="px-5 mt-5">
+<div class="flex items-center justify-between px-0.5">
+<h2 class="text-[15px] font-semibold text-[#111827]">保养计划</h2>
+<a class="inline-flex h-7 items-center gap-0.5 px-1 text-[12px] font-medium text-[#3D6DF2] active:opacity-60 transition" href="maintenance_add.html">
+<iconify-icon class="text-[14px]" icon="mdi:plus"></iconify-icon>
+            添加
+          </a>
+</div>
+<div class="mt-2.5 space-y-2.5" id="task-list">
+<article class="rounded-xl border border-[#EDF0F5] bg-[#FAFBFC] p-3" data-cycle="每 6 个月" data-last="2026-10-01" data-next="2027-04-01" data-task="">
+<div class="flex items-start gap-2.5">
+<span class="task-icon w-9 h-9 shrink-0 rounded-full bg-[#FFF1EA] text-[#FF7A45] flex items-center justify-center">
+<iconify-icon class="text-[19px]" icon="mdi:spray-bottle"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between gap-2">
+<p class="task-title min-w-0 truncate text-[13px] font-semibold leading-5 text-[#111827]">清洁除霜</p>
+<div class="shrink-0 flex items-center gap-1">
+<button aria-label="编辑清洁除霜" class="w-6 h-6 rounded-md bg-white border border-[#E4E8F0] text-[#5B6577] flex items-center justify-center active:bg-[#F2F5FA] transition" data-action="edit" title="编辑" type="button">
+<iconify-icon class="text-[13px]" icon="mdi:pencil-outline"></iconify-icon>
+</button>
+<button aria-label="删除清洁除霜" class="w-6 h-6 rounded-md bg-white border border-[#E4E8F0] text-[#8A93A5] flex items-center justify-center active:bg-[#FFF1F1] active:text-[#D64545] transition" data-action="delete" title="删除" type="button">
+<iconify-icon class="text-[13px]" icon="mdi:trash-can-outline"></iconify-icon>
+</button>
+<a class="h-6 px-2 rounded-md bg-[#1FAF6B] text-white text-[10px] font-medium leading-6 active:opacity-80 transition" href="maintenance_done.html">完成</a>
+</div>
+</div>
+<p class="task-meta mt-1 text-[11px] leading-[17px] text-[#8A93A5]">每 6 个月 · 下次 2027-04-01 · 上次 2026-10-01</p>
+</div>
+</div>
+</article>
+<article class="rounded-xl border border-[#EDF0F5] bg-[#FAFBFC] p-3" data-cycle="每 6 个月" data-last="2026-10-01" data-next="2027-04-01" data-task="">
+<div class="flex items-start gap-2.5">
+<span class="task-icon w-9 h-9 shrink-0 rounded-full bg-[#E9F8F1] text-[#1FAF6B] flex items-center justify-center">
+<iconify-icon class="text-[19px]" icon="mdi:air-filter"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between gap-2">
+<p class="task-title min-w-0 truncate text-[13px] font-semibold leading-5 text-[#111827]">更换净水滤芯</p>
+<div class="shrink-0 flex items-center gap-1">
+<button aria-label="编辑更换净水滤芯" class="w-6 h-6 rounded-md bg-white border border-[#E4E8F0] text-[#5B6577] flex items-center justify-center active:bg-[#F2F5FA] transition" data-action="edit" title="编辑" type="button">
+<iconify-icon class="text-[13px]" icon="mdi:pencil-outline"></iconify-icon>
+</button>
+<button aria-label="删除更换净水滤芯" class="w-6 h-6 rounded-md bg-white border border-[#E4E8F0] text-[#8A93A5] flex items-center justify-center active:bg-[#FFF1F1] active:text-[#D64545] transition" data-action="delete" title="删除" type="button">
+<iconify-icon class="text-[13px]" icon="mdi:trash-can-outline"></iconify-icon>
+</button>
+<a class="h-6 px-2 rounded-md bg-[#1FAF6B] text-white text-[10px] font-medium leading-6 active:opacity-80 transition" href="maintenance_done.html">完成</a>
+</div>
+</div>
+<p class="task-meta mt-1 text-[11px] leading-[17px] text-[#8A93A5]">每 6 个月 · 下次 2027-04-01 · 上次 2026-10-01</p>
+</div>
+</div>
+</article>
+</div>
+<p class="hidden mt-2.5 rounded-xl border border-dashed border-[#DDE3EE] bg-white px-4 py-6 text-center text-[12px] text-[#8A93A5]" id="task-empty">暂无保养计划，点右上角“添加”创建</p>
+</section>
+<!-- 6. 维修记录 -->
+<section class="px-5 mt-5">
+<div class="flex items-center justify-between px-0.5">
+<h2 class="text-[15px] font-semibold text-[#111827]">维修记录</h2>
+<a class="inline-flex h-7 items-center gap-0.5 px-1 text-[12px] font-medium text-[#3D6DF2] active:opacity-60 transition" href="repair_records.html">
+<iconify-icon class="text-[14px]" icon="mdi:plus"></iconify-icon>
+            添加
+          </a>
+</div>
+<div class="mt-2.5 rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] p-4">
+<div class="relative before:content-[''] before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-px before:bg-[#E8ECF4]" id="repair-list">
+<div class="repair-item relative pl-5 pb-4" data-amount="80">
+<span class="absolute left-[3px] top-[5px] w-2 h-2 rounded-full bg-[#3D6DF2] ring-[3px] ring-[#EAF0FF]"></span>
+<div class="flex items-start justify-between gap-3">
+<div class="min-w-0">
+<p class="repair-date text-[11px] leading-4 text-[#8A93A5]">2026-09-18</p>
+<p class="repair-desc mt-0.5 text-[13px] leading-5 text-[#111827]">冷藏室结霜严重，更换温控器</p>
+</div>
+<span class="repair-amount shrink-0 text-[13px] font-semibold leading-5 text-[#111827]">¥80</span>
+</div>
+</div>
+<div class="repair-item relative pl-5 pb-4" data-amount="60">
+<span class="absolute left-[3px] top-[5px] w-2 h-2 rounded-full bg-[#3D6DF2] ring-[3px] ring-[#EAF0FF]"></span>
+<div class="flex items-start justify-between gap-3">
+<div class="min-w-0">
+<p class="repair-date text-[11px] leading-4 text-[#8A93A5]">2026-06-07</p>
+<p class="repair-desc mt-0.5 text-[13px] leading-5 text-[#111827]">门封条老化，上门更换密封条</p>
+</div>
+<span class="repair-amount shrink-0 text-[13px] font-semibold leading-5 text-[#111827]">¥60</span>
+</div>
+</div>
+<div class="repair-item relative pl-5" data-amount="40">
+<span class="absolute left-[3px] top-[5px] w-2 h-2 rounded-full bg-[#3D6DF2] ring-[3px] ring-[#EAF0FF]"></span>
+<div class="flex items-start justify-between gap-3">
+<div class="min-w-0">
+<p class="repair-date text-[11px] leading-4 text-[#8A93A5]">2026-03-21</p>
+<p class="repair-desc mt-0.5 text-[13px] leading-5 text-[#111827]">压缩机异响，检修并加固底座</p>
+</div>
+<span class="repair-amount shrink-0 text-[13px] font-semibold leading-5 text-[#111827]">¥40</span>
+</div>
+</div>
+</div>
+<div class="hidden py-5 text-center" id="repair-empty">
+<span class="mx-auto w-10 h-10 rounded-full bg-[#F2F5FA] text-[#9AA3B2] flex items-center justify-center">
+<iconify-icon class="text-[20px]" icon="mdi:tools"></iconify-icon>
+</span>
+<p class="mt-2 text-[12px] leading-5 text-[#8A93A5]">暂无维修记录——坏了点这里记一笔</p>
+</div>
+<a class="mt-3 pt-3 border-t border-[#F2F4F8] flex items-center justify-between gap-2 text-[11px] leading-4 text-[#8A93A5] active:opacity-60 transition" href="repair_records.html">
+<span id="repair-summary">累计维修 ¥180 · 共 3 次</span>
+<span class="inline-flex shrink-0 items-center gap-0.5 text-[#3D6DF2] font-medium">
+              查看全部
+              <iconify-icon class="text-[14px]" icon="mdi:chevron-right"></iconify-icon>
+</span>
+</a>
+</div>
+</section>
+<!-- 7. AI 维修助手 -->
+<section class="px-5 mt-5 pb-2">
+<a class="flex items-center gap-3 rounded-xl bg-gradient-to-r from-[#E9F1FF] via-[#EEF5FF] to-[#F6FAFF] border border-[#DCE8FF] p-4 active:scale-[0.99] transition" href="ai_assistant.html">
+<span class="w-10 h-10 shrink-0 rounded-full bg-white text-[#3D6DF2] flex items-center justify-center shadow-[0_2px_8px_rgba(61,109,242,0.16)]">
+<iconify-icon class="text-[23px]" icon="mdi:robot-outline"></iconify-icon>
+</span>
+<div class="min-w-0 flex-1">
+<p class="text-[13px] font-semibold leading-5 text-[#1F3A75]">设备出了问题？</p>
+<p class="mt-0.5 flex items-center gap-0.5 text-[12px] leading-4 text-[#4C6391]">
+              问问 AI 维修助手
+              <span class="text-[13px] leading-4">→</span>
+</p>
+</div>
+</a>
+</section>
+</main>
+<!-- 底部操作 -->
+<div class="shrink-0 bg-white border-t border-[#EEF0F4] px-5 pt-3 pb-5 shadow-[0_-6px_20px_rgba(17,24,39,0.05)]">
+<a class="w-full h-11 rounded-xl bg-white border border-[#DDE3EE] text-[#111827] flex items-center justify-center gap-1.5 text-[14px] font-medium active:bg-[#F7F8FB] transition" href="home.html">
+<iconify-icon class="text-[17px] text-[#5B6577]" icon="mdi:arrow-left"></iconify-icon>
+        返回我的家电
+      </a>
+<div class="mt-2.5 grid grid-cols-2 gap-2.5">
+<button class="h-10 rounded-xl bg-white border border-[#F1D4D4] text-[#B85C5C] flex items-center justify-center gap-1.5 text-[13px] font-medium active:bg-[#FFF7F7] transition" id="archive-btn" type="button">
+<iconify-icon class="text-[16px]" icon="mdi:archive-arrow-down-outline"></iconify-icon>
+          归档设备
+        </button>
+<button class="h-10 rounded-xl bg-[#FFF7F7] border border-[#EFADAD] text-[#D64545] flex items-center justify-center gap-1.5 text-[13px] font-medium active:bg-[#FFECEC] transition" id="delete-btn" type="button">
+<iconify-icon class="text-[16px]" icon="mdi:trash-can-outline"></iconify-icon>
+          删除设备
+        </button>
+</div>
+</div>
+<!-- 铭牌原图预览 -->
+<div class="hidden absolute inset-0 z-50" id="photo-viewer">
+<div class="absolute inset-0 bg-[#0B1220]/80" data-close-viewer=""></div>
+<div class="absolute inset-x-5 top-1/2 -translate-y-1/2 rounded-2xl bg-white p-3 shadow-2xl">
+<div class="flex items-center justify-between px-1 pb-2">
+<p class="text-[13px] font-semibold text-[#111827]">铭牌原图</p>
+<button aria-label="关闭原图" class="w-7 h-7 rounded-full bg-[#F2F4F8] text-[#5B6577] flex items-center justify-center active:bg-[#E8ECF2] transition" data-close-viewer="" type="button">
+<iconify-icon class="text-[16px]" icon="mdi:close"></iconify-icon>
+</button>
+</div>
+<div class="h-[230px] rounded-xl overflow-hidden bg-gradient-to-br from-[#F8FAFD] via-[#E8EEF8] to-[#DCE5F3] border border-[#E1E7F0] flex flex-col items-center justify-center">
+<span class="w-12 h-12 rounded-full bg-white/80 text-[#7F93B3] flex items-center justify-center shadow-[0_2px_8px_rgba(60,80,120,0.10)]">
+<iconify-icon class="text-[25px]" icon="mdi:image-outline"></iconify-icon>
+</span>
+<p class="mt-3 text-[12px] font-semibold tracking-[0.14em] text-[#57677F]">设备铭牌原图</p>
+<p class="mt-1 text-[11px] tracking-wide text-[#7D8CA6]">Haier · BCD-621WDCAU1</p>
+</div>
+<p class="mt-2 pb-1 text-center text-[11px] text-[#8A93A5]">建档时拍摄 · 2026-04-01</p>
+</div>
+</div>
+<!-- 添加/编辑面板 -->
+<div class="hidden absolute inset-0 z-50" id="sheet-overlay">
+<div class="absolute inset-0 bg-[#111827]/40" data-close-sheet=""></div>
+<section class="absolute inset-x-0 bottom-0 rounded-t-2xl bg-white px-5 pt-4 pb-5 shadow-[0_-12px_30px_rgba(17,24,39,0.16)]">
+<div class="flex items-center justify-between">
+<h3 class="text-[16px] font-semibold text-[#111827]" id="sheet-title">添加保养计划</h3>
+<button aria-label="关闭" class="w-8 h-8 rounded-full bg-[#F2F4F8] text-[#5B6577] flex items-center justify-center active:bg-[#E8ECF2] transition" data-close-sheet="" type="button">
+<iconify-icon class="text-[17px]" icon="mdi:close"></iconify-icon>
+</button>
+</div>
+<form class="mt-4 space-y-3" data-form-panel="task" id="task-form">
+<label class="block">
+<span class="text-[12px] text-[#8A93A5]">项目名</span>
+<input class="mt-1.5 w-full h-11 rounded-xl border border-[#E4E8F0] bg-[#FAFBFC] px-3 text-[14px] text-[#111827] outline-none focus:border-[#3D6DF2] focus:bg-white transition" id="task-name" placeholder="例如：清洁除霜" required="" type="text"/>
+</label>
+<div class="grid grid-cols-2 gap-3">
+<label class="block">
+<span class="text-[12px] text-[#8A93A5]">周期</span>
+<span class="relative mt-1.5 block">
+<select class="w-full h-11 rounded-xl border border-[#E4E8F0] bg-[#FAFBFC] pl-3 pr-8 text-[13px] text-[#111827] outline-none focus:border-[#3D6DF2] focus:bg-white transition cursor-pointer" id="task-cycle">
+<option value="每 3 个月">每 3 个月</option>
+<option selected="" value="每 6 个月">每 6 个月</option>
+<option value="每 12 个月">每 12 个月</option>
+</select>
+<iconify-icon class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[17px] text-[#8A93A5]" icon="mdi:chevron-down"></iconify-icon>
+</span>
+</label>
+<label class="block">
+<span class="text-[12px] text-[#8A93A5]">下次日期</span>
+<input class="mt-1.5 w-full h-11 rounded-xl border border-[#E4E8F0] bg-[#FAFBFC] px-3 text-[13px] text-[#111827] outline-none focus:border-[#3D6DF2] focus:bg-white transition" id="task-next" type="date" value="2027-04-01"/>
+</label>
+</div>
+<button class="w-full h-11 rounded-xl bg-[#3D6DF2] text-white text-[15px] font-semibold shadow-[0_6px_16px_rgba(61,109,242,0.25)] active:scale-[0.99] transition" id="task-submit" type="submit">保存保养计划</button>
+</form>
+<form class="hidden mt-4 space-y-3" data-form-panel="repair" id="repair-form">
+<div class="grid grid-cols-2 gap-3">
+<label class="block">
+<span class="text-[12px] text-[#8A93A5]">日期</span>
+<input class="mt-1.5 w-full h-11 rounded-xl border border-[#E4E8F0] bg-[#FAFBFC] px-3 text-[13px] text-[#111827] outline-none focus:border-[#3D6DF2] focus:bg-white transition" id="repair-date" type="date" value="2026-10-17"/>
+</label>
+<label class="block">
+<span class="text-[12px] text-[#8A93A5]">金额（元）</span>
+<input class="mt-1.5 w-full h-11 rounded-xl border border-[#E4E8F0] bg-[#FAFBFC] px-3 text-[13px] text-[#111827] outline-none focus:border-[#3D6DF2] focus:bg-white transition" id="repair-amount" inputmode="numeric" min="0" placeholder="0" step="1" type="number"/>
+</label>
+</div>
+<label class="block">
+<span class="text-[12px] text-[#8A93A5]">故障简述</span>
+<textarea class="mt-1.5 w-full rounded-xl border border-[#E4E8F0] bg-[#FAFBFC] px-3 py-2.5 text-[14px] leading-5 text-[#111827] outline-none resize-none focus:border-[#3D6DF2] focus:bg-white transition" id="repair-desc" placeholder="例如：冷藏室结霜严重，更换温控器" required="" rows="2"></textarea>
+</label>
+<button class="w-full h-11 rounded-xl bg-[#3D6DF2] text-white text-[15px] font-semibold shadow-[0_6px_16px_rgba(61,109,242,0.25)] active:scale-[0.99] transition" type="submit">保存维修记录</button>
+</form>
+</section>
+</div>
+<!-- 归档/删除确认 -->
+<div class="hidden absolute inset-0 z-50" id="confirm-overlay">
+<div class="absolute inset-0 bg-[#111827]/45" data-close-confirm=""></div>
+<div class="absolute inset-x-5 top-1/2 -translate-y-1/2 rounded-2xl bg-white p-5 shadow-2xl">
+<span class="mx-auto w-11 h-11 rounded-full bg-[#FFF1F1] text-[#D64545] flex items-center justify-center">
+<iconify-icon class="text-[22px]" icon="mdi:archive-arrow-down-outline" id="confirm-icon"></iconify-icon>
+</span>
+<h3 class="mt-3 text-center text-[16px] font-semibold text-[#111827]" id="confirm-title">归档设备？</h3>
+<p class="mt-1.5 text-center text-[12px] leading-5 text-[#8A93A5]" id="confirm-desc">归档后家电档案仍会保留，可随时恢复。</p>
+<div class="mt-5 grid grid-cols-2 gap-2.5">
+<button class="h-11 rounded-xl bg-white border border-[#DDE3EE] text-[14px] font-medium text-[#5B6577] active:bg-[#F7F8FB] transition" data-close-confirm="" type="button">取消</button>
+<button class="h-11 rounded-xl bg-[#D64545] text-white text-[14px] font-semibold active:opacity-85 transition" id="confirm-action" type="button">归档</button>
+</div>
+</div>
+</div>
+<!-- 轻提示 -->
+<div class="hidden absolute left-1/2 bottom-28 z-[60] -translate-x-1/2 whitespace-nowrap rounded-full bg-[#111827]/85 px-4 py-2 text-[12px] text-white" id="toast"></div>
+<!-- 模板 -->
+<template id="task-template">
+<article class="rounded-xl border border-[#EDF0F5] bg-[#FAFBFC] p-3" data-cycle="每 6 个月" data-last="—" data-next="2027-04-01" data-task="">
+<div class="flex items-start gap-2.5">
+<span class="task-icon w-9 h-9 shrink-0 rounded-full bg-[#E9F8F1] text-[#1FAF6B] flex items-center justify-center">
+<iconify-icon class="text-[18px]" icon="mdi:tools"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between gap-2">
+<p class="task-title min-w-0 truncate text-[13px] font-semibold leading-5 text-[#111827]"></p>
+<div class="shrink-0 flex items-center gap-1">
+<button class="w-6 h-6 rounded-md bg-white border border-[#E4E8F0] text-[#5B6577] flex items-center justify-center active:bg-[#F2F5FA] transition" data-action="edit" title="编辑" type="button">
+<iconify-icon class="text-[13px]" icon="mdi:pencil-outline"></iconify-icon>
+</button>
+<button class="w-6 h-6 rounded-md bg-white border border-[#E4E8F0] text-[#8A93A5] flex items-center justify-center active:bg-[#FFF1F1] active:text-[#D64545] transition" data-action="delete" title="删除" type="button">
+<iconify-icon class="text-[13px]" icon="mdi:trash-can-outline"></iconify-icon>
+</button>
+<a class="h-6 px-2 rounded-md bg-[#1FAF6B] text-white text-[10px] font-medium leading-6 active:opacity-80 transition" href="maintenance_done.html">完成</a>
+</div>
+</div>
+<p class="task-meta mt-1 text-[11px] leading-[17px] text-[#8A93A5]"></p>
+</div>
+</div>
+</article>
+</template>
+<template id="repair-template">
+<div class="repair-item relative pl-5 pb-4" data-amount="0">
+<span class="absolute left-[3px] top-[5px] w-2 h-2 rounded-full bg-[#3D6DF2] ring-[3px] ring-[#EAF0FF]"></span>
+<div class="flex items-start justify-between gap-3">
+<div class="min-w-0">
+<p class="repair-date text-[11px] leading-4 text-[#8A93A5]"></p>
+<p class="repair-desc mt-0.5 text-[13px] leading-5 text-[#111827]"></p>
+</div>
+<span class="repair-amount shrink-0 text-[13px] font-semibold leading-5 text-[#111827]"></span>
+</div>
+</div>
+</template>
+<template id="voucher-template">
+<button aria-label="查看凭证照片" class="shrink-0 w-[104px] text-left active:opacity-70 transition" type="button">
+<div class="h-[74px] rounded-lg overflow-hidden bg-gradient-to-br from-[#F5F7FB] via-[#EBEFF6] to-[#E1E7F0] border border-[#E1E7F0] flex items-center justify-center">
+<iconify-icon class="text-[24px] text-[#7D8CA6]" icon="mdi:file-image-outline"></iconify-icon>
+</div>
+<p class="voucher-label mt-1.5 text-center text-[11px] leading-4 text-[#5B6577]">凭证</p>
+</button>
+</template>
+</div>
+<script>
+    (function () {
+      var byId = function (id) { return document.getElementById(id); };
+
+      /* 收起 / 展开 */
+      Array.prototype.forEach.call(document.querySelectorAll('[data-collapse]'), function (btn) {
+        btn.addEventListener('click', function () {
+          var target = byId(btn.getAttribute('data-collapse'));
+          if (!target) return;
+          var hidden = target.classList.toggle('hidden');
+          btn.textContent = hidden ? '展开' : '收起';
+          btn.setAttribute('aria-expanded', hidden ? 'false' : 'true');
+        });
+      });
+
+      /* 轻提示 */
+      var toast = byId('toast');
+      var toastTimer = null;
+      function showToast(message) {
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.remove('hidden');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.add('hidden');
+        }, 1800);
+      }
+
+      /* 铭牌原图 */
+      var viewer = byId('photo-viewer');
+      var openPhoto = byId('open-photo');
+      function closeViewer() {
+        if (viewer) viewer.classList.add('hidden');
+      }
+      if (openPhoto && viewer) {
+        openPhoto.addEventListener('click', function () {
+          viewer.classList.remove('hidden');
+        });
+      }
+      Array.prototype.forEach.call(document.querySelectorAll('[data-close-viewer]'), function (el) {
+        el.addEventListener('click', closeViewer);
+      });
+
+      /* 添加 / 编辑面板 */
+      var sheet = byId('sheet-overlay');
+      var sheetTitle = byId('sheet-title');
+      var taskForm = byId('task-form');
+      var repairForm = byId('repair-form');
+      var taskName = byId('task-name');
+      var taskCycle = byId('task-cycle');
+      var taskNext = byId('task-next');
+      var taskSubmit = byId('task-submit');
+      var editingTask = null;
+
+      function openSheet(mode, task) {
+        if (!sheet) return;
+        editingTask = task || null;
+        Array.prototype.forEach.call(document.querySelectorAll('[data-form-panel]'), function (panel) {
+          panel.classList.toggle('hidden', panel.getAttribute('data-form-panel') !== mode);
+        });
+
+        if (mode === 'task') {
+          sheetTitle.textContent = editingTask ? '编辑保养计划' : '添加保养计划';
+          taskSubmit.textContent = editingTask ? '保存修改' : '保存保养计划';
+          if (editingTask) {
+            taskName.value = editingTask.querySelector('.task-title').textContent.trim();
+            taskCycle.value = editingTask.getAttribute('data-cycle') || '每 6 个月';
+            var nextValue = editingTask.getAttribute('data-next');
+            taskNext.value = /^\d{4}-\d{2}-\d{2}$/.test(nextValue || '') ? nextValue : '';
+          } else {
+            taskForm.reset();
+            taskCycle.value = '每 6 个月';
+            taskNext.value = '2027-04-01';
+          }
+        } else {
+          sheetTitle.textContent = '添加维修记录';
+          repairForm.reset();
+          byId('repair-date').value = '2026-10-17';
+        }
+
+        sheet.classList.remove('hidden');
+        if (mode === 'task') {
+          setTimeout(function () { taskName.focus(); }, 80);
+        } else {
+          setTimeout(function () { byId('repair-desc').focus(); }, 80);
+        }
+      }
+
+      function closeSheet() {
+        if (!sheet) return;
+        sheet.classList.add('hidden');
+        editingTask = null;
+      }
+
+      Array.prototype.forEach.call(document.querySelectorAll('[data-add]'), function (btn) {
+        btn.addEventListener('click', function () {
+          openSheet(btn.getAttribute('data-add'), null);
+        });
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('[data-close-sheet]'), function (el) {
+        el.addEventListener('click', closeSheet);
+      });
+
+      /* 保养任务 */
+      var taskList = byId('task-list');
+      var taskEmpty = byId('task-empty');
+      var taskTemplate = byId('task-template');
+
+      function updateTaskMeta(card) {
+        var meta = card.querySelector('.task-meta');
+        var cycle = card.getAttribute('data-cycle') || '每 6 个月';
+        var next = card.getAttribute('data-next') || '待定';
+        var last = card.getAttribute('data-last') || '—';
+        meta.textContent = cycle + ' · 下次 ' + next + ' · 上次 ' + last;
+      }
+
+      function syncTaskEmpty() {
+        if (!taskList || !taskEmpty) return;
+        var count = taskList.querySelectorAll('[data-task]').length;
+        taskEmpty.classList.toggle('hidden', count > 0);
+      }
+
+      if (taskList) {
+        taskList.addEventListener('click', function (event) {
+          var actionBtn = event.target.closest('[data-action]');
+          if (!actionBtn) return;
+          var card = actionBtn.closest('[data-task]');
+          if (!card) return;
+          var action = actionBtn.getAttribute('data-action');
+
+          if (action === 'edit') {
+            openSheet('task', card);
+            return;
+          }
+
+          if (action === 'delete') {
+            card.remove();
+            syncTaskEmpty();
+            showToast('已删除保养任务');
+            return;
+          }
+
+          if (action === 'complete') {
+            if (actionBtn.disabled) return;
+            actionBtn.textContent = '已完成';
+            actionBtn.disabled = true;
+            actionBtn.className = 'h-6 px-2 rounded-md bg-[#E9F8F1] text-[#158A54] text-[10px] font-medium leading-6 cursor-default';
+            var icon = card.querySelector('.task-icon');
+            if (icon) {
+              icon.classList.remove('bg-[#FFF1EA]', 'text-[#FF7A45]');
+              icon.classList.add('bg-[#E9F8F1]', 'text-[#1FAF6B]');
+            }
+            showToast('已完成本次保养');
+          }
+        });
+      }
+
+      if (taskForm) {
+        taskForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          var name = taskName.value.trim() || '未命名保养';
+          var cycle = taskCycle.value;
+          var next = taskNext.value || '待定';
+
+          if (editingTask) {
+            editingTask.querySelector('.task-title').textContent = name;
+            editingTask.setAttribute('data-cycle', cycle);
+            editingTask.setAttribute('data-next', next);
+            updateTaskMeta(editingTask);
+            closeSheet();
+            showToast('保养计划已更新');
+            return;
+          }
+
+          var card = taskTemplate.content.firstElementChild.cloneNode(true);
+          card.querySelector('.task-title').textContent = name;
+          card.setAttribute('data-cycle', cycle);
+          card.setAttribute('data-next', next);
+          card.setAttribute('data-last', '—');
+          updateTaskMeta(card);
+          taskList.appendChild(card);
+          syncTaskEmpty();
+          closeSheet();
+          showToast('已添加保养计划');
+        });
+      }
+
+      /* 维修记录 */
+      var repairList = byId('repair-list');
+      var repairEmpty = byId('repair-empty');
+      var repairSummary = byId('repair-summary');
+      var repairTemplate = byId('repair-template');
+
+      function updateRepairSummary() {
+        if (!repairList || !repairSummary) return;
+        var items = repairList.querySelectorAll('.repair-item');
+        var total = 0;
+        Array.prototype.forEach.call(items, function (item) {
+          total += Number(item.getAttribute('data-amount')) || 0;
+        });
+        repairSummary.textContent = '累计维修 ¥' + total + ' · 共 ' + items.length + ' 次';
+        if (repairEmpty) {
+          repairEmpty.classList.toggle('hidden', items.length > 0);
+          repairSummary.parentElement.classList.toggle('hidden', items.length === 0);
+        }
+      }
+
+      if (repairForm) {
+        repairForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          var date = byId('repair-date').value || '今天';
+          var desc = byId('repair-desc').value.trim();
+          if (!desc) return;
+          var amount = Math.max(0, Number(byId('repair-amount').value) || 0);
+
+          var item = repairTemplate.content.firstElementChild.cloneNode(true);
+          item.setAttribute('data-amount', String(amount));
+          item.querySelector('.repair-date').textContent = date;
+          item.querySelector('.repair-desc').textContent = desc;
+          item.querySelector('.repair-amount').textContent = '¥' + amount;
+          item.classList.remove('pb-4');
+          if (repairList.lastElementChild) {
+            repairList.lastElementChild.classList.add('pb-4');
+          }
+          repairList.appendChild(item);
+          updateRepairSummary();
+          closeSheet();
+          showToast('已添加维修记录');
+        });
+      }
+
+      /* 凭证添加 */
+      var voucherAdd = byId('voucher-add');
+      var voucherInput = byId('voucher-input');
+      var voucherScroll = byId('voucher-scroll');
+      var voucherTemplate = byId('voucher-template');
+      if (voucherAdd && voucherInput) {
+        voucherAdd.addEventListener('click', function () {
+          voucherInput.click();
+        });
+        voucherInput.addEventListener('change', function () {
+          if (!voucherInput.files || !voucherInput.files.length) return;
+          var node = voucherTemplate.content.firstElementChild.cloneNode(true);
+          node.querySelector('.voucher-label').textContent = '新凭证';
+          if (voucherScroll && voucherAdd) {
+            voucherScroll.insertBefore(node, voucherAdd);
+          }
+          showToast('凭证已添加');
+          voucherInput.value = '';
+        });
+      }
+
+      /* 归档 / 删除确认 */
+      var confirmOverlay = byId('confirm-overlay');
+      var confirmTitle = byId('confirm-title');
+      var confirmDesc = byId('confirm-desc');
+      var confirmAction = byId('confirm-action');
+      var confirmIcon = byId('confirm-icon');
+      var confirmMode = 'archive';
+
+      function openConfirm(mode) {
+        if (!confirmOverlay) return;
+        confirmMode = mode;
+        if (mode === 'delete') {
+          confirmTitle.textContent = '删除设备？';
+          confirmDesc.textContent = '删除后保修、保养和维修记录将一并移除，且不可恢复。';
+          confirmAction.textContent = '删除';
+          confirmIcon.setAttribute('icon', 'mdi:trash-can-outline');
+        } else {
+          confirmTitle.textContent = '归档设备？';
+          confirmDesc.textContent = '归档后家电档案仍会保留，可随时恢复。';
+          confirmAction.textContent = '归档';
+          confirmIcon.setAttribute('icon', 'mdi:archive-arrow-down-outline');
+        }
+        confirmOverlay.classList.remove('hidden');
+      }
+
+      function closeConfirm() {
+        if (confirmOverlay) confirmOverlay.classList.add('hidden');
+      }
+
+      if (byId('archive-btn')) {
+        byId('archive-btn').addEventListener('click', function () { openConfirm('archive'); });
+      }
+      if (byId('delete-btn')) {
+        byId('delete-btn').addEventListener('click', function () { openConfirm('delete'); });
+      }
+      Array.prototype.forEach.call(document.querySelectorAll('[data-close-confirm]'), function (el) {
+        el.addEventListener('click', closeConfirm);
+      });
+      if (confirmAction) {
+        confirmAction.addEventListener('click', function () {
+          closeConfirm();
+          showToast(confirmMode === 'delete' ? '设备已删除' : '设备已归档');
+          setTimeout(function () {
+            window.location.href = 'home.html';
+          }, 700);
+        });
+      }
+
+      /* 点击遮罩关闭 */
+      if (sheet) {
+        sheet.addEventListener('click', function (event) {
+          if (event.target === sheet) closeSheet();
+        });
+      }
+      if (confirmOverlay) {
+        confirmOverlay.addEventListener('click', function (event) {
+          if (event.target === confirmOverlay) closeConfirm();
+        });
+      }
+
+      /* Esc 关闭浮层 */
+      document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape') return;
+        closeViewer();
+        closeSheet();
+        closeConfirm();
+      });
+    })();
+  </script>
+</body>
+</html>

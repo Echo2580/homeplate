@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI 维修助手 · homeplate</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+    html, body { height: 100%; }
+    body {
+      font-family: 'PingFang SC', 'Source Han Sans SC', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    input, textarea, select, button { font-family: inherit; }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#E7EAF0]">
+<div class="w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<!-- 状态栏 -->
+<div class="shrink-0 h-11 px-5 pt-2 flex items-center justify-between text-[12px] font-semibold text-[#111827]">
+<span>9:41</span>
+<div class="flex items-center gap-1.5">
+<iconify-icon class="text-[14px]" icon="mdi:signal"></iconify-icon>
+<iconify-icon class="text-[14px]" icon="mdi:wifi"></iconify-icon>
+<iconify-icon class="text-[15px]" icon="mdi:battery"></iconify-icon>
+</div>
+</div>
+<!-- 顶部导航 -->
+<header class="shrink-0 h-11 px-3 flex items-center justify-between">
+<a aria-label="返回设备详情" class="w-9 h-9 -mr-1 rounded-full flex items-center justify-center text-[#111827] active:bg-[#E9EBF1] transition" href="device_detail.html">
+<iconify-icon class="text-[22px]" icon="mdi:arrow-left"></iconify-icon>
+</a>
+<h1 class="text-[17px] font-semibold text-[#111827] tracking-tight">AI 维修助手</h1>
+<a class="w-9 h-9 -ml-1 flex items-center justify-end text-[13px] font-medium text-[#3D6DF2] active:opacity-60 transition" href="repair_records.html">记录</a>
+</header>
+<!-- 设备关联条 + 提示条 -->
+<div class="shrink-0 px-4 pt-1 pb-2.5 space-y-2">
+<div class="relative">
+<button aria-controls="device-picker" aria-expanded="false" class="w-full flex items-center gap-2.5 rounded-xl bg-[#EAF1FF] border border-[#D7E3FF] px-3 py-2.5 text-left active:bg-[#E1EBFF] transition" id="device-switch" type="button">
+<span class="w-7 h-7 shrink-0 rounded-lg bg-white text-[#3D6DF2] flex items-center justify-center shadow-[0_1px_4px_rgba(61,109,242,0.12)]">
+<iconify-icon class="text-[16px]" icon="mdi:fridge-outline"></iconify-icon>
+</span>
+<span class="min-w-0 flex-1">
+<span class="block text-[12px] leading-4 text-[#5C77AD] truncate">当前咨询：<span class="font-semibold text-[#1F3A75]" id="device-name">客厅冰箱 · 海尔 BCD-621</span></span>
+</span>
+<span class="shrink-0 flex items-center gap-0.5 text-[11px] leading-4 text-[#3D6DF2] font-medium">
+            切换
+            <iconify-icon class="text-[14px]" icon="mdi:chevron-down"></iconify-icon>
+</span>
+</button>
+<div class="hidden absolute left-0 right-0 top-full mt-1.5 z-30 rounded-xl bg-white border border-[#E7EBF3] shadow-[0_12px_32px_rgba(17,24,39,0.14)] p-1.5" id="device-picker">
+<p class="px-2.5 pt-1 pb-1.5 text-[11px] leading-4 text-[#8A93A5]">选择要咨询的家电</p>
+<button class="device-option w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-left active:bg-[#F4F7FD] transition" data-device="客厅冰箱 · 海尔 BCD-621" data-icon="mdi:fridge-outline" type="button">
+<iconify-icon class="text-[17px] text-[#3D6DF2]" icon="mdi:fridge-outline"></iconify-icon>
+<span class="flex-1 text-[12px] leading-4 text-[#111827]">客厅冰箱 · 海尔 BCD-621</span>
+<iconify-icon class="text-[15px] text-[#3D6DF2]" icon="mdi:check"></iconify-icon>
+</button>
+<button class="device-option w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-left active:bg-[#F4F7FD] transition" data-device="卧室空调 · 格力 KFR-35" data-icon="mdi:air-conditioner" type="button">
+<iconify-icon class="text-[17px] text-[#5B6577]" icon="mdi:air-conditioner"></iconify-icon>
+<span class="flex-1 text-[12px] leading-4 text-[#111827]">卧室空调 · 格力 KFR-35</span>
+<iconify-icon class="text-[15px] text-[#3D6DF2] hidden" icon="mdi:check"></iconify-icon>
+</button>
+<button class="device-option w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-left active:bg-[#F4F7FD] transition" data-device="阳台洗衣机 · 小天鹅 TG100" data-icon="mdi:washing-machine" type="button">
+<iconify-icon class="text-[17px] text-[#5B6577]" icon="mdi:washing-machine"></iconify-icon>
+<span class="flex-1 text-[12px] leading-4 text-[#111827]">阳台洗衣机 · 小天鹅 TG100</span>
+<iconify-icon class="text-[15px] text-[#3D6DF2] hidden" icon="mdi:check"></iconify-icon>
+</button>
+</div>
+</div>
+<div class="flex items-start gap-1.5 rounded-lg bg-[#FFF7F0] border border-[#FFE3D1] px-2.5 py-2">
+<iconify-icon class="shrink-0 text-[14px] text-[#FF7A45] mt-[1px]" icon="mdi:alert-circle-outline"></iconify-icon>
+<p class="text-[11px] leading-[16px] text-[#B35C2C]">AI 建议仅供参考，拆机有风险，保修期内建议先联系官方售后</p>
+</div>
+</div>
+<!-- 聊天区 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-4 pb-4 [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden" id="chat-scroll">
+<div class="flex flex-col gap-4" id="chat-list">
+<!-- 第 1 轮 -->
+<div class="flex justify-end">
+<p class="max-w-[268px] rounded-2xl rounded-br-md bg-[#3D6DF2] px-3.5 py-2.5 text-[14px] leading-[22px] text-white shadow-[0_4px_12px_rgba(61,109,242,0.20)]">冰箱最近不太制冷，后面还有点响</p>
+</div>
+<div class="flex items-start gap-2">
+<span class="w-7 h-7 shrink-0 rounded-full bg-white border border-[#E4E9F2] text-[#3D6DF2] flex items-center justify-center shadow-[0_1px_4px_rgba(17,24,39,0.06)]">
+<iconify-icon class="text-[16px]" icon="mdi:robot-outline"></iconify-icon>
+</span>
+<div class="min-w-0 max-w-[280px]">
+<div class="rounded-2xl rounded-tl-md bg-white border border-[#EEF0F4] px-3.5 py-3 text-[14px] leading-[22px] text-[#111827] shadow-[0_2px_10px_rgba(17,24,39,0.04)]">
+<p>可能原因有三个：</p>
+<p class="mt-1">1️⃣ 冷凝器积灰（自己可清理，断电后吸尘器吸背面）</p>
+<p class="mt-1">2️⃣ 风扇电机故障（需要师傅，约 ¥80-150）</p>
+<p class="mt-1">3️⃣ 制冷剂泄漏（需要师傅，约 ¥150-300）。</p>
+<p class="mt-1">建议先断电清理背面灰尘，观察 24 小时。需要我帮你记录这次故障吗？</p>
+</div>
+<div class="mt-2 flex flex-wrap items-center gap-2">
+<a class="h-8 whitespace-nowrap px-3 rounded-full bg-white border border-[#C9D6F8] text-[12px] font-medium text-[#3D6DF2] flex items-center gap-1 active:bg-[#F2F6FF] transition" href="repair_records.html">📋 记为维修记录</a>
+<span aria-disabled="true" class="h-8 whitespace-nowrap px-3 rounded-full bg-[#EFF1F5] border border-[#E5E8EF] text-[12px] font-medium text-[#8A93A5] inline-flex items-center gap-1 cursor-not-allowed select-none">📞 帮我找师傅<span class="text-[10px] font-normal text-[#A6AEBD]">即将上线</span></span>
+</div>
+</div>
+</div>
+<!-- 第 2 轮 -->
+<div class="flex justify-end">
+<p class="max-w-[268px] rounded-2xl rounded-br-md bg-[#3D6DF2] px-3.5 py-2.5 text-[14px] leading-[22px] text-white shadow-[0_4px_12px_rgba(61,109,242,0.20)]">好的，我先断电清理看看</p>
+</div>
+<div class="flex items-start gap-2">
+<span class="w-7 h-7 shrink-0 rounded-full bg-white border border-[#E4E9F2] text-[#3D6DF2] flex items-center justify-center shadow-[0_1px_4px_rgba(17,24,39,0.06)]">
+<iconify-icon class="text-[16px]" icon="mdi:robot-outline"></iconify-icon>
+</span>
+<div class="rounded-2xl rounded-tl-md bg-white border border-[#EEF0F4] px-3.5 py-3 text-[14px] leading-[22px] text-[#111827] shadow-[0_2px_10px_rgba(17,24,39,0.04)] max-w-[292px]">好，记得先拔掉电源，等机身完全断电再动手。背面吸尘时动作轻一点，别碰到管路。清理完通电，等 24 小时看看制冷和响声有没有改善。</div>
+</div>
+<!-- 第 3 轮 -->
+<div class="flex justify-end">
+<p class="max-w-[268px] rounded-2xl rounded-br-md bg-[#3D6DF2] px-3.5 py-2.5 text-[14px] leading-[22px] text-white shadow-[0_4px_12px_rgba(61,109,242,0.20)]">如果还是响呢？</p>
+</div>
+<div class="flex items-start gap-2">
+<span class="w-7 h-7 shrink-0 rounded-full bg-white border border-[#E4E9F2] text-[#3D6DF2] flex items-center justify-center shadow-[0_1px_4px_rgba(17,24,39,0.06)]">
+<iconify-icon class="text-[16px]" icon="mdi:robot-outline"></iconify-icon>
+</span>
+<div class="rounded-2xl rounded-tl-md bg-white border border-[#EEF0F4] px-3.5 py-3 text-[14px] leading-[22px] text-[#111827] shadow-[0_2px_10px_rgba(17,24,39,0.04)] max-w-[292px]">先别继续自己拆。把响声出现的时间、持续多久记录下来，再联系官方售后上门检查。这台还在保修期内，保修范围内可以先走官方渠道。</div>
+</div>
+</div>
+</main>
+<!-- 底部输入区 -->
+<div class="shrink-0 bg-white border-t border-[#EEF0F4] px-4 pt-2.5 pb-5">
+<form class="flex items-center gap-2.5" id="chat-form">
+<div class="flex-1 min-w-0 h-10 rounded-full bg-[#F2F4F8] border border-[#E7EBF2] flex items-center px-3.5">
+<label class="sr-only" for="chat-input">输入维修问题</label>
+<input autocomplete="off" class="w-full bg-transparent border-0 outline-none text-[13px] leading-5 text-[#111827] placeholder:text-[#9AA3B2]" id="chat-input" placeholder="描述设备的问题…" type="text"/>
+</div>
+<button aria-label="发送" class="w-10 h-10 shrink-0 rounded-full bg-[#3D6DF2] text-white flex items-center justify-center shadow-[0_4px_12px_rgba(61,109,242,0.30)] active:scale-95 transition disabled:opacity-40" type="submit">
+<iconify-icon class="text-[18px]" icon="mdi:send"></iconify-icon>
+</button>
+</form>
+<p aria-live="polite" class="hidden mt-2 text-center text-[11px] leading-4 text-[#8A93A5]" id="toast" role="status"></p>
+</div>
+</div>
+<script>
+    (function () {
+      var scroll = document.getElementById('chat-scroll');
+      var list = document.getElementById('chat-list');
+      var form = document.getElementById('chat-form');
+      var input = document.getElementById('chat-input');
+      var toast = document.getElementById('toast');
+
+      function scrollToBottom() {
+        scroll.scrollTop = scroll.scrollHeight;
+      }
+
+      function showToast(text) {
+        toast.textContent = text;
+        toast.classList.remove('hidden');
+      }
+
+      function appendMessage(text) {
+        var row = document.createElement('div');
+        row.className = 'flex justify-end';
+        var bubble = document.createElement('p');
+        bubble.className = 'max-w-[268px] rounded-2xl rounded-br-md bg-[#3D6DF2] px-3.5 py-2.5 text-[14px] leading-[22px] text-white shadow-[0_4px_12px_rgba(61,109,242,0.20)]';
+        bubble.textContent = text;
+        row.appendChild(bubble);
+        list.appendChild(row);
+        scrollToBottom();
+      }
+
+      function appendReply(text) {
+        var row = document.createElement('div');
+        row.className = 'flex items-start gap-2';
+        row.innerHTML = '<span class="w-7 h-7 shrink-0 rounded-full bg-white border border-[#E4E9F2] text-[#3D6DF2] flex items-center justify-center shadow-[0_1px_4px_rgba(17,24,39,0.06)]"><iconify-icon icon="mdi:robot-outline" class="text-[16px]"></iconify-icon></span>' +
+          '<div class="rounded-2xl rounded-tl-md bg-white border border-[#EEF0F4] px-3.5 py-3 text-[14px] leading-[22px] text-[#111827] shadow-[0_2px_10px_rgba(17,24,39,0.04)] max-w-[292px]"></div>';
+        row.lastElementChild.textContent = text;
+        list.appendChild(row);
+        scrollToBottom();
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var value = input.value.trim();
+        if (!value) {
+          showToast('先描述一下设备遇到的问题吧');
+          input.focus();
+          return;
+        }
+        toast.classList.add('hidden');
+        appendMessage(value);
+        input.value = '';
+        setTimeout(function () {
+          appendReply('收到，我先按这个情况帮你梳理原因和自查步骤。涉及拆机的部分先不要自己动手，需要师傅时可以在下方“记为维修记录”，方便后续跟进。');
+        }, 450);
+      });
+
+      var switchBtn = document.getElementById('device-switch');
+      var picker = document.getElementById('device-picker');
+      var deviceName = document.getElementById('device-name');
+
+      function closePicker() {
+        picker.classList.add('hidden');
+        switchBtn.setAttribute('aria-expanded', 'false');
+      }
+
+      switchBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var willOpen = picker.classList.contains('hidden');
+        picker.classList.toggle('hidden');
+        switchBtn.setAttribute('aria-expanded', String(willOpen));
+      });
+
+      Array.prototype.forEach.call(document.querySelectorAll('.device-option'), function (option) {
+        option.addEventListener('click', function () {
+          var name = option.getAttribute('data-device');
+          deviceName.textContent = name;
+          Array.prototype.forEach.call(document.querySelectorAll('.device-option'), function (item) {
+            var check = item.lastElementChild;
+            if (!check) return;
+            check.classList.toggle('hidden', item !== option);
+          });
+          closePicker();
+          showToast('已切换为「' + name + '」，可以继续提问');
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!picker.contains(e.target) && !switchBtn.contains(e.target)) closePicker();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closePicker();
+      });
+
+      scrollToBottom();
+    })();
+  </script>
+</body>
+</html>

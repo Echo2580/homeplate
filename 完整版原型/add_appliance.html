@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>添加家电 · homeplate</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+    html, body { height: 100%; }
+    body {
+      font-family: 'PingFang SC', 'Source Han Sans SC', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    input, textarea, button { font-family: inherit; }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#E7EAF0]">
+<div class="w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<!-- 状态栏 -->
+<div class="shrink-0 h-11 px-5 pt-2 flex items-center justify-between text-[12px] font-semibold text-[#111827]">
+<span>9:41</span>
+<div class="flex items-center gap-1.5">
+<iconify-icon class="text-[14px]" icon="mdi:signal"></iconify-icon>
+<iconify-icon class="text-[14px]" icon="mdi:wifi"></iconify-icon>
+<iconify-icon class="text-[15px]" icon="mdi:battery"></iconify-icon>
+</div>
+</div>
+<!-- 顶部导航 -->
+<header class="shrink-0 h-11 px-3 flex items-center justify-between">
+<a aria-label="返回首页" class="w-9 h-9 -ml-1 rounded-full flex items-center justify-center text-[#111827] active:bg-[#E9EBF1] transition" href="home.html">
+<iconify-icon class="text-[22px]" icon="mdi:arrow-left"></iconify-icon>
+</a>
+<h1 class="text-[17px] font-semibold text-[#111827] tracking-tight">添加家电</h1>
+<span aria-hidden="true" class="w-8 h-9"></span>
+</header>
+<!-- 主滚动区 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden pb-8">
+<!-- 取景区 -->
+<section class="px-5 mt-4">
+<div aria-label="拍摄设备铭牌" class="h-[300px] rounded-xl border-2 border-dashed border-[#C9D6F8] bg-white flex flex-col items-center justify-center text-center px-6 shadow-[0_2px_10px_rgba(17,24,39,0.04)] cursor-pointer active:border-[#3D6DF2] active:bg-[#FAFBFF] transition" id="capture-zone" role="button" tabindex="0">
+<span class="w-16 h-16 rounded-full bg-[#EAF0FF] text-[#3D6DF2] flex items-center justify-center">
+<iconify-icon class="text-[32px]" icon="mdi:camera-outline"></iconify-icon>
+</span>
+<p class="mt-4 text-[15px] font-semibold text-[#111827]">拍摄设备铭牌</p>
+<p class="mt-1.5 text-[12px] leading-5 text-[#8A93A5]">对准设备背面铭牌，光线充足识别更准</p>
+<span class="mt-4 inline-flex items-center gap-1 rounded-full bg-[#F1F4FA] px-3 py-1 text-[11px] text-[#5B6577]">
+<iconify-icon class="text-[13px] text-[#3D6DF2]" icon="mdi:image-filter-center-focus"></iconify-icon>
+            铭牌框保持在取景框内
+          </span>
+</div>
+</section>
+<!-- 操作按钮 -->
+<section class="px-5 mt-6 space-y-3">
+<button class="w-full py-4 rounded-xl bg-[#3D6DF2] text-white flex items-center justify-center gap-2 text-[16px] font-semibold shadow-[0_8px_20px_rgba(61,109,242,0.30)] active:scale-[0.99] transition" type="button">
+<iconify-icon class="text-[21px]" icon="mdi:camera"></iconify-icon>
+<span>📷 拍照识别</span>
+</button>
+<button class="w-full py-3.5 rounded-xl bg-white border border-[#DDE3EE] text-[#111827] flex items-center justify-center gap-2 text-[15px] font-medium active:bg-[#F7F8FB] transition" type="button">
+<iconify-icon class="text-[20px] text-[#3D6DF2]" icon="mdi:image-multiple-outline"></iconify-icon>
+<span>🖼 从相册选择</span>
+</button>
+<a class="w-full py-3.5 rounded-xl bg-white border border-[#DDE3EE] text-[#111827] flex items-center justify-center gap-2 text-[15px] font-medium active:bg-[#F7F8FB] transition" href="batch_add.html">
+<iconify-icon class="text-[20px] text-[#3D6DF2]" icon="mdi:plus-circle-outline"></iconify-icon>
+<span>➕ 批量建档（一次拍多台）</span>
+</a>
+</section>
+<!-- 手动填写 -->
+<div class="mt-7 pb-6 flex justify-center">
+<a class="inline-flex items-center gap-1 text-[12px] text-[#8A93A5] active:text-[#3D6DF2] transition" href="manual_add.html">
+          识别不了？手动填写
+          <iconify-icon class="text-[14px]" icon="mdi:arrow-right"></iconify-icon>
+</a>
+</div>
+</main>
+</div>
+<script>
+    (function () {
+      var zone = document.getElementById('capture-zone');
+      if (!zone) return;
+      function openCamera() {
+        zone.classList.add('border-[#3D6DF2]', 'bg-[#FAFBFF]');
+        setTimeout(function () {
+          zone.classList.remove('border-[#3D6DF2]', 'bg-[#FAFBFF]');
+        }, 220);
+      }
+      zone.addEventListener('click', openCamera);
+      zone.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openCamera();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

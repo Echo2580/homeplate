@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>确认设备信息 · homeplate</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+    html, body { height: 100%; }
+    body {
+      font-family: 'PingFang SC', 'Source Han Sans SC', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    input, textarea, select, button { font-family: inherit; }
+    select {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#E7EAF0]">
+<div class="w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<!-- 状态栏 -->
+<div class="shrink-0 h-11 px-5 pt-2 flex items-center justify-between text-[12px] font-semibold text-[#111827]">
+<span>9:41</span>
+<div class="flex items-center gap-1.5">
+<iconify-icon class="text-[14px]" icon="mdi:signal"></iconify-icon>
+<iconify-icon class="text-[14px]" icon="mdi:wifi"></iconify-icon>
+<iconify-icon class="text-[15px]" icon="mdi:battery"></iconify-icon>
+</div>
+</div>
+<!-- 顶部导航 -->
+<header class="shrink-0 h-11 px-3 flex items-center justify-between">
+<a aria-label="返回添加家电" class="w-9 h-9 -ml-1 rounded-full flex items-center justify-center text-[#111827] active:bg-[#E9EBF1] transition" href="add_appliance.html">
+<iconify-icon class="text-[22px]" icon="mdi:arrow-left"></iconify-icon>
+</a>
+<h1 class="text-[17px] font-semibold text-[#111827] tracking-tight">确认设备信息</h1>
+<span aria-hidden="true" class="w-8 h-9"></span>
+</header>
+<!-- 主滚动区 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden pb-4">
+<p class="px-5 mt-1 text-[12px] leading-5 text-[#8A93A5]">AI 识别耗时 4.2 秒 · 请核对修改后保存</p>
+<!-- 铭牌照片卡片 -->
+<section class="px-5 mt-3">
+<div class="rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] p-3 flex items-center gap-3">
+<div class="relative w-20 h-[60px] shrink-0 rounded-lg overflow-hidden bg-gradient-to-br from-[#EEF2FB] via-[#E3EAF8] to-[#DCE5F5] border border-[#DDE3EE] flex flex-col items-center justify-center">
+<iconify-icon class="text-[18px] text-[#8EA4CC]" icon="mdi:image-outline"></iconify-icon>
+<span class="mt-0.5 text-[9px] text-[#7D8CA6] tracking-wide">铭牌照片</span>
+</div>
+<div class="min-w-0">
+<p class="flex items-center gap-1.5 text-[13px] font-semibold text-[#111827] leading-5">
+<iconify-icon class="text-[15px] text-[#1FAF6B]" icon="mdi:check-circle"></iconify-icon>
+              铭牌照片 <span class="text-[#1FAF6B]">✓ 已保存</span>
+</p>
+<p class="mt-1 flex items-center gap-1 text-[12px] text-[#8A93A5] leading-4">
+              识别置信度：
+              <span class="text-[#3D6DF2] font-medium">高</span>
+</p>
+</div>
+</div>
+</section>
+<!-- 表单卡片 -->
+<section class="px-5 mt-3">
+<div class="rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] overflow-hidden">
+<!-- 设备名称（聚焦态） -->
+<label class="flex items-center gap-3 px-4 h-[52px] border-b border-[#F0F2F6]" for="device-name">
+<span class="w-[84px] shrink-0 text-[13px] text-[#8A93A5]">设备名称<span class="text-[#FF7A45]">*</span></span>
+<span class="flex-1 min-w-0 flex items-center gap-1 border-b-[1.5px] border-[#3D6DF2] pb-0.5">
+<input autocomplete="off" class="w-full bg-transparent border-0 outline-none p-0 text-[14px] text-[#111827] caret-[#3D6DF2] placeholder:text-[#B6BECC]" id="device-name" type="text" value="海尔冰箱"/>
+<span aria-hidden="true" class="w-0.5 h-4 bg-[#3D6DF2]"></span>
+</span>
+</label>
+<!-- 品牌 -->
+<label class="flex items-center gap-3 px-4 h-[52px] border-b border-[#F0F2F6]" for="brand">
+<span class="w-[84px] shrink-0 text-[13px] text-[#8A93A5]">品牌</span>
+<input autocomplete="off" class="flex-1 min-w-0 bg-transparent border-0 outline-none p-0 text-[14px] text-[#111827] caret-[#3D6DF2]" id="brand" type="text" value="海尔"/>
+</label>
+<!-- 型号 -->
+<label class="flex items-center gap-3 px-4 h-[52px] border-b border-[#F0F2F6]" for="model">
+<span class="w-[84px] shrink-0 text-[13px] text-[#8A93A5]">型号</span>
+<input autocomplete="off" class="flex-1 min-w-0 bg-transparent border-0 outline-none p-0 text-[13px] text-[#111827] caret-[#3D6DF2] tracking-tight" id="model" type="text" value="BCD-621WDCAU1"/>
+</label>
+<!-- 序列号 -->
+<label class="flex items-center gap-3 px-4 h-[52px] border-b border-[#F0F2F6]" for="serial">
+<span class="w-[84px] shrink-0 text-[13px] text-[#8A93A5]">序列号</span>
+<input autocomplete="off" class="flex-1 min-w-0 bg-transparent border-0 outline-none p-0 text-[14px] text-[#111827] caret-[#3D6DF2] placeholder:text-[#B6BECC]" id="serial" placeholder="未识别" type="text"/>
+</label>
+<!-- 品类 -->
+<div class="flex items-center gap-3 px-4 h-[52px] border-b border-[#F0F2F6]">
+<span class="w-[84px] shrink-0 text-[13px] text-[#8A93A5]">品类</span>
+<span class="relative flex-1 min-w-0">
+<select aria-label="品类" class="w-full bg-transparent border-0 outline-none p-0 pr-6 text-[14px] text-[#111827] cursor-pointer" id="category">
+<option selected="" value="冰箱">冰箱</option>
+<option value="空调">空调</option>
+<option value="洗衣机">洗衣机</option>
+<option value="电视">电视</option>
+<option value="热水器">热水器</option>
+<option value="厨电">厨电</option>
+<option value="custom">自定义…</option>
+</select>
+<iconify-icon class="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-[18px] text-[#8A93A5]" icon="mdi:chevron-down"></iconify-icon>
+</span>
+</div>
+<!-- 购买日期 -->
+<label class="flex items-center gap-3 px-4 h-[52px] border-b border-[#F0F2F6]" for="buy-date">
+<span class="w-[84px] shrink-0 text-[13px] text-[#8A93A5]">购买日期<span class="text-[#FF7A45]">*</span></span>
+<span class="flex-1 min-w-0 flex items-center gap-1.5">
+<input class="flex-1 min-w-0 bg-transparent border-0 outline-none p-0 text-[14px] text-[#111827] caret-[#3D6DF2] [&amp;::-webkit-calendar-picker-indicator]:opacity-60 [&amp;::-webkit-calendar-picker-indicator]:cursor-pointer" id="buy-date" type="date" value="2026-04-01"/>
+</span>
+</label>
+<!-- 保修期 -->
+<label class="flex items-center gap-3 px-4 h-[52px] border-b border-[#F0F2F6]" for="warranty">
+<span class="w-[84px] shrink-0 text-[13px] text-[#8A93A5]">保修期（月）</span>
+<span class="flex-1 min-w-0 flex items-center gap-1">
+<input class="w-14 bg-transparent border-0 outline-none p-0 text-[14px] text-[#111827] caret-[#3D6DF2]" id="warranty" inputmode="numeric" min="1" step="1" type="number" value="36"/>
+<span class="text-[12px] text-[#8A93A5]">个月</span>
+</span>
+</label>
+<!-- 备注 -->
+<label class="flex items-start gap-3 px-4 py-3.5 border-b border-[#F0F2F6]" for="notes">
+<span class="w-[84px] shrink-0 pt-0.5 text-[13px] text-[#8A93A5]">备注</span>
+<textarea class="flex-1 min-w-0 bg-transparent border-0 outline-none p-0 resize-none text-[14px] leading-5 text-[#111827] caret-[#3D6DF2] placeholder:text-[#B6BECC]" id="notes" placeholder="选填，例如放置位置、购买渠道" rows="2"></textarea>
+</label>
+<!-- 凭证照片 -->
+<div class="flex items-start gap-3 px-4 py-3.5">
+<span class="w-[84px] shrink-0 pt-0.5 text-[13px] text-[#8A93A5]">凭证照片</span>
+<div class="flex-1 min-w-0">
+<button class="w-full h-[72px] rounded-lg border border-dashed border-[#C9D6F8] bg-[#FAFBFF] flex flex-col items-center justify-center gap-1 text-[#3D6DF2] active:bg-[#F2F6FF] transition" id="upload-receipt" type="button">
+<iconify-icon class="text-[22px]" icon="mdi:camera-plus-outline"></iconify-icon>
+<span class="text-[12px] text-[#5B6577]">上传发票/保修卡</span>
+</button>
+<p class="mt-1.5 text-[11px] leading-4 text-[#8A93A5]">选填 · 支持 JPG / PNG</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 保修提示条 -->
+<section class="px-5 mt-3">
+<div class="rounded-lg bg-[#EDF2FF] border border-[#DDE6FB] px-3.5 py-2.5 flex items-start gap-2">
+<iconify-icon class="text-[16px] text-[#3D6DF2] mt-0.5" icon="mdi:shield-check-outline"></iconify-icon>
+<p class="text-[12px] leading-5 text-[#3D6DF2]" id="warranty-hint">按 36 个月保修计算，保修到期 2029-04-01</p>
+</div>
+</section>
+<!-- 底部按钮 -->
+<section class="px-5 mt-4">
+<a class="w-full h-[52px] rounded-xl bg-[#3D6DF2] text-white flex items-center justify-center text-[16px] font-semibold shadow-[0_8px_20px_rgba(61,109,242,0.30)] active:scale-[0.99] transition" href="home.html" id="save-btn">
+          保存
+        </a>
+</section>
+</main>
+</div>
+<script>
+    (function () {
+      var dateInput = document.getElementById('buy-date');
+      var warrantyInput = document.getElementById('warranty');
+      var hint = document.getElementById('warranty-hint');
+
+      function pad(n) {
+        return n < 10 ? '0' + n : '' + n;
+      }
+
+      function updateHint() {
+        if (!hint) return;
+        var months = parseInt(warrantyInput.value, 10);
+        if (!dateInput.value || isNaN(months) || months <= 0) {
+          hint.textContent = '按保修期计算，保修到期日将在填写后显示';
+          return;
+        }
+        var parts = dateInput.value.split('-');
+        var d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+        var target = new Date(d.getFullYear(), d.getMonth() + months, d.getDate());
+        var text = target.getFullYear() + '-' + pad(target.getMonth() + 1) + '-' + pad(target.getDate());
+        hint.textContent = '按 ' + months + ' 个月保修计算，保修到期 ' + text;
+      }
+
+      dateInput.addEventListener('change', updateHint);
+      warrantyInput.addEventListener('input', updateHint);
+
+      var receipt = document.getElementById('upload-receipt');
+      receipt.addEventListener('click', function () {
+        receipt.classList.add('border-[#3D6DF2]', 'bg-[#F2F6FF]');
+        setTimeout(function () {
+          receipt.classList.remove('border-[#3D6DF2]', 'bg-[#F2F6FF]');
+        }, 260);
+      });
+
+      var nameInput = document.getElementById('device-name');
+      if (nameInput) {
+        nameInput.focus();
+        nameInput.setSelectionRange(nameInput.value.length, nameInput.value.length);
+      }
+    })();
+  </script>
+</body>
+</html>

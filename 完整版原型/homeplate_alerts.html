@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>提醒中心 · homeplate</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+    :root {
+      --brand: #3D6DF2;
+      --warn: #FF7A45;
+      --success: #1FAF6B;
+      --muted: #8A93A5;
+      --surface: #F5F6F8;
+    }
+    html, body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #E9EBF0;
+    }
+    .safe-bottom { padding-bottom: 20px; }
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .card-shadow { box-shadow: 0 1px 2px rgba(20, 30, 50, .04), 0 6px 16px -10px rgba(20, 30, 50, .18); }
+    .fade-enter { animation: fadeIn .2s ease-out both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center">
+<div class="w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<!-- 顶部导航 -->
+<header class="shrink-0 bg-[#F5F6F8]/95 backdrop-blur-sm z-20">
+<div class="h-[52px] px-4 flex items-center justify-between relative">
+<a aria-label="返回上一页" class="w-9 h-9 -ml-1 flex items-center justify-center rounded-full text-[#1D2433] active:bg-black/5" href="javascript:history.length &gt; 1 ? history.back() : void 0">
+<iconify-icon icon="mdi:arrow-left" style="font-size:24px"></iconify-icon>
+</a>
+<h1 class="absolute left-1/2 -translate-x-1/2 text-[17px] font-semibold text-[#1D2433] tracking-wide">提醒中心</h1>
+<a class="h-9 -mr-1 px-1 flex items-center text-[14px] text-[#3D6DF2] active:opacity-70" href="https://modao.cc/agent-py/workspace/6ad39d9f7857d070701bcb14/homeplate.html/reminders.html?render_html=true">设置</a>
+</div>
+<!-- Tab 切换 -->
+<div aria-label="提醒状态" class="px-4 flex items-center gap-6 h-11" role="tablist">
+<button aria-controls="panelPending" aria-selected="true" class="relative h-11 flex items-center text-[15px] font-semibold text-[#3D6DF2]" id="tabPending" onclick="switchTab('pending')" role="tab" type="button">
+      待处理（3）
+      <span class="absolute left-0 right-0 bottom-0 h-[2px] rounded-full bg-[#3D6DF2]" id="tabPendingBar"></span>
+</button>
+<button aria-controls="panelDone" aria-selected="false" class="relative h-11 flex items-center text-[15px] text-[#8A93A5]" id="tabDone" onclick="switchTab('done')" role="tab" type="button">
+      已处理
+      <span class="absolute left-0 right-0 bottom-0 h-[2px] rounded-full bg-[#3D6DF2] hidden" id="tabDoneBar"></span>
+</button>
+</div>
+</header>
+<!-- 主滚动区 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden no-scrollbar">
+<div class="px-4 pt-3">
+<div class="h-px bg-[#EBEDF1] -mx-4 mb-4"></div>
+<!-- 待处理列表 -->
+<section aria-labelledby="tabPending" id="panelPending" role="tabpanel">
+<div class="space-y-3">
+<!-- 卡片 1：逾期 -->
+<article class="relative bg-white rounded-xl card-shadow overflow-hidden flex items-start gap-3 pl-5 pr-4 py-3.5">
+<span class="absolute left-0 top-0 bottom-0 w-1 bg-[#FF7A45]"></span>
+<span class="w-9 h-9 rounded-[10px] bg-[#FFF3EE] flex items-center justify-center shrink-0 mt-0.5">
+<iconify-icon class="text-[#FF7A45]" icon="mdi:alert-outline" style="font-size:20px"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-semibold text-[#1D2433] leading-5">客厅冰箱的「清洁除霜」已逾期 5 天</p>
+<p class="mt-1 text-[12px] text-[#8A93A5] leading-4">2026-10-12 推送</p>
+<div class="mt-2.5 flex items-center gap-3">
+<button class="h-8 px-3.5 rounded-lg bg-[#3D6DF2] text-white text-[12px] font-medium active:bg-[#2F5BD7]" onclick="showToast('已标记为完成，正在记录保养')" type="button">去完成</button>
+<button class="h-8 px-1 text-[12px] text-[#8A93A5] active:text-[#5A6376]" onclick="muteItem(this, '客厅冰箱清洁除霜提醒已静音 7 天')" type="button">静音 7 天</button>
+</div>
+</div>
+</article>
+<!-- 卡片 2：保修临期 -->
+<article class="relative bg-white rounded-xl card-shadow overflow-hidden flex items-start gap-3 pl-5 pr-4 py-3.5">
+<span class="absolute left-0 top-0 bottom-0 w-1 bg-[#F5B23C]"></span>
+<span class="w-9 h-9 rounded-[10px] bg-[#FFF8E8] flex items-center justify-center shrink-0 mt-0.5">
+<iconify-icon class="text-[#F5B23C]" icon="mdi:bell-outline" style="font-size:20px"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-semibold text-[#1D2433] leading-5">主卧空调保修还剩 23 天</p>
+<p class="mt-1 text-[12px] text-[#8A93A5] leading-4">到期 2026-11-09，建议提前联系售后登记</p>
+</div>
+<button class="shrink-0 self-center h-8 px-1 text-[12px] font-medium text-[#3D6DF2] active:opacity-70" onclick="showToast('已打开保修登记信息')" type="button">查看</button>
+</article>
+<!-- 卡片 3：保养回访 -->
+<article class="relative bg-white rounded-xl card-shadow overflow-hidden flex items-start gap-3 pl-5 pr-4 py-3.5">
+<span class="absolute left-0 top-0 bottom-0 w-1 bg-[#3D6DF2]"></span>
+<span class="w-9 h-9 rounded-[10px] bg-[#EDF2FE] flex items-center justify-center shrink-0 mt-0.5">
+<iconify-icon class="text-[#3D6DF2]" icon="mdi:information-outline" style="font-size:20px"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-semibold text-[#1D2433] leading-5">净水器滤芯保养 30 天回访：使用正常吗？</p>
+<div class="mt-2.5 flex items-center gap-2">
+<button class="h-7 px-2.5 rounded-md bg-[#EDF2FE] text-[#3D6DF2] text-[12px] font-medium active:bg-[#E0E9FD]" onclick="feedbackItem(this, '已记录：滤芯使用正常')" type="button">正常</button>
+<button class="h-7 px-2.5 rounded-md bg-[#F2F4F7] text-[#5A6376] text-[12px] font-medium active:bg-[#E8EBF0]" onclick="feedbackItem(this, '已提交，维修师傅会尽快联系您')" type="button">有问题</button>
+</div>
+</div>
+</article>
+</div>
+<p class="py-5 text-center text-[12px] text-[#B0B7C3] leading-4">没有其他待处理了 👍</p>
+</section>
+<!-- 已处理：空状态 -->
+<section aria-labelledby="tabDone" class="hidden fade-enter" id="panelDone" role="tabpanel">
+<div class="pt-16 pb-10 flex flex-col items-center text-center">
+<span class="w-[76px] h-[76px] rounded-full bg-[#EEF0F4] flex items-center justify-center">
+<iconify-icon class="text-[#B0B7C3]" icon="mdi:bell-sleep-outline" style="font-size:36px"></iconify-icon>
+</span>
+<p class="mt-4 text-[14px] text-[#8A93A5] leading-5">暂无已处理的提醒</p>
+</div>
+</section>
+</div>
+<div class="h-4 safe-bottom"></div>
+</main>
+<!-- 轻提示 -->
+<div aria-live="polite" class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-8 z-40 opacity-0 transition-opacity duration-200" id="toast" role="status">
+<div class="bg-[#1D2433]/92 text-white text-[12px] px-4 py-2 rounded-full shadow-lg backdrop-blur-sm whitespace-nowrap" id="toastText">设置已保存</div>
+</div>
+</div>
+<script>
+    var toastTimer = null;
+
+    function showToast(msg) {
+      var toast = document.getElementById('toast');
+      document.getElementById('toastText').textContent = msg || '操作成功';
+      toast.style.opacity = '1';
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () {
+        toast.style.opacity = '0';
+      }, 1800);
+    }
+
+    function switchTab(name) {
+      var isPending = name === 'pending';
+      var tabPending = document.getElementById('tabPending');
+      var tabDone = document.getElementById('tabDone');
+      var panelPending = document.getElementById('panelPending');
+      var panelDone = document.getElementById('panelDone');
+
+      tabPending.setAttribute('aria-selected', isPending ? 'true' : 'false');
+      tabDone.setAttribute('aria-selected', isPending ? 'false' : 'true');
+      tabPending.className = 'relative h-11 flex items-center text-[15px] ' + (isPending ? 'font-semibold text-[#3D6DF2]' : 'text-[#8A93A5]');
+      tabDone.className = 'relative h-11 flex items-center text-[15px] ' + (!isPending ? 'font-semibold text-[#3D6DF2]' : 'text-[#8A93A5]');
+      document.getElementById('tabPendingBar').classList.toggle('hidden', !isPending);
+      document.getElementById('tabDoneBar').classList.toggle('hidden', isPending);
+
+      panelPending.classList.toggle('hidden', !isPending);
+      panelDone.classList.toggle('hidden', isPending);
+      if (!isPending) {
+        panelDone.classList.remove('fade-enter');
+        void panelDone.offsetWidth;
+        panelDone.classList.add('fade-enter');
+      }
+    }
+
+    function muteItem(btn, msg) {
+      btn.textContent = '已静音';
+      btn.classList.remove('text-[#8A93A5]');
+      btn.classList.add('text-[#B0B7C3]');
+      btn.disabled = true;
+      showToast(msg);
+    }
+
+    function feedbackItem(btn, msg) {
+      showToast(msg);
+    }
+</script>
+</body>
+</html>

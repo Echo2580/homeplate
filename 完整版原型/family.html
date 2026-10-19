@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>我的家庭 · homeplate</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+    :root {
+      --brand: #3D6DF2;
+      --warn: #FF7A45;
+      --success: #1FAF6B;
+      --muted: #8A93A5;
+      --surface: #F5F6F8;
+    }
+    html, body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #E9EBF0;
+    }
+    .safe-bottom { padding-bottom: 20px; }
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .card-shadow { box-shadow: 0 1px 2px rgba(20, 30, 50, .04), 0 6px 16px -10px rgba(20, 30, 50, .18); }
+    .backdrop-enter { animation: fadeIn .18s ease-out both; }
+    .modal-enter { animation: popIn .24s cubic-bezier(.32, .72, 0, 1) both; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes popIn { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .qr-grid {
+      background-image:
+        linear-gradient(90deg, rgba(61, 109, 242, .06) 1px, transparent 1px),
+        linear-gradient(rgba(61, 109, 242, .06) 1px, transparent 1px);
+      background-size: 10px 10px;
+    }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center">
+<div class="w-full h-full max-w-[393px] max-h-[852px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<!-- 顶部导航 -->
+<header class="shrink-0 bg-[#F5F6F8]/95 backdrop-blur-sm z-20">
+<div class="h-[52px] px-4 flex items-center justify-between relative">
+<a aria-label="返回上一页" class="w-9 h-9 -ml-1 flex items-center justify-center rounded-full text-[#1D2433] active:bg-black/5" href="javascript:history.length &gt; 1 ? history.back() : void 0">
+<iconify-icon icon="mdi:arrow-left" style="font-size:24px"></iconify-icon>
+</a>
+<h1 class="absolute left-1/2 -translate-x-1/2 text-[17px] font-semibold text-[#1D2433] tracking-wide">我的家庭</h1>
+<button aria-label="更多操作" class="w-9 h-9 -mr-1 flex items-center justify-center rounded-full text-[#5A6376] active:bg-black/5" type="button">
+<iconify-icon icon="mdi:dots-horizontal" style="font-size:22px"></iconify-icon>
+</button>
+</div>
+</header>
+<!-- 主滚动区 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden no-scrollbar">
+<div class="px-4 pb-2">
+<!-- 家庭卡片 -->
+<section class="mt-3 rounded-xl bg-white px-4 py-4 card-shadow">
+<div class="flex items-center justify-between gap-3">
+<div class="min-w-0">
+<p class="text-[12px] text-[#8A93A5] leading-4">当前家庭</p>
+<p class="mt-1 text-[18px] font-bold text-[#1D2433] leading-6 truncate" id="familyName">幸福里 3 栋 502</p>
+</div>
+<button aria-label="编辑家庭名称" class="w-9 h-9 shrink-0 rounded-full bg-[#F2F5FE] text-[#3D6DF2] flex items-center justify-center active:bg-[#E6EDFD]" id="editFamilyBtn" type="button">
+<iconify-icon icon="mdi:pencil-outline" style="font-size:18px"></iconify-icon>
+</button>
+</div>
+<div class="mt-3 flex items-center gap-2 text-[12px] text-[#8A93A5]">
+<iconify-icon class="text-[#8A93A5]" icon="mdi:home-map-marker" style="font-size:15px"></iconify-icon>
+<span>3 位成员 · 已开启家庭共享</span>
+</div>
+<button class="mt-4 w-full h-11 rounded-xl border border-[#3D6DF2] text-[#3D6DF2] bg-white text-[14px] font-semibold flex items-center justify-center gap-1.5 active:bg-[#F2F5FE]" id="inviteBtn" type="button">
+<span aria-hidden="true">📱</span>
+<span>二维码邀请家人</span>
+</button>
+</section>
+<!-- 成员 -->
+<section class="mt-5">
+<div class="px-1 flex items-center justify-between">
+<h2 class="text-[15px] font-semibold text-[#1D2433]">成员（3）</h2>
+<button aria-label="添加成员" class="text-[12px] text-[#3D6DF2] flex items-center gap-0.5 active:opacity-60" type="button">
+<iconify-icon icon="mdi:account-plus-outline" style="font-size:15px"></iconify-icon>
+<span>添加</span>
+</button>
+</div>
+<div class="mt-2.5 rounded-xl bg-white overflow-hidden card-shadow">
+<div class="flex items-center gap-3 px-4 py-3.5">
+<div class="w-10 h-10 shrink-0 rounded-full bg-[#E6EDFD] text-[#3D6DF2] flex items-center justify-center">
+<iconify-icon icon="mdi:account-outline" style="font-size:22px"></iconify-icon>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<p class="text-[14px] font-semibold text-[#1D2433] leading-5">赵先生</p>
+<span class="px-1.5 py-0.5 rounded-md bg-[#E6EDFD] text-[#3D6DF2] text-[11px] leading-3">我 · 管理员</span>
+</div>
+<p class="mt-1 text-[12px] text-[#8A93A5] leading-4">本月完成 2 次保养</p>
+</div>
+</div>
+<div class="h-px bg-[#F0F2F5] mx-4"></div>
+<div class="flex items-center gap-3 px-4 py-3.5">
+<div class="w-10 h-10 shrink-0 rounded-full bg-[#F1F3F6] text-[#8A93A5] flex items-center justify-center">
+<iconify-icon icon="mdi:account-outline" style="font-size:22px"></iconify-icon>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<p class="text-[14px] font-semibold text-[#1D2433] leading-5">爸爸</p>
+<span class="px-1.5 py-0.5 rounded-md bg-[#F1F3F6] text-[#8A93A5] text-[11px] leading-3">成员</span>
+</div>
+<p class="mt-1 text-[12px] text-[#8A93A5] leading-4">本月完成 1 次保养</p>
+</div>
+</div>
+<div class="h-px bg-[#F0F2F5] mx-4"></div>
+<div class="flex items-center gap-3 px-4 py-3.5">
+<div class="w-10 h-10 shrink-0 rounded-full bg-[#F1F3F6] text-[#8A93A5] flex items-center justify-center">
+<iconify-icon icon="mdi:account-outline" style="font-size:22px"></iconify-icon>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<p class="text-[14px] font-semibold text-[#1D2433] leading-5">妈妈</p>
+<span class="px-1.5 py-0.5 rounded-md bg-[#F1F3F6] text-[#8A93A5] text-[11px] leading-3">成员</span>
+</div>
+<p class="mt-1 text-[12px] text-[#8A93A5] leading-4">本月完成 0 次</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 家庭动态 -->
+<section class="mt-5">
+<h2 class="px-1 text-[15px] font-semibold text-[#1D2433]">家庭动态</h2>
+<div class="mt-2.5 rounded-xl bg-white px-4 py-4 card-shadow">
+<ol class="relative pl-6">
+<span aria-hidden="true" class="absolute left-[7px] top-2.5 bottom-3 w-px bg-[#E6E9EF]"></span>
+<li class="relative pb-4">
+<span aria-hidden="true" class="absolute -left-6 top-1.5 w-[7px] h-[7px] rounded-full bg-[#1FAF6B] ring-4 ring-white"></span>
+<p class="text-[14px] text-[#1D2433] leading-5">
+<span class="font-semibold">妈妈</span>
+<span class="text-[#5A6376]"> 完成了</span>
+<span class="font-medium text-[#3D6DF2]">「清洗滤网」</span>
+</p>
+<p class="mt-0.5 text-[12px] text-[#8A93A5] leading-4">10-17</p>
+</li>
+<li class="relative pb-4">
+<span aria-hidden="true" class="absolute -left-6 top-1.5 w-[7px] h-[7px] rounded-full bg-[#3D6DF2] ring-4 ring-white"></span>
+<p class="text-[14px] text-[#1D2433] leading-5">
+<span class="font-semibold">爸爸</span>
+<span class="text-[#5A6376]"> 添加了</span>
+<span class="font-medium text-[#3D6DF2]">「客厅空调」</span>
+</p>
+<p class="mt-0.5 text-[12px] text-[#8A93A5] leading-4">10-15</p>
+</li>
+<li class="relative">
+<span aria-hidden="true" class="absolute -left-6 top-1.5 w-[7px] h-[7px] rounded-full bg-[#8A93A5] ring-4 ring-white"></span>
+<p class="text-[14px] text-[#1D2433] leading-5">
+<span class="font-semibold">我</span>
+<span class="text-[#5A6376]"> 记录了</span>
+<span class="font-medium text-[#FF7A45]">「冰箱维修 ¥120」</span>
+</p>
+<p class="mt-0.5 text-[12px] text-[#8A93A5] leading-4">09-12</p>
+</li>
+</ol>
+</div>
+</section>
+<!-- 底部操作 -->
+<section class="safe-bottom pt-5 pb-3 flex flex-col items-center gap-1">
+<button class="h-9 px-4 rounded-lg text-[13px] text-[#8A93A5] active:bg-black/5" type="button">退出家庭</button>
+<button class="h-9 px-4 rounded-lg text-[13px] text-[#E5484D] active:bg-black/5" type="button">解散家庭（仅管理员）</button>
+<p class="mt-1 text-[11px] text-[#B4BAC6] leading-4">解散后家庭数据不可恢复</p>
+</section>
+</div>
+</main>
+<!-- 二维码邀请弹窗 -->
+<div class="hidden absolute inset-0 z-40" id="inviteModal">
+<div class="absolute inset-0 bg-[#0F1728]/45" id="inviteBackdrop"></div>
+<div class="absolute inset-0 flex items-center justify-center px-6">
+<div class="modal-enter w-full max-w-[300px] rounded-2xl bg-white px-5 pt-5 pb-4 shadow-[0_24px_60px_-18px_rgba(15,23,40,.45)]">
+<div class="flex items-center justify-between">
+<h3 class="text-[16px] font-semibold text-[#1D2433]">邀请家人</h3>
+<button aria-label="关闭" class="w-8 h-8 -mr-1.5 rounded-full flex items-center justify-center text-[#8A93A5] active:bg-black/5" id="closeInviteBtn" type="button">
+<iconify-icon icon="mdi:close" style="font-size:20px"></iconify-icon>
+</button>
+</div>
+<p class="mt-1 text-[12px] text-[#8A93A5] leading-4">幸福里 3 栋 502</p>
+<div class="mt-4 mx-auto w-[188px] h-[188px] p-3 rounded-xl bg-white border border-[#EDEFF3] flex items-center justify-center">
+<div class="qr-grid relative w-full h-full rounded-md bg-white flex items-center justify-center overflow-hidden">
+<iconify-icon class="text-[#1D2433]" icon="mdi:qrcode" style="font-size:132px"></iconify-icon>
+<span class="absolute w-9 h-9 rounded-lg bg-white border border-[#EDEFF3] flex items-center justify-center">
+<iconify-icon class="text-[#3D6DF2]" icon="mdi:home-heart" style="font-size:20px"></iconify-icon>
+</span>
+</div>
+</div>
+<p class="mt-3.5 text-center text-[13px] text-[#5A6376] leading-5">家人微信扫一扫加入，无需注册</p>
+<p class="mt-1 text-center text-[11px] text-[#B4BAC6] leading-4">二维码 7 天内有效</p>
+<button class="mt-4 w-full h-11 rounded-xl bg-[#3D6DF2] text-white text-[14px] font-semibold flex items-center justify-center gap-1.5 active:bg-[#3560DB]" id="saveQrBtn" type="button">
+<iconify-icon icon="mdi:download-outline" style="font-size:18px"></iconify-icon>
+<span>保存图片</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 编辑家庭名称弹窗 -->
+<div class="hidden absolute inset-0 z-40" id="renameModal">
+<div class="absolute inset-0 bg-[#0F1728]/45" id="renameBackdrop"></div>
+<div class="absolute inset-0 flex items-center justify-center px-6">
+<div class="modal-enter w-full max-w-[300px] rounded-2xl bg-white px-5 pt-5 pb-4 shadow-[0_24px_60px_-18px_rgba(15,23,40,.45)]">
+<h3 class="text-[16px] font-semibold text-[#1D2433]">编辑家庭名称</h3>
+<input class="mt-3.5 w-full h-11 px-3 rounded-xl bg-[#F5F6F8] border border-transparent focus:border-[#3D6DF2] focus:bg-white outline-none text-[14px] text-[#1D2433]" id="familyNameInput" maxlength="20" type="text" value="幸福里 3 栋 502"/>
+<div class="mt-4 flex gap-2.5">
+<button class="flex-1 h-10 rounded-xl bg-[#F5F6F8] text-[14px] text-[#5A6376] active:bg-[#ECEEF2]" id="cancelRenameBtn" type="button">取消</button>
+<button class="flex-1 h-10 rounded-xl bg-[#3D6DF2] text-white text-[14px] font-semibold active:bg-[#3560DB]" id="confirmRenameBtn" type="button">保存</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    (function () {
+      var inviteModal = document.getElementById('inviteModal');
+      var renameModal = document.getElementById('renameModal');
+
+      function openModal(el) {
+        el.classList.remove('hidden');
+        var panel = el.querySelector('.modal-enter');
+        if (panel) {
+          panel.style.animation = 'none';
+          void panel.offsetWidth;
+          panel.style.animation = '';
+        }
+      }
+
+      function closeModal(el) {
+        el.classList.add('hidden');
+      }
+
+      document.getElementById('inviteBtn').addEventListener('click', function () {
+        openModal(inviteModal);
+      });
+      document.getElementById('inviteBackdrop').addEventListener('click', function () {
+        closeModal(inviteModal);
+      });
+      document.getElementById('closeInviteBtn').addEventListener('click', function () {
+        closeModal(inviteModal);
+      });
+      document.getElementById('saveQrBtn').addEventListener('click', function () {
+        var btn = this;
+        var label = btn.querySelector('span');
+        var original = label.textContent;
+        label.textContent = '已保存到相册';
+        btn.classList.add('opacity-90');
+        setTimeout(function () {
+          label.textContent = original;
+          btn.classList.remove('opacity-90');
+          closeModal(inviteModal);
+        }, 900);
+      });
+
+      var nameInput = document.getElementById('familyNameInput');
+      document.getElementById('editFamilyBtn').addEventListener('click', function () {
+        nameInput.value = document.getElementById('familyName').textContent.trim();
+        openModal(renameModal);
+        nameInput.focus();
+      });
+      document.getElementById('renameBackdrop').addEventListener('click', function () {
+        closeModal(renameModal);
+      });
+      document.getElementById('cancelRenameBtn').addEventListener('click', function () {
+        closeModal(renameModal);
+      });
+      document.getElementById('confirmRenameBtn').addEventListener('click', function () {
+        var value = nameInput.value.trim();
+        if (value) {
+          document.getElementById('familyName').textContent = value;
+        }
+        closeModal(renameModal);
+      });
+    })();
+  </script>
+</body>
+</html>
