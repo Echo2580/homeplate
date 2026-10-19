@@ -1,8 +1,6 @@
 fastapi
 uvicorn[standard]
 sqlalchemy
-pymysql
-cryptography
 python-dotenv
 jinja2
 openai

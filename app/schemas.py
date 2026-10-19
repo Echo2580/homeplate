@@ -5,7 +5,7 @@ from datetime import date, datetime
 from pydantic import BaseModel, ConfigDict, Field
 
 # 长度上限与 models.py 的数据库列宽一致：超长在应用层拦截，
-# 避免穿透到 MySQL 报 500（审计发现：120 字名称会打出裸 500 + 前端英文报错）
+# 在应用层限制长度，保持数据库切换前后的输入约束一致。
 NAME_MAX = 100
 BRAND_MAX = 50
 MODEL_MAX = 100

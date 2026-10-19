@@ -17,6 +17,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.database import get_db
+from app.init_db import initialize_database
 from app.photos import cleanup_pending
 from app.routers import devices, pages, photos, recognize, tasks
 
@@ -25,7 +26,8 @@ load_dotenv()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """启动时清理超期的临时铭牌照片（拍了但最终没建档的那些）"""
+    """首次启动自动建表，并清理超期的临时铭牌照片。"""
+    initialize_database()
     removed = cleanup_pending()
     if removed:
         print(f"已清理过期临时铭牌照片 {removed} 张")
