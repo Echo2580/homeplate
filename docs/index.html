@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>homeplate · AI 家电保养与维修助手 —— 原型</title>
+<style>
+  :root { --fg:#111827; --muted:#6b7280; --line:#e5e7eb; --accent:#2563eb; --bg:#f9fafb; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+         color:var(--fg); background:var(--bg); }
+  .wrap { max-width:960px; margin:0 auto; padding:48px 20px 72px; }
+  header h1 { font-size:26px; margin:0 0 6px; letter-spacing:-.3px; }
+  header p { margin:0; color:var(--muted); }
+  .quote { margin:20px 0 32px; padding:14px 18px; background:#fff; border-left:3px solid var(--accent);
+           border-radius:0 8px 8px 0; color:#374151; }
+  .cta { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#fff;
+         text-decoration:none; padding:12px 22px; border-radius:10px; font-weight:600; }
+  .cta:hover { background:#1d4ed8; }
+  h2 { font-size:15px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted);
+       margin:44px 0 14px; font-weight:600; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
+  .card { display:block; padding:12px 14px; background:#fff; border:1px solid var(--line);
+          border-radius:10px; text-decoration:none; color:var(--fg); transition:.15s; }
+  .card:hover { border-color:var(--accent); transform:translateY(-1px); }
+  .card b { display:block; font-size:14px; }
+  .card span { color:var(--muted); font-size:12px; }
+  .note { margin-top:36px; padding:14px 18px; background:#fff; border:1px solid var(--line);
+          border-radius:10px; color:var(--muted); font-size:13px; }
+  .note b { color:var(--fg); }
+  ul.docs { list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:8px; }
+  ul.docs a { color:var(--accent); text-decoration:none; font-size:14px; }
+  ul.docs a:hover { text-decoration:underline; }
+  ul.docs li::after { content:"·"; margin:0 8px; color:var(--line); }
+  ul.docs li:last-child::after { content:""; }
+  footer { margin-top:48px; padding-top:18px; border-top:1px solid var(--line);
+           color:var(--muted); font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>homeplate · AI 家电保养与维修助手</h1>
+    <p>拍一张家电铭牌 → AI 自动建档 → 保修到期与保养排期一目了然</p>
+  </header>
+
+  <div class="quote">
+    「买家电是一瞬间的事，养家电是十几年的事——总得有个东西替你记着。」
+  </div>
+
+  <a class="cta" href="prototype/">查看完整版原型 →</a>
+
+  <h2>原型页面</h2>
+  <div class="grid">
+    <a class="card" href="prototype/"><b>总览</b><span>全部屏幕一屏铺开</span></a>
+    <a class="card" href="prototype/home.html"><b>首页看板</b><span>设备卡片 + 统计</span></a>
+    <a class="card" href="prototype/home_dark.html"><b>首页（深色）</b><span>深色模式</span></a>
+    <a class="card" href="prototype/add_appliance.html"><b>添加家电</b><span>拍照 / 相册 / 批量</span></a>
+    <a class="card" href="prototype/confirm_device.html"><b>确认设备信息</b><span>AI 识别结果预填</span></a>
+    <a class="card" href="prototype/device_detail.html"><b>设备详情</b><span>保修进度 + 保养计划</span></a>
+    <a class="card" href="prototype/maintenance_add.html"><b>添加保养计划</b><span>周期与下次日期</span></a>
+    <a class="card" href="prototype/maintenance_done.html"><b>完成保养</b><span>打勾续期</span></a>
+    <a class="card" href="prototype/reminders.html"><b>提醒</b><span>到期与逾期</span></a>
+    <a class="card" href="prototype/homeplate_alerts.html"><b>消息通知</b><span>提醒样式</span></a>
+    <a class="card" href="prototype/repair_records.html"><b>维修记录</b><span>故障与费用</span></a>
+    <a class="card" href="prototype/ai_assistant.html"><b>AI 维修助手</b><span>故障排查对话</span></a>
+    <a class="card" href="prototype/family.html"><b>家庭成员</b><span>协作管理</span></a>
+    <a class="card" href="prototype/stats.html"><b>数据统计</b><span>费用与时间线</span></a>
+    <a class="card" href="prototype/mine.html"><b>我的</b><span>设置与账号</span></a>
+    <a class="card" href="prototype/login.html"><b>登录</b><span>账号入口</span></a>
+    <a class="card" href="prototype/onboarding.html"><b>引导页</b><span>首次使用</span></a>
+  </div>
+
+  <div class="note">
+    <b>说明</b>：以上是<strong>静态设计原型</strong>，用来展示信息结构和交互流程，不能真实建档；可交互的 MVP 版本目前只在本地运行，尚未公网部署。
+    原型中部分页面之间的跳转会指向未导出的页面（点开是 404），属正常现象。
+  </div>
+
+  <h2>文档</h2>
+  <ul class="docs">
+    <li><a href="https://github.com/Echo2580/homeplate">代码仓库</a></li>
+    <li><a href="https://github.com/Echo2580/homeplate/blob/main/README.md">README</a></li>
+    <li><a href="https://github.com/Echo2580/homeplate/blob/main/docs/mvp.md">MVP 范围</a></li>
+    <li><a href="https://github.com/Echo2580/homeplate/blob/main/docs/ROADMAP.md">路线图</a></li>
+    <li><a href="https://github.com/Echo2580/homeplate/blob/main/docs/竞品调研.md">竞品调研</a></li>
+  </ul>
+
+  <footer>
+    homeplate · v0.6.0 · 原型更新于 2026-10-17 ｜ 本页仅为静态原型展示
+  </footer>
+
+</div>
+</body>
+</html>
