@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>数据统计 · homeplate</title>
+<script src="assets/tailwindcss.js"></script>
+<script src="assets/iconify-icon.min.js"></script>
+<style>
+    :root {
+      --brand: #3D6DF2;
+      --warn: #FF7A45;
+      --success: #1FAF6B;
+      --muted: #8A93A5;
+      --surface: #F5F6F8;
+    }
+    html, body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #E9EBF0;
+    }
+    .safe-bottom { padding-bottom: 20px; }
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .card-shadow { box-shadow: 0 1px 2px rgba(20, 30, 50, .04), 0 6px 16px -10px rgba(20, 30, 50, .18); }
+
+    /* 柱状图 */
+    .bar-track { height: 108px; display: flex; align-items: flex-end; justify-content: center; }
+    .bar {
+      width: 22px;
+      border-radius: 6px 6px 3px 3px;
+      background: #3D6DF2;
+      transition: height .4s cubic-bezier(.32, .72, 0, 1);
+    }
+    .bar.is-peak { background: var(--warn); }
+
+    /* 保修时间线 */
+    .timeline-line {
+      position: absolute;
+      left: 16.66%;
+      right: 16.66%;
+      top: 7px;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #9DB6F8 0%, #3D6DF2 60%, #C8D5F7 100%);
+    }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center">
+<div class="w-full h-full max-w-[393px] max-h-[852px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<!-- 顶部导航 -->
+<header class="shrink-0 bg-[#F5F6F8]/95 backdrop-blur-sm z-20">
+<div class="h-[52px] px-4 flex items-center justify-between relative">
+<a aria-label="返回上一页" class="w-9 h-9 -ml-1 flex items-center justify-center rounded-full text-[#1D2433] active:bg-black/5" href="javascript:history.length &gt; 1 ? history.back() : void 0">
+<iconify-icon icon="mdi:arrow-left" style="font-size:24px"></iconify-icon>
+</a>
+<h1 class="absolute left-1/2 -translate-x-1/2 text-[17px] font-semibold text-[#1D2433] tracking-wide">数据统计</h1>
+<button aria-label="更多操作" class="w-9 h-9 -mr-1 flex items-center justify-center rounded-full text-[#5A6376] active:bg-black/5" type="button">
+<iconify-icon icon="mdi:dots-horizontal" style="font-size:22px"></iconify-icon>
+</button>
+</div>
+</header>
+<!-- 主滚动区 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden no-scrollbar">
+<div class="px-4 pb-2 safe-bottom">
+<!-- 1. 费用总览 -->
+<section class="mt-3 rounded-xl bg-white px-4 pt-4 pb-3 card-shadow">
+<p class="text-[12px] text-[#8A93A5] leading-4">今年共支出</p>
+<p class="mt-1 text-[24px] font-bold text-[#3D6DF2] leading-8">¥460</p>
+<p class="mt-1 text-[12px] text-[#8A93A5] leading-4">
+            保养 ¥180<span class="mx-1 text-[#C4C9D4]">·</span>维修 ¥280
+          </p>
+<div class="mt-4 grid grid-cols-6 gap-1.5 items-end">
+<div class="flex flex-col items-center">
+<div class="bar-track"><div class="bar" style="height:36%"></div></div>
+<span class="mt-1.5 text-[11px] text-[#8A93A5] leading-4">5月</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="bar-track"><div class="bar" style="height:52%"></div></div>
+<span class="mt-1.5 text-[11px] text-[#8A93A5] leading-4">6月</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="bar-track"><div class="bar" style="height:44%"></div></div>
+<span class="mt-1.5 text-[11px] text-[#8A93A5] leading-4">7月</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="bar-track"><div class="bar" style="height:68%"></div></div>
+<span class="mt-1.5 text-[11px] text-[#8A93A5] leading-4">8月</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="bar-track"><div class="bar" style="height:58%"></div></div>
+<span class="mt-1.5 text-[11px] text-[#8A93A5] leading-4">9月</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="bar-track"><div class="bar is-peak" style="height:100%"></div></div>
+<span class="mt-1.5 text-[11px] font-semibold text-[#FF7A45] leading-4">10月</span>
+</div>
+</div>
+</section>
+<!-- 2. 按设备排行 -->
+<section class="mt-5">
+<h2 class="px-1 mb-2 text-[15px] font-semibold text-[#1D2433]">按设备排行</h2>
+<div class="rounded-xl bg-white overflow-hidden card-shadow">
+<div class="flex items-center gap-3 px-4 py-3.5">
+<div class="w-10 h-10 shrink-0 rounded-full bg-[#EDF2FE] text-[#3D6DF2] flex items-center justify-center">
+<iconify-icon icon="mdi:water-boiler" style="font-size:21px"></iconify-icon>
+</div>
+<div class="flex-1 min-w-0 flex items-center gap-1.5">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5 truncate">电热水器</p>
+<span class="shrink-0 px-1.5 py-0.5 rounded-md bg-[#FFF0EA] text-[#FF7A45] text-[11px] leading-3">最贵</span>
+</div>
+<span class="shrink-0 text-[14px] font-bold text-[#FF7A45] tabular-nums">¥280</span>
+</div>
+<div class="h-px bg-[#F0F2F5] mx-4"></div>
+<div class="flex items-center gap-3 px-4 py-3.5">
+<div class="w-10 h-10 shrink-0 rounded-full bg-[#EDF2FE] text-[#3D6DF2] flex items-center justify-center">
+<iconify-icon icon="mdi:fridge-outline" style="font-size:21px"></iconify-icon>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5 truncate">客厅冰箱</p>
+</div>
+<span class="shrink-0 text-[14px] font-bold text-[#1D2433] tabular-nums">¥120</span>
+</div>
+<div class="h-px bg-[#F0F2F5] mx-4"></div>
+<div class="flex items-center gap-3 px-4 py-3.5">
+<div class="w-10 h-10 shrink-0 rounded-full bg-[#EDF2FE] text-[#3D6DF2] flex items-center justify-center">
+<iconify-icon icon="mdi:air-conditioner" style="font-size:21px"></iconify-icon>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5 truncate">主卧空调</p>
+</div>
+<span class="shrink-0 text-[14px] font-bold text-[#1D2433] tabular-nums">¥60</span>
+</div>
+</div>
+</section>
+<!-- 3. 保修到期时间线 -->
+<section class="mt-5">
+<h2 class="px-1 mb-2 text-[15px] font-semibold text-[#1D2433]">保修到期时间线</h2>
+<div class="rounded-xl bg-white px-4 pt-5 pb-4 card-shadow">
+<div class="relative">
+<span aria-hidden="true" class="timeline-line"></span>
+<div class="relative grid grid-cols-3">
+<!-- 2027-04 冰箱 -->
+<div class="flex flex-col items-center px-1">
+<p class="text-[11px] text-[#8A93A5] leading-4 tabular-nums">2027-04</p>
+<span aria-hidden="true" class="mt-1 w-[16px] h-[16px] rounded-full bg-[#3D6DF2] ring-4 ring-white"></span>
+<div class="mt-2 flex flex-col items-center gap-1">
+<span class="w-8 h-8 rounded-full bg-[#EDF2FE] text-[#3D6DF2] flex items-center justify-center">
+<iconify-icon icon="mdi:fridge-outline" style="font-size:17px"></iconify-icon>
+</span>
+<p class="text-[12px] text-[#1D2433] leading-4">冰箱</p>
+</div>
+</div>
+<!-- 2027-06 空调 -->
+<div class="flex flex-col items-center px-1">
+<p class="text-[11px] text-[#8A93A5] leading-4 tabular-nums">2027-06</p>
+<span aria-hidden="true" class="mt-1 w-[16px] h-[16px] rounded-full bg-[#1FAF6B] ring-4 ring-white"></span>
+<div class="mt-2 flex flex-col items-center gap-1">
+<span class="w-8 h-8 rounded-full bg-[#E8F7F0] text-[#1FAF6B] flex items-center justify-center">
+<iconify-icon icon="mdi:air-conditioner" style="font-size:17px"></iconify-icon>
+</span>
+<p class="text-[12px] text-[#1D2433] leading-4">空调</p>
+</div>
+</div>
+<!-- 2028-01 洗衣机 -->
+<div class="flex flex-col items-center px-1">
+<p class="text-[11px] text-[#8A93A5] leading-4 tabular-nums">2028-01</p>
+<span aria-hidden="true" class="mt-1 w-[16px] h-[16px] rounded-full bg-[#8A93A5] ring-4 ring-white"></span>
+<div class="mt-2 flex flex-col items-center gap-1">
+<span class="w-8 h-8 rounded-full bg-[#F1F3F6] text-[#8A93A5] flex items-center justify-center">
+<iconify-icon icon="mdi:washing-machine" style="font-size:17px"></iconify-icon>
+</span>
+<p class="text-[12px] text-[#1D2433] leading-4">洗衣机</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. 设备年龄 -->
+<section class="mt-5">
+<h2 class="px-1 mb-2 text-[15px] font-semibold text-[#1D2433]">设备年龄</h2>
+<div class="rounded-xl bg-white overflow-hidden card-shadow">
+<div class="flex items-center gap-3 px-4 py-3.5">
+<div class="w-10 h-10 shrink-0 rounded-full bg-[#F1F3F6] text-[#8A93A5] flex items-center justify-center">
+<iconify-icon icon="mdi:water-boiler" style="font-size:21px"></iconify-icon>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5 truncate">老式热水器</p>
+</div>
+<span class="shrink-0 text-[14px] font-semibold text-[#1D2433] tabular-nums">8 年</span>
+<span class="shrink-0 px-1.5 py-0.5 rounded-md bg-[#F1F3F6] text-[#8A93A5] text-[11px] leading-3">已过保</span>
+</div>
+<div class="h-px bg-[#F0F2F5] mx-4"></div>
+<div class="flex items-center gap-3 px-4 py-3.5">
+<div class="w-10 h-10 shrink-0 rounded-full bg-[#EDF2FE] text-[#3D6DF2] flex items-center justify-center">
+<iconify-icon icon="mdi:fridge-outline" style="font-size:21px"></iconify-icon>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5 truncate">客厅冰箱</p>
+</div>
+<span class="shrink-0 text-[14px] font-semibold text-[#1D2433] tabular-nums">2 年</span>
+</div>
+<div class="h-px bg-[#F0F2F5] mx-4"></div>
+<div class="flex items-center gap-3 px-4 py-3.5">
+<div class="w-10 h-10 shrink-0 rounded-full bg-[#EDF2FE] text-[#3D6DF2] flex items-center justify-center">
+<iconify-icon icon="mdi:air-conditioner" style="font-size:21px"></iconify-icon>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5 truncate">主卧空调</p>
+</div>
+<span class="shrink-0 text-[14px] font-semibold text-[#1D2433] tabular-nums">3 年</span>
+</div>
+</div>
+</section>
+<div class="h-4"></div>
+</div>
+</main>
+</div>
+</body>
+</html>

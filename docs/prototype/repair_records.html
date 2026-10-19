@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>维修记录 · homeplate</title>
+<script src="assets/tailwindcss.js"></script>
+<script src="assets/iconify-icon.min.js"></script>
+<style>
+    html, body { height: 100%; }
+    body {
+      font-family: 'PingFang SC', 'Source Han Sans SC', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    button, a { font-family: inherit; }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#E7EAF0]">
+<div class="w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<!-- 状态栏 -->
+<div class="shrink-0 h-11 px-5 pt-2 flex items-center justify-between text-[12px] font-semibold text-[#111827]">
+<span>9:41</span>
+<div class="flex items-center gap-1.5">
+<iconify-icon class="text-[14px]" icon="mdi:signal"></iconify-icon>
+<iconify-icon class="text-[14px]" icon="mdi:wifi"></iconify-icon>
+<iconify-icon class="text-[15px]" icon="mdi:battery"></iconify-icon>
+</div>
+</div>
+<!-- 顶部导航 -->
+<header class="shrink-0 h-11 px-3 flex items-center justify-between">
+<a aria-label="返回设备详情" class="w-9 h-9 -ml-1 rounded-full flex items-center justify-center text-[#111827] active:bg-[#E9EBF1] transition" href="device_detail.html">
+<iconify-icon class="text-[22px]" icon="mdi:arrow-left"></iconify-icon>
+</a>
+<h1 class="text-[17px] font-semibold text-[#111827] tracking-tight">维修记录 · 客厅冰箱</h1>
+<span aria-hidden="true" class="w-9 h-9"></span>
+</header>
+<!-- 主滚动区 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden pb-28">
+<!-- 统计条 -->
+<section class="px-5 mt-1">
+<div class="rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] grid grid-cols-3 divide-x divide-[#F2F4F8] py-3.5">
+<div class="px-2 text-center">
+<p class="text-[17px] font-bold leading-6 text-[#111827] tracking-tight">3 <span class="text-[11px] font-medium text-[#8A93A5]">次</span></p>
+<p class="mt-1 text-[11px] leading-4 text-[#8A93A5]">总维修次数</p>
+</div>
+<div class="px-2 text-center">
+<p class="text-[17px] font-bold leading-6 text-[#FF7A45] tracking-tight">¥180</p>
+<p class="mt-1 text-[11px] leading-4 text-[#8A93A5]">累计花费</p>
+</div>
+<div class="px-2 text-center">
+<p class="text-[14px] font-bold leading-6 text-[#111827] tracking-tight">2026-09-12</p>
+<p class="mt-1 text-[11px] leading-4 text-[#8A93A5]">上次维修</p>
+</div>
+</div>
+<div class="mt-2 flex items-center justify-between px-1 text-[11px] leading-4 text-[#8A93A5]">
+<span>点卡片查看故障详情与凭证</span>
+<a class="inline-flex items-center gap-0.5 text-[#3D6DF2] font-medium active:opacity-60 transition" href="device_detail.html">
+            设备档案
+            <iconify-icon class="text-[14px]" icon="mdi:chevron-right"></iconify-icon>
+</a>
+</div>
+</section>
+<!-- 时间线 -->
+<section class="px-5 mt-4">
+<h2 class="px-0.5 text-[15px] font-semibold text-[#111827]">维修明细</h2>
+<div class="relative mt-2.5 pl-[18px] before:content-[''] before:absolute before:left-[4px] before:top-2 before:bottom-2 before:w-px before:bg-[#E3E8F2]">
+<!-- 记录 1 -->
+<article class="relative pb-3" data-record="">
+<span class="absolute left-[-18px] top-[16px] w-[9px] h-[9px] rounded-full bg-[#FF7A45] ring-[3px] ring-[#FFEDE4]"></span>
+<div class="rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] overflow-hidden">
+<button aria-expanded="false" class="w-full text-left px-3.5 pt-3.5 pb-3 active:bg-[#FAFBFF] transition" data-toggle="" type="button">
+<div class="flex items-start justify-between gap-2">
+<div class="min-w-0">
+<p class="text-[14px] font-bold leading-5 text-[#111827] tracking-tight">2026-09-12</p>
+<p class="mt-1.5 text-[13px] leading-5 text-[#111827]">
+                      故障：<span class="font-medium">制冷效果差</span>
+</p>
+<p class="mt-0.5 text-[12px] leading-[18px] text-[#5B6577]">处理：加氟</p>
+</div>
+<div class="shrink-0 flex flex-col items-end gap-1.5">
+<span class="h-5 px-1.5 rounded-md bg-[#FFF1EA] text-[#E4622B] text-[10px] font-medium leading-5">保外</span>
+<span class="text-[14px] font-semibold leading-5 text-[#FF7A45]">¥120</span>
+</div>
+</div>
+<div class="mt-2.5 flex items-center justify-between gap-2">
+<span class="inline-flex items-center gap-1 text-[11px] leading-4 text-[#8A93A5]">
+<iconify-icon class="text-[13px]" icon="mdi:account-hard-hat-outline"></iconify-icon>
+                    张师傅 138xxxx
+                  </span>
+<span class="inline-flex items-center gap-0.5 text-[11px] leading-4 text-[#3D6DF2]" data-hint="">
+                    展开详情
+                    <iconify-icon class="text-[14px] transition-transform" data-chevron="" icon="mdi:chevron-down"></iconify-icon>
+</span>
+</div>
+<div class="mt-2.5">
+<div class="relative h-[78px] rounded-lg overflow-hidden bg-gradient-to-br from-[#FFF8EE] via-[#FDF0DF] to-[#F9E4CA] border border-[#F1E2CC] flex items-center justify-center">
+<div class="absolute inset-0 opacity-45" style="background-image: linear-gradient(#FFFFFF 1px, transparent 1px); background-size: 100% 16px;"></div>
+<div class="relative flex items-center gap-2">
+<iconify-icon class="text-[22px] text-[#C98A00]" icon="mdi:receipt-text-outline"></iconify-icon>
+<div class="text-left">
+<p class="text-[11px] font-semibold tracking-[0.1em] text-[#8A5D12]">维修凭证</p>
+<p class="mt-0.5 text-[10px] text-[#A87B36]">加氟 · ¥120</p>
+</div>
+</div>
+<span class="absolute right-2 top-2 h-5 px-1.5 rounded-md bg-white/70 text-[10px] leading-5 text-[#8A5D12]">缩略图</span>
+</div>
+</div>
+</button>
+<div class="hidden px-3.5 pb-3.5" data-detail="">
+<div class="rounded-lg bg-[#FAFBFC] border border-[#F0F3F8] p-3 space-y-3">
+<div>
+<p class="text-[11px] font-semibold leading-4 text-[#8A93A5]">故障描述</p>
+<p class="mt-1 text-[12px] leading-5 text-[#3B4454]">9 月初起冷藏室温度升到 12℃ 左右，牛奶和熟食放一晚就有异味；冷冻室正常。师傅上门检测发现制冷剂压力偏低，管路接口有轻微渗漏，补漏后加注制冷剂 120g，运行 40 分钟后冷藏室回到 4℃。</p>
+</div>
+<div>
+<p class="flex items-center gap-1 text-[11px] font-semibold leading-4 text-[#8A93A5]">
+<iconify-icon class="text-[13px] text-[#3D6DF2]" icon="mdi:robot-outline"></iconify-icon>
+                      AI 建议记录
+                    </p>
+<div class="mt-1.5 space-y-1.5">
+<p class="text-[12px] leading-5 text-[#3B4454]"><span class="text-[#3D6DF2] font-medium">2026-09-10 ·</span> 建议先检查门封条与出风口是否结冰，排除密封与化霜问题后再联系售后。</p>
+<p class="text-[12px] leading-5 text-[#3B4454]"><span class="text-[#3D6DF2] font-medium">2026-09-12 ·</span> 加氟完成后 7 天内每天记录冷藏温度，低于 8℃ 且稳定即视为修复成功。</p>
+</div>
+</div>
+<div>
+<p class="text-[11px] font-semibold leading-4 text-[#8A93A5]">完整凭证</p>
+<div class="mt-1.5 h-[150px] rounded-lg overflow-hidden bg-gradient-to-br from-[#FFFBF4] via-[#FDF1E0] to-[#F8E3C7] border border-[#F1E2CC] relative flex flex-col">
+<div class="absolute inset-0 opacity-40" style="background-image: linear-gradient(#FFFFFF 1px, transparent 1px); background-size: 100% 18px;"></div>
+<div class="relative flex-1 px-3 pt-3">
+<div class="flex items-start justify-between gap-2">
+<div>
+<p class="text-[12px] font-bold tracking-[0.14em] text-[#7A5212]">家电维修服务单</p>
+<p class="mt-0.5 text-[10px] text-[#A87B36]">NO. RP-20260912-018</p>
+</div>
+<iconify-icon class="text-[20px] text-[#C98A00]" icon="mdi:receipt-text-outline"></iconify-icon>
+</div>
+<div class="mt-2 space-y-1 text-[10px] leading-4 text-[#8A6534]">
+<p>设备：海尔 BCD-621WDCAU1 · 客厅冰箱</p>
+<p>项目：检漏补焊 + 加注制冷剂</p>
+<p>费用：¥120（材料 ¥80 / 人工 ¥40）</p>
+<p>师傅：张师傅 138xxxx · 2026-09-12</p>
+</div>
+</div>
+<div class="relative h-6 border-t border-dashed border-[#E6CDA6] flex items-center justify-between px-3 text-[9px] tracking-wider text-[#A87B36]">
+<span>客户签字</span>
+<span>保修 90 天</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- 记录 2 -->
+<article class="relative pb-3" data-record="">
+<span class="absolute left-[-18px] top-[16px] w-[9px] h-[9px] rounded-full bg-[#1FAF6B] ring-[3px] ring-[#E9F8F1]"></span>
+<div class="rounded-xl bg-white border border-[#EEF0F4] shadow-[0_2px_10px_rgba(17,24,39,0.04)] overflow-hidden">
+<button aria-expanded="false" class="w-full text-left px-3.5 pt-3.5 pb-3.5 active:bg-[#FAFBFF] transition" data-toggle="" type="button">
+<div class="flex items-start justify-between gap-2">
+<div class="min-w-0">
+<p class="text-[14px] font-bold leading-5 text-[#111827] tracking-tight">2025-03-08</p>
+<p class="mt-1.5 text-[13px] leading-5 text-[#111827]">
+                      故障：<span class="font-medium">异响</span>
+</p>
+<p class="mt-0.5 text-[12px] leading-[18px] text-[#5B6577]">处理：更换风扇电机</p>
+</div>
+<div class="shrink-0 flex flex-col items-end gap-1.5">
+<span class="h-5 px-1.5 rounded-md bg-[#E9F8F1] text-[#158A54] text-[10px] font-medium leading-5">保内</span>
+<span class="text-[13px] font-semibold leading-5 text-[#1FAF6B]">¥0 保修免费</span>
+</div>
+</div>
+<div class="mt-2.5 flex items-center justify-between gap-2">
+<span class="inline-flex items-center gap-1 text-[11px] leading-4 text-[#8A93A5]">
+<iconify-icon class="text-[13px]" icon="mdi:shield-check-outline"></iconify-icon>
+                    官方售后 · 保修内
+                  </span>
+<span class="inline-flex items-center gap-0.5 text-[11px] leading-4 text-[#3D6DF2]" data-hint="">
+                    展开详情
+                    <iconify-icon class="text-[14px] transition-transform" data-chevron="" icon="mdi:chevron-down"></iconify-icon>
+</span>
+</div>
+</button>
+<div class="hidden px-3.5 pb-3.5" data-detail="">
+<div class="rounded-lg bg-[#FAFBFC] border border-[#F0F3F8] p-3 space-y-3">
+<div>
+<p class="text-[11px] font-semibold leading-4 text-[#8A93A5]">故障描述</p>
+<p class="mt-1 text-[12px] leading-5 text-[#3B4454]">压缩机启动后每隔几分钟出现“咯噔”摩擦声，夜间安静时尤为明显；制冷功能正常，门体无晃动。官方售后上门检查确认冷冻室风扇电机轴承磨损，更换原厂风扇电机后异响消失，保修期内免收材料与人工费。</p>
+</div>
+<div>
+<p class="flex items-center gap-1 text-[11px] font-semibold leading-4 text-[#8A93A5]">
+<iconify-icon class="text-[13px] text-[#3D6DF2]" icon="mdi:robot-outline"></iconify-icon>
+                      AI 建议记录
+                    </p>
+<div class="mt-1.5 space-y-1.5">
+<p class="text-[12px] leading-5 text-[#3B4454]"><span class="text-[#3D6DF2] font-medium">2025-03-06 ·</span> 异响多来自风扇或压缩机底座，建议先清空冷冻室观察声音位置，并检查机身是否水平。</p>
+<p class="text-[12px] leading-5 text-[#3B4454]"><span class="text-[#3D6DF2] font-medium">2025-03-08 ·</span> 保修期内优先走官方售后，保留本次维修单可顺延风扇电机保修。</p>
+</div>
+</div>
+<div>
+<p class="text-[11px] font-semibold leading-4 text-[#8A93A5]">完整凭证</p>
+<div class="mt-1.5 h-[140px] rounded-lg overflow-hidden bg-gradient-to-br from-[#F4F9FF] via-[#E7F0FC] to-[#D9E6F8] border border-[#DCE7F5] relative flex flex-col">
+<div class="absolute inset-0 opacity-45" style="background-image: linear-gradient(#FFFFFF 1px, transparent 1px); background-size: 100% 18px;"></div>
+<div class="relative flex-1 px-3 pt-3">
+<div class="flex items-start justify-between gap-2">
+<div>
+<p class="text-[12px] font-bold tracking-[0.14em] text-[#2A4A78]">官方售后维修单</p>
+<p class="mt-0.5 text-[10px] text-[#6685AE]">NO. HS-20250308-2291</p>
+</div>
+<iconify-icon class="text-[20px] text-[#3D6DF2]" icon="mdi:shield-check-outline"></iconify-icon>
+</div>
+<div class="mt-2 space-y-1 text-[10px] leading-4 text-[#4F6B90]">
+<p>设备：海尔 BCD-621WDCAU1 · 客厅冰箱</p>
+<p>项目：更换冷冻室风扇电机（原厂件）</p>
+<p>费用：¥0（保内 · 材料与人工全免）</p>
+<p>网点：海尔售后 · 2025-03-08</p>
+</div>
+</div>
+<div class="relative h-6 border-t border-dashed border-[#C4D5EC] flex items-center justify-between px-3 text-[9px] tracking-wider text-[#6685AE]">
+<span>客户签字</span>
+<span>整机保修内</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</div>
+<p class="mt-1 text-center text-[11px] leading-4 text-[#9AA3B2]">已展示最近 2 条 · 共 3 次维修</p>
+</section>
+</main>
+<!-- 底部悬浮按钮 -->
+<div class="absolute inset-x-0 bottom-0 z-20 px-4 pb-5 pt-6 bg-gradient-to-t from-[#F5F6F8] via-[#F5F6F8]/95 to-transparent pointer-events-none">
+<a class="pointer-events-auto w-full h-12 rounded-xl bg-[#3D6DF2] text-white flex items-center justify-center gap-1.5 text-[15px] font-semibold shadow-[0_8px_20px_rgba(61,109,242,0.32)] active:scale-[0.99] transition" href="repair_add.html">
+<iconify-icon class="text-[18px]" icon="mdi:plus"></iconify-icon>
+        记一笔维修
+      </a>
+</div>
+</div>
+<script>
+    (function () {
+      Array.prototype.forEach.call(document.querySelectorAll('[data-record]'), function (card) {
+        var toggle = card.querySelector('[data-toggle]');
+        var detail = card.querySelector('[data-detail]');
+        var hint = card.querySelector('[data-hint]');
+        var chevron = card.querySelector('[data-chevron]');
+        if (!toggle || !detail) return;
+
+        toggle.addEventListener('click', function () {
+          var expanded = detail.classList.toggle('hidden') === false;
+          toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+          if (chevron) chevron.style.transform = expanded ? 'rotate(180deg)' : '';
+          if (hint) {
+            hint.childNodes[0].nodeValue = expanded ? '收起详情' : '展开详情';
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

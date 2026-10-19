@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>新手引导 · homeplate</title>
+<script src="assets/tailwindcss.js"></script>
+<script src="assets/iconify-icon.min.js"></script>
+<style>
+    :root {
+      --brand: #3D6DF2;
+      --warn: #FF7A45;
+      --success: #1FAF6B;
+      --muted: #8A93A5;
+      --surface: #F5F6F8;
+    }
+    html, body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #E9EBF0;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #track { transition: none !important; }
+    }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center">
+<div class="w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<h1 class="sr-only">homeplate 新手引导</h1>
+<!-- 三屏引导 -->
+<main class="flex-1 min-h-0 overflow-hidden relative" id="onboarding" style="touch-action: pan-y;">
+<div class="flex w-full h-full transition-transform duration-[320ms] ease-[cubic-bezier(.32,.72,0,1)] will-change-transform" id="track">
+<!-- 第 1 屏：拍铭牌 -->
+<section aria-hidden="false" class="ob-slide w-full h-full shrink-0 flex flex-col px-8 pt-10">
+<div class="flex-1 min-h-0 flex flex-col items-center justify-center pb-8">
+<div class="w-full max-w-[310px]">
+<svg aria-label="手机对着冰箱铭牌拍照的插画" class="w-full h-auto" role="img" viewbox="0 0 320 280">
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="ob1Blob" x1="40" x2="286" y1="24" y2="258">
+<stop offset="0" stop-color="#EFF4FF"></stop>
+<stop offset="1" stop-color="#DEE9FF"></stop>
+</lineargradient>
+<lineargradient gradientunits="userSpaceOnUse" id="ob1Phone" x1="196" x2="282" y1="100" y2="256">
+<stop offset="0" stop-color="#4A78F5"></stop>
+<stop offset="1" stop-color="#3D6DF2"></stop>
+</lineargradient>
+</defs>
+<circle cx="160" cy="138" fill="url(#ob1Blob)" r="118"></circle>
+<circle cx="160" cy="138" fill="none" r="96" stroke="#D2DEFB" stroke-dasharray="4 9" stroke-width="1.5"></circle>
+<circle cx="52" cy="58" fill="#C6D7FC" r="5"></circle>
+<circle cx="274" cy="72" fill="#C6D7FC" opacity=".7" r="8"></circle>
+<circle cx="244" cy="254" fill="#B7CAFA" r="4"></circle>
+<!-- 冰箱 -->
+<rect fill="#C9D8FB" height="196" opacity=".35" rx="18" width="150" x="52" y="56"></rect>
+<rect fill="#FFFFFF" height="196" rx="18" stroke="#C9D8FB" stroke-width="2.5" width="150" x="52" y="50"></rect>
+<line stroke="#E3EAFB" stroke-width="2.5" x1="52" x2="202" y1="144" y2="144"></line>
+<rect fill="#DCE6FC" height="28" rx="3.5" width="7" x="174" y="82"></rect>
+<rect fill="#DCE6FC" height="28" rx="3.5" width="7" x="174" y="160"></rect>
+<!-- 铭牌 -->
+<rect fill="#EDF2FE" height="52" rx="8" stroke="#B7CAFA" stroke-width="2" width="86" x="74" y="76"></rect>
+<rect fill="#8FA9F5" height="3.5" rx="1.75" width="30" x="84" y="86"></rect>
+<rect fill="#C4D3F8" height="3" rx="1.5" width="44" x="84" y="94"></rect>
+<rect fill="#C4D3F8" height="3" rx="1.5" width="36" x="84" y="101"></rect>
+<rect fill="#3D6DF2" height="7" opacity=".55" rx="3.5" width="24" x="84" y="110"></rect>
+<rect fill="#3D6DF2" height="20" opacity=".55" rx="4" width="20" x="130" y="86"></rect>
+<rect fill="#EDF2FE" height="5" rx="1" width="5" x="134" y="90"></rect>
+<rect fill="#EDF2FE" height="5" rx="1" width="5" x="141" y="90"></rect>
+<rect fill="#EDF2FE" height="5" rx="1" width="5" x="134" y="97"></rect>
+<!-- 扫描框 -->
+<g fill="none" stroke="#3D6DF2" stroke-linecap="round" stroke-width="3">
+<path d="M62 76V64h14"></path>
+<path d="M172 76V64h-14"></path>
+<path d="M62 128v14h14"></path>
+<path d="M172 128v14h-14"></path>
+</g>
+<!-- 闪光 -->
+<g opacity=".5" stroke="#3D6DF2" stroke-linecap="round" stroke-width="2.5">
+<path d="M190 140l-9 3"></path>
+<path d="M188 154h-11"></path>
+<path d="M190 168l-9-3"></path>
+</g>
+<!-- 手机 -->
+<g transform="rotate(-7 239 178)">
+<rect fill="url(#ob1Phone)" height="156" rx="18" width="86" x="196" y="100"></rect>
+<rect fill="#FFFFFF" height="132" rx="11" width="74" x="202" y="108"></rect>
+<circle cx="239" cy="113" fill="#DCE6FC" r="2.5"></circle>
+<rect fill="#EDF2FE" height="46" rx="7" stroke="#B7CAFA" stroke-width="1.6" width="60" x="209" y="124"></rect>
+<rect fill="#8FA9F5" height="3" rx="1.5" width="22" x="216" y="132"></rect>
+<rect fill="#C4D3F8" height="2.5" rx="1.25" width="34" x="216" y="140"></rect>
+<rect fill="#C4D3F8" height="2.5" rx="1.25" width="27" x="216" y="147"></rect>
+<rect fill="#3D6DF2" height="5" opacity=".55" rx="2.5" width="14" x="216" y="156"></rect>
+<rect fill="#3D6DF2" height="12" opacity=".35" rx="3" width="12" x="252" y="130"></rect>
+<circle cx="239" cy="188" fill="#E6EDFD" r="14"></circle>
+<path d="M233 188l4 4 8-9" fill="none" stroke="#3D6DF2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
+<rect fill="#FFFFFF" height="4" opacity=".7" rx="2" width="26" x="226" y="229"></rect>
+</g>
+<!-- AI 识别标签 -->
+<g transform="translate(214 64)">
+<rect fill="#FFFFFF" height="26" rx="13" stroke="#DCE6FC" width="60"></rect>
+<text fill="#3D6DF2" font-family="PingFang SC, sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="30" y="18">AI 识别</text>
+</g>
+<!-- 成功标记 -->
+<circle cx="286" cy="240" fill="#1FAF6B" r="15" stroke="#FFFFFF" stroke-width="3"></circle>
+<path d="M279 240l5 5 9-10" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
+</svg>
+</div>
+<div class="mt-6 w-full min-h-[112px] text-center">
+<h2 class="text-[22px] font-bold leading-[30px] tracking-tight text-[#1D2433]">拍张铭牌，3 秒建档</h2>
+<p class="mt-2.5 px-1 text-[14px] leading-[23px] text-[#8A93A5]">AI 自动识别品牌型号，不用翻说明书</p>
+</div>
+</div>
+</section>
+<!-- 第 2 屏：自动排期 -->
+<section aria-hidden="true" class="ob-slide w-full h-full shrink-0 flex flex-col px-8 pt-10">
+<div class="flex-1 min-h-0 flex flex-col items-center justify-center pb-8">
+<div class="w-full max-w-[310px]">
+<svg aria-label="日历与提醒铃铛的插画" class="w-full h-auto" role="img" viewbox="0 0 320 280">
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="ob2Blob" x1="42" x2="286" y1="28" y2="262">
+<stop offset="0" stop-color="#F0F5FF"></stop>
+<stop offset="1" stop-color="#DFE9FF"></stop>
+</lineargradient>
+</defs>
+<circle cx="160" cy="140" fill="url(#ob2Blob)" r="118"></circle>
+<circle cx="160" cy="140" fill="none" r="96" stroke="#D2DEFB" stroke-dasharray="4 9" stroke-width="1.5"></circle>
+<circle cx="58" cy="62" fill="#C6D7FC" r="5"></circle>
+<circle cx="272" cy="84" fill="#C6D7FC" opacity=".7" r="7"></circle>
+<circle cx="86" cy="248" fill="#B7CAFA" r="4"></circle>
+<!-- 日历 -->
+<rect fill="#C9D8FB" height="168" opacity=".32" rx="20" width="170" x="36" y="66"></rect>
+<rect fill="#FFFFFF" height="168" rx="20" stroke="#C9D8FB" stroke-width="2.5" width="170" x="36" y="60"></rect>
+<rect fill="#8FA9F5" height="28" rx="4.5" width="9" x="68" y="46"></rect>
+<rect fill="#8FA9F5" height="28" rx="4.5" width="9" x="165" y="46"></rect>
+<path d="M36 82c0-12 10-22 22-22h126c12 0 22 10 22 22v20H36V82z" fill="#3D6DF2"></path>
+<text fill="#FFFFFF" font-family="PingFang SC, sans-serif" font-size="14" font-weight="700" x="54" y="90">10 月</text>
+<circle cx="184" cy="82" fill="#FFFFFF" opacity=".22" r="8"></circle>
+<circle cx="184" cy="82" fill="#FFFFFF" r="3"></circle>
+<g fill="#D9E1F0">
+<circle cx="54" cy="124" r="3.2"></circle>
+<circle cx="76" cy="124" r="3.2"></circle>
+<circle cx="98" cy="124" r="3.2"></circle>
+<circle cx="120" cy="124" r="3.2"></circle>
+<circle cx="142" cy="124" r="3.2"></circle>
+<circle cx="164" cy="124" r="3.2"></circle>
+<circle cx="186" cy="124" r="3.2"></circle>
+<circle cx="54" cy="148" r="3.2"></circle>
+<circle cx="76" cy="148" r="3.2"></circle>
+<circle cx="98" cy="148" r="3.2"></circle>
+<circle cx="120" cy="148" r="3.2"></circle>
+<circle cx="164" cy="148" r="3.2"></circle>
+<circle cx="186" cy="148" r="3.2"></circle>
+<circle cx="54" cy="172" r="3.2"></circle>
+<circle cx="76" cy="172" r="3.2"></circle>
+<circle cx="120" cy="172" r="3.2"></circle>
+<circle cx="142" cy="172" r="3.2"></circle>
+<circle cx="164" cy="172" r="3.2"></circle>
+<circle cx="186" cy="172" r="3.2"></circle>
+<circle cx="54" cy="196" r="3.2"></circle>
+<circle cx="76" cy="196" r="3.2"></circle>
+<circle cx="98" cy="196" r="3.2"></circle>
+<circle cx="120" cy="196" r="3.2"></circle>
+<circle cx="142" cy="196" r="3.2"></circle>
+<circle cx="186" cy="196" r="3.2"></circle>
+</g>
+<rect fill="#FF7A45" height="18" rx="6" width="18" x="133" y="139"></rect>
+<circle cx="142" cy="148" fill="#FFFFFF" r="2.6"></circle>
+<circle cx="98" cy="172" fill="#EAF0FE" r="8"></circle>
+<circle cx="98" cy="172" fill="#3D6DF2" r="3"></circle>
+<!-- 铃铛提醒 -->
+<g transform="translate(262 152)">
+<circle fill="#FFFFFF" r="52"></circle>
+<circle fill="#E7EEFF" r="46"></circle>
+<path d="M-55 -36a50 50 0 00-6 30" fill="none" stroke="#8FA9F5" stroke-linecap="round" stroke-width="2.5"></path>
+<path d="M-61 -30a54 54 0 00-4 26" fill="none" opacity=".55" stroke="#8FA9F5" stroke-linecap="round" stroke-width="2.5"></path>
+<rect fill="#3D6DF2" height="9" rx="3" width="6" x="-3" y="-33"></rect>
+<path d="M-19 4c0-15 8-26 19-26s19 11 19 26c0 10 4 16 8 19H-27c4-3 8-9 8-19z" fill="#3D6DF2"></path>
+<path d="M-7 23a7 7 0 0014 0z" fill="#2F57C7"></path>
+<circle cx="25" cy="-21" fill="#FF7A45" r="9" stroke="#FFFFFF" stroke-width="3"></circle>
+</g>
+<!-- 提醒标签 -->
+<g transform="translate(170 228)">
+<rect fill="#FFFFFF" height="32" rx="16" stroke="#DCE6FC" width="112"></rect>
+<circle cx="17" cy="16" fill="#FFF0E9" r="9"></circle>
+<path d="M17 10c3 4 5 6 5 9a5 5 0 01-10 0c0-3 2-5 5-9z" fill="#FF7A45"></path>
+<text fill="#5A6376" font-family="PingFang SC, sans-serif" font-size="11.5" x="32" y="20">滤网该洗了</text>
+</g>
+</svg>
+</div>
+<div class="mt-6 w-full min-h-[112px] text-center">
+<h2 class="text-[22px] font-bold leading-[30px] tracking-tight text-[#1D2433]">保养保修，自动排期</h2>
+<p class="mt-2.5 px-1 text-[14px] leading-[23px] text-[#8A93A5]">空调该洗滤网了、保修快到期了，都会提前提醒你</p>
+</div>
+</div>
+</section>
+<!-- 第 3 屏：坏了先问 AI -->
+<section aria-hidden="true" class="ob-slide w-full h-full shrink-0 flex flex-col px-8 pt-10">
+<div class="flex-1 min-h-0 flex flex-col items-center justify-center pb-8">
+<div class="w-full max-w-[310px]">
+<svg aria-label="聊天气泡和机器人助手的插画" class="w-full h-auto" role="img" viewbox="0 0 320 280">
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="ob3Blob" x1="44" x2="288" y1="26" y2="264">
+<stop offset="0" stop-color="#F0F5FF"></stop>
+<stop offset="1" stop-color="#DEE9FF"></stop>
+</lineargradient>
+</defs>
+<circle cx="160" cy="140" fill="url(#ob3Blob)" r="118"></circle>
+<circle cx="160" cy="140" fill="none" r="96" stroke="#D2DEFB" stroke-dasharray="4 9" stroke-width="1.5"></circle>
+<circle cx="288" cy="152" fill="#C6D7FC" r="5"></circle>
+<circle cx="42" cy="206" fill="#C6D7FC" opacity=".65" r="7"></circle>
+<!-- 用户气泡 -->
+<path d="M44 30h80c12 0 22 10 22 22v38c0 12-10 22-22 22h-54l-16 13 2-13h-12c-12 0-22-10-22-22V52c0-12 10-22 22-22z" fill="#FFFFFF" stroke="#DCE6FC" stroke-width="2"></path>
+<circle cx="50" cy="64" fill="#EAF0FE" r="13"></circle>
+<text fill="#3D6DF2" font-family="PingFang SC, sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="50" y="68">AI</text>
+<rect fill="#7E9CF7" height="4" rx="2" width="60" x="72" y="55"></rect>
+<rect fill="#C9D8FB" height="3.5" rx="1.75" width="46" x="72" y="65"></rect>
+<rect fill="#C9D8FB" height="3.5" rx="1.75" width="54" x="72" y="74"></rect>
+<rect fill="#EAF0FE" height="15" rx="7.5" width="46" x="72" y="88"></rect>
+<text fill="#3D6DF2" font-family="PingFang SC, sans-serif" font-size="8.5" text-anchor="middle" x="95" y="98.5">排查中</text>
+<!-- AI 气泡 -->
+<path d="M228 50h54c12 0 22 10 22 22v28c0 12-10 22-22 22h-36l-16 12 2-12h-4c-12 0-22-10-22-22V72c0-12 10-22 22-22z" fill="#3D6DF2"></path>
+<rect fill="#FFFFFF" height="4" opacity=".92" rx="2" width="64" x="218" y="67"></rect>
+<rect fill="#B9CCFB" height="3.5" rx="1.75" width="46" x="218" y="77"></rect>
+<rect fill="#B9CCFB" height="3.5" rx="1.75" width="54" x="218" y="86"></rect>
+<circle cx="284" cy="104" fill="#1FAF6B" r="9"></circle>
+<path d="M280 104l3 3 6-6" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<!-- 机器人 -->
+<line stroke="#8FA9F5" stroke-linecap="round" stroke-width="4" x1="160" x2="160" y1="104" y2="126"></line>
+<circle cx="160" cy="100" fill="#FF7A45" r="5.5" stroke="#FFFFFF" stroke-width="2"></circle>
+<ellipse cx="160" cy="252" fill="#C9D8FB" opacity=".55" rx="44" ry="7"></ellipse>
+<rect fill="#8FA9F5" height="26" rx="6" width="12" x="100" y="148"></rect>
+<rect fill="#8FA9F5" height="26" rx="6" width="12" x="208" y="148"></rect>
+<rect fill="#3D6DF2" height="84" rx="25" width="100" x="110" y="122"></rect>
+<rect fill="#FFFFFF" height="14" opacity=".12" rx="7" width="68" x="126" y="130"></rect>
+<rect fill="#FFFFFF" height="52" rx="17" width="72" x="124" y="138"></rect>
+<circle cx="146" cy="158" fill="#1D2433" r="4.5"></circle>
+<circle cx="174" cy="158" fill="#1D2433" r="4.5"></circle>
+<path d="M149 170c3 5 7 7 11 7s8-2 11-7" fill="none" stroke="#3D6DF2" stroke-linecap="round" stroke-width="2.5"></path>
+<circle cx="134" cy="168" fill="#FFD9C9" r="3.5"></circle>
+<circle cx="186" cy="168" fill="#FFD9C9" r="3.5"></circle>
+<rect fill="#DCE6FC" height="36" rx="16" width="44" x="138" y="210"></rect>
+<circle cx="160" cy="228" fill="#3D6DF2" r="6"></circle>
+<path d="M138 220l-14 16" stroke="#8FA9F5" stroke-linecap="round" stroke-width="9"></path>
+<path d="M182 220l16-10" stroke="#8FA9F5" stroke-linecap="round" stroke-width="9"></path>
+<circle cx="201" cy="207" fill="#8FA9F5" r="5"></circle>
+<path d="M282 176l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#C6D7FC"></path>
+<path d="M64 184l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5z" fill="#C6D7FC" opacity=".85"></path>
+<circle cx="90" cy="244" fill="#B7CAFA" r="4"></circle>
+</svg>
+</div>
+<div class="mt-6 w-full min-h-[112px] text-center">
+<h2 class="text-[22px] font-bold leading-[30px] tracking-tight text-[#1D2433]">坏了先问 AI</h2>
+<p class="mt-2.5 px-1 text-[14px] leading-[23px] text-[#8A93A5]">描述故障，AI 给你排查步骤和费用预估</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- 底部：圆点 + 操作 -->
+<footer class="shrink-0 px-8 pb-5 pt-1">
+<div aria-label="引导步骤" class="h-6 flex items-center justify-center gap-2" role="group">
+<button aria-current="true" aria-label="第 1 屏：拍张铭牌，3 秒建档" class="relative w-1.5 h-1.5 rounded-full bg-[#3D6DF2] transition-all duration-300 before:absolute before:-inset-3 before:content-['']" data-dot="0" type="button"></button>
+<button aria-label="第 2 屏：保养保修，自动排期" class="relative w-1.5 h-1.5 rounded-full bg-[#D6DBE4] transition-all duration-300 before:absolute before:-inset-3 before:content-['']" data-dot="1" type="button"></button>
+<button aria-label="第 3 屏：坏了先问 AI" class="relative w-1.5 h-1.5 rounded-full bg-[#D6DBE4] transition-all duration-300 before:absolute before:-inset-3 before:content-['']" data-dot="2" type="button"></button>
+</div>
+<div class="relative mt-4 h-[52px]">
+<a class="hidden w-full h-[52px] rounded-xl bg-[#3D6DF2] text-white text-[16px] font-semibold items-center justify-center gap-1.5 shadow-[0_12px_24px_-14px_rgba(61,109,242,.9)] active:opacity-90" href="login.html" id="startBtn">
+<span>开始使用</span>
+<iconify-icon icon="mdi:arrow-right" style="font-size:20px"></iconify-icon>
+</a>
+<a class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-2 text-[13px] text-[#8A93A5] active:text-[#5A6376]" href="login.html" id="skipBtn">跳过</a>
+</div>
+</footer>
+</div>
+<script>
+    (function () {
+      const track = document.getElementById('track');
+      const main = document.getElementById('onboarding');
+      const slides = Array.from(document.querySelectorAll('.ob-slide'));
+      const dots = Array.from(document.querySelectorAll('[data-dot]'));
+      const skipBtn = document.getElementById('skipBtn');
+      const startBtn = document.getElementById('startBtn');
+      const total = slides.length;
+      let index = 0;
+      let startX = null;
+      let startY = null;
+
+      function render() {
+        track.style.transform = 'translateX(-' + index * 100 + '%)';
+
+        slides.forEach((slide, i) => {
+          slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+        });
+
+        dots.forEach((dot, i) => {
+          const active = i === index;
+          dot.style.width = '6px';
+          dot.style.height = '6px';
+          dot.style.backgroundColor = active ? '#3D6DF2' : '#D6DBE4';
+          dot.style.boxShadow = active ? '0 0 0 3px rgba(61, 109, 242, .16)' : 'none';
+          if (active) {
+            dot.setAttribute('aria-current', 'true');
+          } else {
+            dot.removeAttribute('aria-current');
+          }
+        });
+
+        skipBtn.classList.toggle('hidden', index !== 0);
+
+        const onLast = index === total - 1;
+        startBtn.classList.toggle('hidden', !onLast);
+        startBtn.classList.toggle('flex', onLast);
+      }
+
+      function goTo(next) {
+        index = Math.max(0, Math.min(total - 1, next));
+        render();
+      }
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => goTo(i));
+      });
+
+      main.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        startX = event.clientX;
+        startY = event.clientY;
+      });
+
+      main.addEventListener('pointerup', (event) => {
+        if (startX === null) return;
+        const dx = event.clientX - startX;
+        const dy = event.clientY - startY;
+        startX = null;
+        startY = null;
+        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+          goTo(index + (dx < 0 ? 1 : -1));
+        }
+      });
+
+      main.addEventListener('pointercancel', () => {
+        startX = null;
+        startY = null;
+      });
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight') goTo(index + 1);
+        if (event.key === 'ArrowLeft') goTo(index - 1);
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>

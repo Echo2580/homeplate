@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>我的 · homeplate</title>
+<script src="assets/tailwindcss.js"></script>
+<script src="assets/iconify-icon.min.js"></script>
+<style>
+    :root {
+      --brand: #3D6DF2;
+      --warn: #FF7A45;
+      --success: #1FAF6B;
+      --muted: #8A93A5;
+      --surface: #F5F6F8;
+    }
+    html, body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #E9EBF0;
+    }
+    .safe-bottom { padding-bottom: 20px; }
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .card-shadow { box-shadow: 0 1px 2px rgba(20, 30, 50, .04), 0 6px 16px -10px rgba(20, 30, 50, .18); }
+
+    /* iOS 风格开关 */
+    .ios-switch {
+      position: relative;
+      width: 46px;
+      height: 28px;
+      border-radius: 999px;
+      background: #D7DBE2;
+      flex: 0 0 auto;
+      transition: background-color .22s ease;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ios-switch::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(20, 30, 50, .20), 0 1px 1px rgba(20, 30, 50, .06);
+      transition: transform .22s cubic-bezier(.4, 0, .2, 1);
+    }
+    .ios-switch[aria-checked="true"] {
+      background: var(--brand);
+    }
+    .ios-switch[aria-checked="true"]::after {
+      transform: translateX(18px);
+    }
+    .ios-switch:focus-visible {
+      box-shadow: 0 0 0 3px rgba(61, 109, 242, .25);
+    }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center">
+<div class="w-full h-full max-w-[375px] max-h-[812px] bg-[#F5F6F8] flex flex-col overflow-hidden relative">
+<!-- 主滚动区：无顶部导航栏 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden no-scrollbar">
+<div class="min-h-full px-4 pt-4 flex flex-col">
+<!-- 用户信息卡 -->
+<section class="rounded-xl bg-white p-4 card-shadow flex items-center gap-3.5">
+<div class="relative shrink-0 w-[60px] h-[60px]">
+<div class="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-[#7FA0F7] to-[#3D6DF2] ring-2 ring-white shadow-[0_4px_12px_-5px_rgba(61,109,242,.6)] flex items-center justify-center">
+<iconify-icon class="text-white/85" icon="mdi:account" style="font-size:32px"></iconify-icon>
+<img alt="Zhao's WeChat avatar" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" src="assets/avatar.jpg"/>
+</div>
+<span class="absolute -right-0.5 -bottom-0.5 w-5 h-5 rounded-full bg-[#1FAF6B] ring-2 ring-white flex items-center justify-center">
+<iconify-icon class="text-white" icon="mdi:wechat" style="font-size:12px"></iconify-icon>
+</span>
+</div>
+<div class="min-w-0">
+<h1 class="text-[18px] font-bold text-[#1D2433] leading-6">赵先生</h1>
+<p class="mt-1 text-[12px] text-[#8A93A5] leading-4 truncate">幸福里 3 栋 502 · 管理员</p>
+</div>
+</section>
+<!-- 功能列表 -->
+<section aria-label="设置与功能" class="mt-4 rounded-xl bg-white overflow-hidden card-shadow">
+<a class="w-full flex items-center gap-3 px-4 py-3.5 text-left active:bg-[#FAFBFD]" href="reminders.html">
+<span class="w-10 h-10 rounded-full bg-[#EDF2FE] flex items-center justify-center shrink-0">
+<iconify-icon class="text-[#3D6DF2]" icon="mdi:bell-outline" style="font-size:20px"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5">提醒设置</p>
+<p class="mt-0.5 text-[12px] text-[#8A93A5] leading-4">微信推送已开启</p>
+</div>
+<iconify-icon class="text-[#C3C9D4] shrink-0" icon="mdi:chevron-right" style="font-size:20px"></iconify-icon>
+</a>
+<div class="h-px bg-[#F0F2F5] ml-[68px]"></div>
+<div class="flex items-center gap-3 px-4 py-3.5">
+<span class="w-10 h-10 rounded-full bg-[#F1EFFE] flex items-center justify-center shrink-0">
+<iconify-icon class="text-[#6C5CE7]" icon="mdi:weather-night" style="font-size:20px"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5">深色模式</p>
+</div>
+<button aria-checked="true" aria-label="深色模式开关" class="ios-switch" onclick="toggleDark(this)" role="switch" type="button"></button>
+</div>
+<div class="h-px bg-[#F0F2F5] ml-[68px]"></div>
+<button class="w-full flex items-center gap-3 px-4 py-3.5 text-left active:bg-[#FAFBFD]" onclick="showToast('正在导出全部设备数据…')" type="button">
+<span class="w-10 h-10 rounded-full bg-[#FFF3EE] flex items-center justify-center shrink-0">
+<iconify-icon class="text-[#FF7A45]" icon="mdi:tray-arrow-up" style="font-size:20px"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5">数据导出</p>
+<p class="mt-0.5 text-[12px] text-[#8A93A5] leading-4">导出全部设备为 CSV / PDF</p>
+</div>
+<iconify-icon class="text-[#C3C9D4] shrink-0" icon="mdi:chevron-right" style="font-size:20px"></iconify-icon>
+</button>
+<div class="h-px bg-[#F0F2F5] ml-[68px]"></div>
+<button class="w-full flex items-center gap-3 px-4 py-3.5 text-left active:bg-[#FAFBFD]" onclick="showToast('正在备份设备数据…')" type="button">
+<span class="w-10 h-10 rounded-full bg-[#EAF8F1] flex items-center justify-center shrink-0">
+<iconify-icon class="text-[#1FAF6B]" icon="mdi:backup-restore" style="font-size:20px"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5">备份与恢复</p>
+<p class="mt-0.5 text-[12px] text-[#8A93A5] leading-4">上次备份 10-10</p>
+</div>
+<iconify-icon class="text-[#C3C9D4] shrink-0" icon="mdi:chevron-right" style="font-size:20px"></iconify-icon>
+</button>
+<div class="h-px bg-[#F0F2F5] ml-[68px]"></div>
+<button class="w-full flex items-center gap-3 px-4 py-3.5 text-left active:bg-[#FAFBFD]" onclick="showToast('帮助中心正在打开…')" type="button">
+<span class="w-10 h-10 rounded-full bg-[#F2F4F7] flex items-center justify-center shrink-0">
+<iconify-icon class="text-[#5A6376]" icon="mdi:help-circle-outline" style="font-size:20px"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5">帮助与反馈</p>
+</div>
+<iconify-icon class="text-[#C3C9D4] shrink-0" icon="mdi:chevron-right" style="font-size:20px"></iconify-icon>
+</button>
+<div class="h-px bg-[#F0F2F5] ml-[68px]"></div>
+<button class="w-full flex items-center gap-3 px-4 py-3.5 text-left active:bg-[#FAFBFD]" onclick="showToast('homeplate v2.0.0')" type="button">
+<span class="w-10 h-10 rounded-full bg-[#EDF2FE] flex items-center justify-center shrink-0">
+<iconify-icon class="text-[#3D6DF2]" icon="mdi:information-outline" style="font-size:20px"></iconify-icon>
+</span>
+<div class="flex-1 min-w-0">
+<p class="text-[14px] font-medium text-[#1D2433] leading-5">关于 homeplate</p>
+<p class="mt-0.5 text-[12px] text-[#8A93A5] leading-4">版本 v2.0.0</p>
+</div>
+<iconify-icon class="text-[#C3C9D4] shrink-0" icon="mdi:chevron-right" style="font-size:20px"></iconify-icon>
+</button>
+</section>
+<!-- 退出登录 -->
+<section class="mt-auto pt-8 safe-bottom flex flex-col items-center">
+<button class="h-11 px-6 rounded-lg text-[14px] font-medium text-[#E5484D] active:bg-[#FDECEC]" onclick="showToast('已退出登录')" type="button">
+            退出登录
+          </button>
+<p class="mt-2 px-2 text-[12px] text-[#B4BAC6] leading-4 text-center">homeplate · 让家电的十几年都被记得</p>
+</section>
+</div>
+</main>
+<!-- 轻提示 -->
+<div aria-live="polite" class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-8 z-40 opacity-0 transition-opacity duration-200" id="toast" role="status">
+<div class="bg-[#1D2433]/92 text-white text-[12px] px-4 py-2 rounded-full shadow-lg backdrop-blur-sm whitespace-nowrap" id="toastText">设置已保存</div>
+</div>
+</div>
+<script>
+    var toastTimer = null;
+
+    function showToast(msg) {
+      var toast = document.getElementById('toast');
+      document.getElementById('toastText').textContent = msg || '设置已保存';
+      toast.style.opacity = '1';
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () {
+        toast.style.opacity = '0';
+      }, 1800);
+    }
+
+    function toggleDark(el) {
+      var on = el.getAttribute('aria-checked') === 'true';
+      el.setAttribute('aria-checked', on ? 'false' : 'true');
+      showToast(on ? '深色模式已关闭' : '深色模式已开启');
+    }
+  </script>
+</body>
+</html>
